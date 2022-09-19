@@ -2,29 +2,50 @@ project:
   type: book
 
 book:
-  title: "LiuLinhu"
+  title: "Data science of JasonLiu"
   author: "Liulinhu"
-  date: "9/19/2022"
+  date: "2022-9-20"
   search: true
+  repo-url: https://github.com/DrJasonLiu/blogdata
+  cover-image: cover.jpg
+  page-footer:
+    border: false
+    background: light
+    left: "Copyright 2022, LiuLinhu" 
+    right: 
+      - icon: github
+        href: https://github.com/
+      - icon: twitter 
+        href: https://twitter.com/ 
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    - part: "R"
+      chapters: 
+        - R语言编程-基于tidyverse.qmd
+        - R机器学习.qmd
+        - R数据可视化.qmd
+    - part: "Python"
+    - part: "Julia"
     - references.qmd
   sidebar:
-    style: docked
+    style: "docked"
     background: light
+    logo: icon.png
 comments:
   hypothesis: true
+#number-depth: 2
+toc-title: "Table of Contents"
 bibliography: references.bib
 toc: true
-number-sections: true
+#number-sections: true
 format:
   html:
     theme: morph
-  pdf:
-    toc: true
-    documentclass: book
+    linkcolor: "#f19da1"
+    toc-depth: 3
 
 editor: visual
+reference-location: margin
+citation-location: margin
+
 

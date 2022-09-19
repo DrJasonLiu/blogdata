@@ -10,5 +10,14 @@
   },
   "references.qmd": {
     "references.html": "552147c3"
+  },
+  "R语言编程-基于tidyverse.qmd": {
+    "R语言编程-基于tidyverse.html": "92b623b4"
+  },
+  "R机器学习.qmd": {
+    "R机器学习.html": "5ffa2985"
+  },
+  "R数据可视化.qmd": {
+    "R数据可视化.html": "31d8f72a"
   }
 }

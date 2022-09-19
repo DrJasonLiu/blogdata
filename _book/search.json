@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "LiuLinhu",
     "section": "",
-    "text": "To learn more about Quarto books visit https://quarto.org/docs/books.\n\n1 + 1\n\n[1] 2\n\n\n再测试一下有没有变化"
+    "text": "To learn more about Quarto books visit https://quarto.org/docs/books.\n\n1 + 1\n\n[1] 2\n\n\n是不是只需要git _book就行了"
   },
   {
     "objectID": "intro.html",

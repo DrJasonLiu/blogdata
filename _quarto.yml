@@ -1,0 +1,30 @@
+project:
+  type: book
+
+book:
+  title: "LiuLinhu"
+  author: "Liulinhu"
+  date: "9/19/2022"
+  search: true
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+  sidebar:
+    style: docked
+    background: light
+comments:
+  hypothesis: true
+bibliography: references.bib
+toc: true
+number-sections: true
+format:
+  html:
+    theme: morph
+  pdf:
+    toc: true
+    documentclass: book
+
+editor: visual
+

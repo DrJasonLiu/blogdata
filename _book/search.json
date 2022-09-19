@@ -4,7 +4,14 @@
     "href": "R语言编程-基于tidyverse.html",
     "title": "1  R语言编程-基于tidyverse",
     "section": "",
-    "text": "See for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2"
+    "text": "Basic grammar of R datascience\n更新R可以用installr包里的updateR函数\n\n> identical(0,1)#判断两个对象是否严格相等\n>"
+  },
+  {
+    "objectID": "R语言编程-基于tidyverse.html#rmarkdown",
+    "href": "R语言编程-基于tidyverse.html#rmarkdown",
+    "title": "1  R语言编程-基于tidyverse",
+    "section": "1.2 Rmarkdown",
+    "text": "1.2 Rmarkdown\n\n行内代码的使用：可有助于生成可重复性报告。\n例如：“r sum(x)”把”换成`，即生成一个行内r代码，配合上文字，即可根据上面代码的结果进行总结或报告。在代码块r的后面输入字，然后逗号可以给代码块添加标签，后续可以直接引用这个标签。\n行间代码块的设置: 参考网站:https://yihui.org/knitr/options/\neval是指定是否运行代码块，ecol=F表示不显示代码，但是显示代码的结果，如文本或图片等；include=F指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，echo=F表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，collapse=T，可以将所有输出结果都集中到一个块里, ’hide’表示不显示结果。prompt=T可以在代码前面加一个>。再加上results=‘hold’的话可以将代码放一起，输出结果放一起。warning=F使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；error=F则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。code-fold: true可以将代码折叠起来，只展示结果\n图形输出\nfig.show:设置图片的输出方式\n\nfig.show=‘asis’：表示plot在产生他们的代码后面\nfig.show=‘hold’：表示代码产生的图片都放在一个完整的代码块之后\nfig.show=‘animate’：表示将所有生成的图片合成一个动画图片\nfig.show=‘hide’：表示产生图片，但不显示\n\nfig.width: 设置图片输出宽度\nfig.height：设置图片输出的高度\nfig.align：排版，默认left，可以right或center\nfig.cap：设置图片的标题\nfig.subcap：设置图片的副标题\nout.width=‘50%’：指输出的图片自适应大小为50%\n表格输出\n\n\nCode\n> x <- 1:10;y <- x^2;\n> lmr <- lm(y~x)\n> co <- summary(lmr)$coefficients\n> print(co)\n\n\n\n\n> knitr::kable(co,digits = 2,align = \"c\") #可以将数据输出为单独的表格形式\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(>|t|)\n\n\n\n\n(Intercept)\n-22\n5.55\n-3.96\n0\n\n\nx\n11\n0.89\n12.30\n0\n\n\n\n\n\n\n表格渲染\n使用kableExtra包,column_spec和row_spec是设置行和列，kable_styling设置表格格式\nfull_width: 表格宽度是否填满HTML，position：对齐方式，\n\n> library(kableExtra)\n> library(knitr)\n> table_style <- knitr::kable(co,digits = 2,align = \"c\")\n> kableExtra::kable_styling(table_style,full_width = F,position = \"center\") %>% \n+   column_spec(1:2,bold = T,color='black',background = 'lightblue')\n\n\n\n \n  \n      \n    Estimate \n    Std. Error \n    t value \n    Pr(>|t|) \n  \n \n\n  \n    (Intercept) \n    -22 \n    5.55 \n    -3.96 \n    0 \n  \n  \n    x \n    11 \n    0.89 \n    12.30 \n    0 \n  \n\n\n\n\n\n\n\n\n\n\n\n\nTip With Caption\n\n\n\n这是一个callout\n\n\n\n\n\n\n将文字添加到页面侧面的方法"
   },
   {
     "objectID": "R机器学习.html",

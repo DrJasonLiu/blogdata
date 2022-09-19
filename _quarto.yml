@@ -40,8 +40,10 @@ toc: true
 #number-sections: true
 format:
   html:
-    theme: morph
+    theme: minty
     linkcolor: "#f19da1"
+    mainfont: "LXGWWenKai-Regular"
+    monofont: "LXGWWenKai-Regular"
     toc-depth: 3
 
 editor: visual

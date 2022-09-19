@@ -6,6 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="LiuLinhu">
+<meta name="dcterms.date" content="2022-09-20">
 
 <title>Data science of JasonLiu - 1&nbsp; R语言编程-基于tidyverse</title>
 <style>
@@ -125,10 +127,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 <script async="" src="https://hypothes.is/embed.js"></script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -209,10 +214,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of Contents</h2>
+   
+  <ul>
+  <li><a href="#basics" id="toc-basics" class="nav-link active" data-scroll-target="#basics"><span class="toc-section-number">1.1</span>  Basics</a></li>
+  <li><a href="#rmarkdown" id="toc-rmarkdown" class="nav-link" data-scroll-target="#rmarkdown"><span class="toc-section-number">1.2</span>  Rmarkdown</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -223,23 +235,160 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>LiuLinhu </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 20, 2022</p>
+    </div>
+  </div>
     
   </div>
   
 
 </header>
 
-<p>This is a book created from markdown and executable code.</p>
-<p>See for additional discussion of literate programming.</p>
+<section id="basics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="basics"><span class="header-section-number">1.1</span> Basics</h2>
+<p><em>Basic grammar of R datascience</em></p>
+<p>更新R可以用installr包里的updateR函数</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">identical</span>(<span class="dv">0</span>,<span class="dv">1</span>)<span class="co">#判断两个对象是否严格相等</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rmarkdown" class="level2 page-columns page-full" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="rmarkdown"><span class="header-section-number">1.2</span> Rmarkdown</h2>
+<ul>
+<li><p>行内代码的使用：可有助于生成可重复性报告。<br>
+例如：<u><strong>“r sum(x)”</strong></u>把”换成`，即生成一个行内r代码，配合上文字，即可根据上面代码的结果进行总结或报告。在代码块r的后面输入字，然后逗号可以给代码块<u><strong>添加标签</strong></u>，后续可以直接引用这个标签。</p></li>
+<li><p><u><strong>行间代码块的设置</strong></u>: 参考网站:https://yihui.org/knitr/options/<br>
+<u><strong>eval</strong></u>是指定是否运行代码块，<u>ecol=F</u>表示不显示代码，但是显示代码的结果，如文本或图片等；<u>include=F</u>指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，<u><strong>echo=F</strong></u>表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，<u><strong>collapse=T</strong></u>，可以将所有输出结果都集中到一个块里, ’hide’表示不显示结果。<u><strong>prompt=T</strong></u>可以在代码前面加一个&gt;。再加上<u><strong>results=‘hold’</strong></u>的话可以将代码放一起，输出结果放一起。<u><strong>warning=F</strong></u>使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；<u><strong>error=F</strong></u>则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。<strong>code-fold: true</strong>可以将代码折叠起来，只展示结果</p></li>
+<li><p>图形输出<br>
+fig.show:设置图片的输出方式</p>
+<ul>
+<li>fig.show=‘asis’：表示plot在产生他们的代码后面</li>
+<li>fig.show=‘hold’：表示代码产生的图片都放在一个完整的代码块之后</li>
+<li>fig.show=‘animate’：表示将所有生成的图片合成一个动画图片</li>
+<li>fig.show=‘hide’：表示产生图片，但不显示</li>
+</ul>
+<p>fig.width: 设置图片输出宽度<br>
+fig.height：设置图片输出的高度<br>
+fig.align：排版，默认left，可以right或center<br>
+fig.cap：设置图片的标题<br>
+fig.subcap：设置图片的副标题<br>
+out.width=‘50%’：指输出的图片自适应大小为50%</p></li>
+<li><p>表格输出</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>;y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span>;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lmr <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> co <span class="ot">&lt;-</span> <span class="fu">summary</span>(lmr)<span class="sc">$</span>coefficients</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(co)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(co,<span class="at">digits =</span> <span class="dv">2</span>,<span class="at">align =</span> <span class="st">"c"</span>) <span class="co">#可以将数据输出为单独的表格形式</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Estimate</th>
+<th style="text-align: center;">Std. Error</th>
+<th style="text-align: center;">t value</th>
+<th style="text-align: center;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">5.55</td>
+<td style="text-align: center;">-3.96</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">0.89</td>
+<td style="text-align: center;">12.30</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>表格渲染<br>
+使用kableExtra包,column_spec和row_spec是设置行和列，kable_styling设置表格格式<br>
+full_width: 表格宽度是否填满HTML，position：对齐方式，</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(kableExtra)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(knitr)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> table_style <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">kable</span>(co,<span class="at">digits =</span> <span class="dv">2</span>,<span class="at">align =</span> <span class="st">"c"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(table_style,<span class="at">full_width =</span> F,<span class="at">position =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">column_spec</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">bold =</span> T,<span class="at">color=</span><span class="st">'black'</span>,<span class="at">background =</span> <span class="st">'lightblue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Estimate </th>
+   <th style="text-align:center;"> Std. Error </th>
+   <th style="text-align:center;"> t value </th>
+   <th style="text-align:center;"> Pr(&gt;|t|) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;background-color: lightblue !important;"> (Intercept) </td>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> -22 </td>
+   <td style="text-align:center;"> 5.55 </td>
+   <td style="text-align:center;"> -3.96 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;background-color: lightblue !important;"> x </td>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 11 </td>
+   <td style="text-align:center;"> 0.89 </td>
+   <td style="text-align:center;"> 12.30 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div></li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip With Caption
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>这是一个callout</p>
 </div>
 </div>
 
 
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>将文字添加到页面侧面的方法</p>
+</div></div></section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

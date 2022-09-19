@@ -1,7 +1,7 @@
 {
-  "hash": "cf447fbcd6b22b501319cc96d89b4149",
+  "hash": "b09b4612ebcce4d0b7657016bb047734",
   "result": {
-    "markdown": "# Preface {.unnumbered}\n\nTo learn more about Quarto books visit <https://quarto.org/docs/books>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n\n\n感觉效果很差，不知道为什么，是不是因为\n",
+    "markdown": "# Preface {.unnumbered}\n\nTo learn more about Quarto books visit <https://quarto.org/docs/books>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n\n\n再测试一下有没有变化\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

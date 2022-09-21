@@ -6,11 +6,10 @@ editor_options:
   chunk_output_type: inline
 fig-cap-location: margin
 title-block-banner: true
-title-block-banner-color: "#FFDDFF"
+title-block-banner-color: "#feeeed"
 description: "A Summary Notes of R Programming, based on Tidyverse"
-reference-location: margin
-citation-location: margin
 page-layout: full
+toc-location: right
 ---
 
 ```{r setup,include=FALSE}
@@ -81,8 +80,4 @@ knitr::kable(co,digits = 2,align = "c") #可以将数据输出为单独的表格
 ## Tip With Caption
 
 这是一个callout
-:::
-
-::: column-margin
-将文字添加到页面侧面的方法
 :::

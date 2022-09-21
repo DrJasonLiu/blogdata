@@ -6,10 +6,8 @@ editor_options:
   chunk_output_type: inline
 fig-cap-location: margin
 title-block-banner: true
-title-block-banner-color: "#FFDDFF"
+title-block-banner-color: "#feeeed"
 description: "A Summary Notes of R Programming, based on Tidyverse"
-reference-location: margin
-citation-location: margin
 page-layout: full
 ---
 
@@ -26,4 +24,3 @@ page-layout: full
     -   `nhs_tsv()`用于提取数据
     -   `nhs_brief()`用于查询上一步提取的tsv文件
     -   `nhs_read()`用于将提取出来的tsv挑选变量或重命名，解码含义等后生成新的数据集
-

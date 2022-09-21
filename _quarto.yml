@@ -17,7 +17,8 @@ book:
       - icon: twitter 
         href: https://twitter.com/
   navbar:
-    background: primary
+    background: "#6f60aa"
+    foreground: light
     search: true
     pinned: false
     logo: github
@@ -38,6 +39,7 @@ book:
         - R语言编程-基于tidyverse.qmd
         - R机器学习.qmd
         - R数据可视化.qmd
+        - 孟德尔随机化.qmd
         - nhanesR.qmd
     - title: "My notes"
       contents: 
@@ -52,6 +54,7 @@ book:
       - R机器学习.qmd
       - R数据可视化.qmd
       - nhanesR.qmd
+      - 孟德尔随机化.qmd
       - part: "Python"
         chapters: 
           - Python.qmd
@@ -70,7 +73,7 @@ toc: true
 format:
   html:
     theme: minty
-    linkcolor: "#f19da1"
+    linkcolor: "#007d65"
     mainfont: "LXGWWenKai-Regular"
     monofont: "LXGWWenKai-Regular"
     toc-depth: 3

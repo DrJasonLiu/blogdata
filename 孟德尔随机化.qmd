@@ -1,0 +1,13 @@
+---
+title: "孟德尔随机化"
+author: "LiuLinhu"
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: inline
+fig-cap-location: margin
+title-block-banner: true
+title-block-banner-color: "#feeeed"
+description: "A Summary Notes of R Mendelian Randomization"
+page-layout: full
+toc-location: right
+---

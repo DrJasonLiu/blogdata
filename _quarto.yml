@@ -21,7 +21,7 @@ book:
     foreground: light
     search: true
     pinned: false
-    logo: github
+    logo: Rlogo.png
     left:
       - text: "Home"
         file: index.qmd

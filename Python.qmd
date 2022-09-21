@@ -1,0 +1,16 @@
+---
+title: "Python"
+author: "LiuLinhu"
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: inline
+fig-cap-location: margin
+title-block-banner: true
+title-block-banner-color: "#FFDDFF"
+description: "A Summary Notes of R Programming, based on Tidyverse"
+reference-location: margin
+citation-location: margin
+page-layout: full
+---
+
+Programming...

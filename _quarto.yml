@@ -6,7 +6,6 @@ book:
   author: "Liulinhu"
   date: "2022-9-20"
   search: true
-  repo-url: https://github.com/DrJasonLiu/blogdata
   cover-image: cover.jpg
   page-footer:
     border: false
@@ -14,23 +13,53 @@ book:
     left: "Copyright 2022, LiuLinhu" 
     right: 
       - icon: github
-        href: https://github.com/
+        href: https://github.com/DrJasonLiu/blogdata
       - icon: twitter 
-        href: https://twitter.com/ 
-  chapters:
-    - index.qmd
-    - part: "R"
-      chapters: 
+        href: https://twitter.com/
+  navbar:
+    background: primary
+    search: true
+    pinned: false
+    logo: github
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "R语言"
+        file: R语言编程-基于tidyverse.qmd
+      - text: "Python"
+        file: Python.qmd
+      - text: "My notes"
+        file: NHANES.qmd
+  sidebar: 
+    - title: "R语言"
+      style: "docked"
+      background: light
+      contents:
         - R语言编程-基于tidyverse.qmd
         - R机器学习.qmd
         - R数据可视化.qmd
-    - part: "Python"
-    - part: "Julia"
-    - references.qmd
-  sidebar:
-    style: "docked"
-    background: light
-    logo: icon.png
+        - nhanesR.qmd
+    - title: "My notes"
+      contents: 
+        - NHANES.qmd       
+    - title: "Python"
+      contents: 
+        - Python.qmd
+  #需要在chapters里添加需要增加的文件不然sidebar里不会有
+  chapters:
+      - index.qmd
+      - R语言编程-基于tidyverse.qmd
+      - R机器学习.qmd
+      - R数据可视化.qmd
+      - nhanesR.qmd
+      - part: "Python"
+        chapters: 
+          - Python.qmd
+      - part: "My notes"
+        chapters: 
+          - NHANES.qmd
+
+    
 comments:
   hypothesis: true
 #number-depth: 2
@@ -49,5 +78,6 @@ format:
 editor: visual
 reference-location: margin
 citation-location: margin
+number-sections: false
 
 

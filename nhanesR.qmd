@@ -1,1 +1,114 @@
-# nhanesR
+---
+title: "nhanesR"
+author: "LiuLinhu"
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: inline
+title-block-banner: true
+title-block-banner-color: "#FFDDFF"
+description: "A Tutorial for nhanesR Packages to Manipulate Data in NHANES"
+fig-cap-location: margin
+reference-location: margin
+citation-location: margin
+number-depth: 3
+---
+
+```{r setup,include=FALSE}
+library(kableExtra)
+library(knitr)
+knitr::opts_chunk$set(prompt = TRUE,collapse = TRUE,warning = FALSE,error = FALSE,comment = "")
+```
+
+## 安装配置nhanesR
+
+```{r}
+#| eval=F
+library(devtools)
+library(nhanesR)
+devtools::install_github('yikeshu0611/nhshelp',force=TRUE)
+nhshelp::install_nhanesR('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') #安装nhanesR
+config_path("/Users/liulinhu/Desktop/NHANES/2022-08-01/NHANES")#配置数据库路径
+config_years()#配置数据库年份
+config_items()#配置数据库文件类型
+bu( x,'( 1, 2]')#指(1,2], 即x大于1，≤2
+bu( x,'[ , ]')#指大于等于，小于等于
+```
+
+fped数据是**Food Patterns Equivalents Database，**codebook文件里是全部变量的变量和解释；varLabel是标签的解释。
+
+## 数据读取
+
+1.  知道变量名以及所在的文件: 例如age的变量名是ridageyr，所在的文件是demo_b，demo_c等。
+2.  从文件中提取变量
+
+```{r}
+#| eval=F
+library(nhanesR)
+nhs_tsv('demo',years = 2015:2016)#选择2015-2016年的包含demo的数据（demographic）
+nhs_tsv("demo\\.",'!~p',years = 1999)#1999年，包含"demo."但不包含"p"的数据
+
+```
+
+```{r eval=F}
+library(nhanesR)
+tsv <- nhs_tsv("demo")#提取所有人口学数据
+nhs_brief(tsv,"age") |> View() #查找tsv中包含age的所有，从而确定年龄变量名为ridageyr
+
+x <- nhs_read(tsv,"ridageyr:age",
+              "riagendr:gender-u",
+              "dmqmilit:mili",
+              "dmqmiliz:mili",
+              codebook = T,)#:后面可以重命名变量;codebook参数表示是否解码变量的含义;如果对某个变量不想解码就在最后加-u;varLebel会给变量加上解释(不建议添加，会改变对象格式)
+
+nhs_brief(tsv,"mili")#查找参军相关的变量，发现在后面的年份出现了新的变量名dmqmilit和dmqmiliz，其实是一样的,都改为mili变量。该函数运行完后会直接复制变量名到粘贴板，直接在nhs_read中粘贴就可以了
+```
+
+3.  强化nhs_tsv()函数对数据的提取
+
+在R中，.表示任意一个字符，\\.则表示单纯的.这个字符。\|表示"或者"的逻辑关系, !\~表示不包含
+
+```{r eval=FALSE}
+nhs_tsv('lab10')
+nhs_tsv("lab10\\.")#只提取lab10.这个文件
+
+nhs_tsv("lab13am|l13am|trigly")#提取这三个文件
+nhs_tsv("lab13am|l13am|trigly","!~l13am_b|l13am_c")#提取三个文件，但不包含l13am_b和l13am_c
+```
+
+4.  实验室检查数据的读取\
+    先去网站上检索，如hemoglobin，然后确定文件名. nhs_read支持连续添加数据，只需要先输入文件名再输入变量，如(cbc, "lbxhgb', demo," riagendr"), 如果不指定变量，会把cbc中所有的变量全部提取进去
+
+    ```{r results='hide'}
+    library(nhanesR)
+    demo <- nhs_tsv("demo")#提取所有人口学数据
+
+    cbc <- nhs_tsv("lab25|l25|cbc")#血红蛋白有三个不同的文件名，全部提取
+    bmx <- nhs_tsv("bmx")#提取bmi和腰围所在的文件
+
+    x <- nhs_read(demo,"ridageyr:age","riagendr:gender","dmqmilit:mili","dmqmiliz:mili",
+                  cbc,"lbxhgb:Hbg",
+                  bmx,"bmxbmi:BMI","bmxwaist:Waist",
+                  codebook = T)#直接将血红蛋白和BMI和腰围的数据添加到之前人口学数据之后
+    nit1 <- head(x)
+    ```
+
+```{r}
+#| echo: false
+knitr::kable(nit1,digits = 2,align = "c") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  column_spec(1,bold = T,color='black',background = 'lightblue')
+```
+
+## 权重
+
+1.找到合理的权重。2.计算合并权重；权重不需要计算，nhanes已经计算好了，只需要计算[**合并权重**]{.underline}。
+
+NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用"最小公分母"，其中针对[**最少数量的访谈者收集的感兴趣变量**]{.underline}是"最小公分母"。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重
+
+### 示例1：
+
+nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人[**先前诊断**]{.underline}为糖尿病的关联。这时候使用interview权重wtint4yr，而如果是在mec中收集了一些变量，例如在车上测量了血压，进行了问卷，诊断了高血压，则此时采用[**mec测试权重**]{.underline}分析wtmec4yr ；而有一些变量是调查的组成亚组的一部分，例如空腹甘油三酯是从那些在晨间mec测试之前被分到禁食并且在抽血前实际禁食至少8.5小时的样本人身上收集的，大约为接受mec检查的样本的一半，此时将使用[**禁食亚组权重**]{.underline}。还有一些变量来自24小时饮食回忆，将使用一天饮食样本权重wtdrd1，如果分析使用两天的饮食摄入量，则应使用[**饮食两天样本权重**]{.underline}wtdr2d。
+
+### 如何计算合并权重
+
+wtint2yr指两年的（一个year circle）权重，选择了几个year circle就

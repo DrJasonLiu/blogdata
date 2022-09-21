@@ -1,0 +1,29 @@
+---
+title: "NHANES Tutorial"
+author: "LiuLinhu"
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: inline
+fig-cap-location: margin
+title-block-banner: true
+title-block-banner-color: "#FFDDFF"
+description: "A Summary Notes of R Programming, based on Tidyverse"
+reference-location: margin
+citation-location: margin
+page-layout: full
+---
+
+-   收藏夹
+    -   [用R语言survey包进行权重计算](https://blog.csdn.net/weixin_40563866/article/details/120291633)
+    -   [nhanesR主网站](http://146.56.250.62:3838/nhanesR/)
+-   网页版nhanesR
+    -   账户95096026547614500\
+        密码48870131932211800
+-   Rmarkdown如果要输出中文的pdf：先找到Ctex的模板，按照模板来调参数[示意图.png](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209211045818.png){width="240"}
+-   不同年份的某些变量可能会发生变化，简写可能发生变化，但是要根据其实际含义来，可能是同一个东西。也有可能都是一个名字，但是不是同一个东西，例如血糖，可能都是血糖，但是有的是空腹血糖，有的是餐后2h血糖
+    -   根据变量的实际意义来选择，不用过于在意变量的名字
+-   重要的功能：
+    -   `nhs_tsv()`用于提取数据
+    -   `nhs_brief()`用于查询上一步提取的tsv文件
+    -   `nhs_read()`用于将提取出来的tsv挑选变量或重命名，解码含义等后生成新的数据集
+

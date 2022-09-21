@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="LiuLinhu">
+<meta name="dcterms.date" content="2022-09-21">
+<meta name="description" content="A Summary Notes of R Programming, based on Tidyverse">
 
-<title>Data science of JasonLiu - 3&nbsp; R 机器学习</title>
+<title>Data science of JasonLiu - 6&nbsp; Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./R数据可视化.html" rel="next">
-<link href="./R语言编程-基于tidyverse.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -61,6 +62,11 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script async="" src="https://hypothes.is/embed.js"></script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      color: #FFDDFF;
+    }
+    </style>
 
 
 </head>
@@ -88,10 +94,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html">Home</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./R语言编程-基于tidyverse.html" aria-current="page">R语言</a>
+    <a class="nav-link" href="./R语言编程-基于tidyverse.html">R语言</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Python.html">Python</a>
+    <a class="nav-link active" href="./Python.html" aria-current="page">Python</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./NHANES.html">My notes</a>
@@ -103,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">R 机器学习</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">Python</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -111,29 +117,46 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-right">
+      <h1 class="title d-none d-lg-block"><span class="chapter-title">Python</span></h1>
+                  <div>
+        <div class="description">
+          A Summary Notes of R Programming, based on Tidyverse
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>LiuLinhu </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 21, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./R语言编程-基于tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R语言编程-基于tidyverse</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./R机器学习.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">R 机器学习</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./R数据可视化.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R数据可视化</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./nhanesR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">nhanesR</span></a>
+  <a href="./Python.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Python</span></a>
   </div>
 </li>
     </ul>
@@ -144,23 +167,10 @@ ul.task-list li input[type="checkbox"] {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">R 机器学习</span></h1>
-</div>
+<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-    
-  </div>
-  
-
-</header>
 
 <p>Programming…</p>
 
@@ -265,18 +275,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="./R语言编程-基于tidyverse.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">R语言编程-基于tidyverse</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./R数据可视化.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-title">R数据可视化</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

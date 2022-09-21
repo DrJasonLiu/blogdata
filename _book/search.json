@@ -1,23 +1,72 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data science of JasonLiu",
+    "section": "",
+    "text": "This is my personal website, or … A book"
+  },
+  {
     "objectID": "R语言编程-基于tidyverse.html",
     "href": "R语言编程-基于tidyverse.html",
-    "title": "1  R语言编程-基于tidyverse",
+    "title": "R语言编程-基于tidyverse",
     "section": "",
     "text": "Basic grammar of R datascience\n更新R可以用installr包里的updateR函数\n\n> identical(0,1)#判断两个对象是否严格相等\n>"
   },
   {
     "objectID": "R语言编程-基于tidyverse.html#rmarkdown",
     "href": "R语言编程-基于tidyverse.html#rmarkdown",
-    "title": "1  R语言编程-基于tidyverse",
-    "section": "1.2 Rmarkdown",
-    "text": "1.2 Rmarkdown\n\n行内代码的使用：可有助于生成可重复性报告。\n例如：“r sum(x)”把”换成`，即生成一个行内r代码，配合上文字，即可根据上面代码的结果进行总结或报告。在代码块r的后面输入字，然后逗号可以给代码块添加标签，后续可以直接引用这个标签。\n行间代码块的设置: 参考网站:https://yihui.org/knitr/options/\neval是指定是否运行代码块，ecol=F表示不显示代码，但是显示代码的结果，如文本或图片等；include=F指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，echo=F表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，collapse=T，可以将所有输出结果都集中到一个块里, ’hide’表示不显示结果。prompt=T可以在代码前面加一个>。再加上results=‘hold’的话可以将代码放一起，输出结果放一起。warning=F使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；error=F则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。code-fold: true可以将代码折叠起来，只展示结果\n图形输出\nfig.show:设置图片的输出方式\n\nfig.show=‘asis’：表示plot在产生他们的代码后面\nfig.show=‘hold’：表示代码产生的图片都放在一个完整的代码块之后\nfig.show=‘animate’：表示将所有生成的图片合成一个动画图片\nfig.show=‘hide’：表示产生图片，但不显示\n\nfig.width: 设置图片输出宽度\nfig.height：设置图片输出的高度\nfig.align：排版，默认left，可以right或center\nfig.cap：设置图片的标题\nfig.subcap：设置图片的副标题\nout.width=‘50%’：指输出的图片自适应大小为50%\n表格输出\n\n\nCode\n> x <- 1:10;y <- x^2;\n> lmr <- lm(y~x)\n> co <- summary(lmr)$coefficients\n> print(co)\n\n\n\n\n> knitr::kable(co,digits = 2,align = \"c\") #可以将数据输出为单独的表格形式\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(>|t|)\n\n\n\n\n(Intercept)\n-22\n5.55\n-3.96\n0\n\n\nx\n11\n0.89\n12.30\n0\n\n\n\n\n\n\n表格渲染\n使用kableExtra包,column_spec和row_spec是设置行和列，kable_styling设置表格格式\nfull_width: 表格宽度是否填满HTML，position：对齐方式，\n\n> library(kableExtra)\n> library(knitr)\n> table_style <- knitr::kable(co,digits = 2,align = \"c\")\n> kableExtra::kable_styling(table_style,full_width = F,position = \"center\") %>% \n+   column_spec(1:2,bold = T,color='black',background = 'lightblue')\n\n\n\n \n  \n      \n    Estimate \n    Std. Error \n    t value \n    Pr(>|t|) \n  \n \n\n  \n    (Intercept) \n    -22 \n    5.55 \n    -3.96 \n    0 \n  \n  \n    x \n    11 \n    0.89 \n    12.30 \n    0 \n  \n\n\n\n\n\n\n\n\n\n\n\n\nTip With Caption\n\n\n\n这是一个callout\n\n\n\n\n\n\n将文字添加到页面侧面的方法"
+    "title": "R语言编程-基于tidyverse",
+    "section": "Rmarkdown",
+    "text": "Rmarkdown\n\n行内代码的使用：可有助于生成可重复性报告。\n例如：“r sum(x)”把”换成`，即生成一个行内r代码，配合上文字，即可根据上面代码的结果进行总结或报告。在代码块r的后面输入字，然后逗号可以给代码块添加标签，后续可以直接引用这个标签。\n行间代码块的设置: 参考网站:https://yihui.org/knitr/options/\neval是指定是否运行代码块，ecol=F表示不显示代码，但是显示代码的结果，如文本或图片等；include=F指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，echo=F表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，collapse=T，可以将所有输出结果都集中到一个块里, ’hide’表示不显示结果。prompt=T可以在代码前面加一个>。再加上results=‘hold’的话可以将代码放一起，输出结果放一起。warning=F使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；error=F则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。code-fold: true可以将代码折叠起来，只展示结果\n图形输出\nfig.show:设置图片的输出方式\n\nfig.show=‘asis’：表示plot在产生他们的代码后面\nfig.show=‘hold’：表示代码产生的图片都放在一个完整的代码块之后\nfig.show=‘animate’：表示将所有生成的图片合成一个动画图片\nfig.show=‘hide’：表示产生图片，但不显示\n\nfig.width: 设置图片输出宽度\nfig.height：设置图片输出的高度\nfig.align：排版，默认left，可以right或center\nfig.cap：设置图片的标题\nfig.subcap：设置图片的副标题\nout.width=‘50%’：指输出的图片自适应大小为50%\n表格输出\n\n\nCode\n> x <- 1:10;y <- x^2;\n> lmr <- lm(y~x)\n> co <- summary(lmr)$coefficients\n> print(co)\n\n\n\n\n> knitr::kable(co,digits = 2,align = \"c\") #可以将数据输出为单独的表格形式\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(>|t|)\n\n\n\n\n(Intercept)\n-22\n5.55\n-3.96\n0\n\n\nx\n11\n0.89\n12.30\n0\n\n\n\n\n\n\n表格渲染\n使用kableExtra包,column_spec和row_spec是设置行和列，kable_styling设置表格格式\nfull_width: 表格宽度是否填满HTML，position：对齐方式，\n\n> library(kableExtra)\n> library(knitr)\n> table_style <- knitr::kable(co,digits = 2,align = \"c\")\n> kableExtra::kable_styling(table_style,full_width = F,position = \"center\") %>% \n+   column_spec(1:2,bold = T,color='black',background = 'lightblue')\n\n\n\n \n  \n      \n    Estimate \n    Std. Error \n    t value \n    Pr(>|t|) \n  \n \n\n  \n    (Intercept) \n    -22 \n    5.55 \n    -3.96 \n    0 \n  \n  \n    x \n    11 \n    0.89 \n    12.30 \n    0 \n  \n\n\n\n\n\n\n\n\n\n\n\n\nTip With Caption\n\n\n\n这是一个callout\n\n\n\n\n\n\n将文字添加到页面侧面的方法"
   },
   {
     "objectID": "R机器学习.html",
     "href": "R机器学习.html",
-    "title": "2  R 机器学习",
+    "title": "R 机器学习",
     "section": "",
-    "text": "1 + 1\n\n[1] 2\n\n\n不支持中文吗我去，服了呀，shit on my god no Chinese"
+    "text": "Programming…"
+  },
+  {
+    "objectID": "R数据可视化.html",
+    "href": "R数据可视化.html",
+    "title": "R数据可视化",
+    "section": "",
+    "text": "Programming…"
+  },
+  {
+    "objectID": "nhanesR.html",
+    "href": "nhanesR.html",
+    "title": "nhanesR",
+    "section": "",
+    "text": "> library(devtools)\n> library(nhanesR)\n> devtools::install_github('yikeshu0611/nhshelp',force=TRUE)\n> nhshelp::install_nhanesR('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') #安装nhanesR\n> config_path(\"/Users/liulinhu/Desktop/NHANES/2022-08-01/NHANES\")#配置数据库路径\n> config_years()#配置数据库年份\n> config_items()#配置数据库文件类型\n> bu( x,'( 1, 2]')#指(1,2], 即x大于1，≤2\n> bu( x,'[ , ]')#指大于等于，小于等于\n\nfped数据是Food Patterns Equivalents Database，codebook文件里是全部变量的变量和解释；varLabel是标签的解释。"
+  },
+  {
+    "objectID": "nhanesR.html#数据读取",
+    "href": "nhanesR.html#数据读取",
+    "title": "nhanesR",
+    "section": "数据读取",
+    "text": "数据读取\n\n知道变量名以及所在的文件: 例如age的变量名是ridageyr，所在的文件是demo_b，demo_c等。\n从文件中提取变量\n\n\n> library(nhanesR)\n> nhs_tsv('demo',years = 2015:2016)#选择2015-2016年的包含demo的数据（demographic）\n> nhs_tsv(\"demo\\\\.\",'!~p',years = 1999)#1999年，包含\"demo.\"但不包含\"p\"的数据\n> \n\n\n> library(nhanesR)\n> tsv <- nhs_tsv(\"demo\")#提取所有人口学数据\n> nhs_brief(tsv,\"age\") |> View() #查找tsv中包含age的所有，从而确定年龄变量名为ridageyr\n> \n> x <- nhs_read(tsv,\"ridageyr:age\",\n+               \"riagendr:gender-u\",\n+               \"dmqmilit:mili\",\n+               \"dmqmiliz:mili\",\n+               codebook = T,)#:后面可以重命名变量;codebook参数表示是否解码变量的含义;如果对某个变量不想解码就在最后加-u;varLebel会给变量加上解释(不建议添加，会改变对象格式)\n> \n> nhs_brief(tsv,\"mili\")#查找参军相关的变量，发现在后面的年份出现了新的变量名dmqmilit和dmqmiliz，其实是一样的,都改为mili变量。该函数运行完后会直接复制变量名到粘贴板，直接在nhs_read中粘贴就可以了\n\n\n强化nhs_tsv()函数对数据的提取\n\n在R中，.表示任意一个字符，\\.则表示单纯的.这个字符。|表示”或者”的逻辑关系, !~表示不包含\n\n> nhs_tsv('lab10')\n> nhs_tsv(\"lab10\\\\.\")#只提取lab10.这个文件\n> \n> nhs_tsv(\"lab13am|l13am|trigly\")#提取这三个文件\n> nhs_tsv(\"lab13am|l13am|trigly\",\"!~l13am_b|l13am_c\")#提取三个文件，但不包含l13am_b和l13am_c\n\n\n实验室检查数据的读取\n先去网站上检索，如hemoglobin，然后确定文件名. nhs_read支持连续添加数据，只需要先输入文件名再输入变量，如(cbc, “lbxhgb’, demo,” riagendr”), 如果不指定变量，会把cbc中所有的变量全部提取进去\n\n> library(nhanesR)\nThe database path is: /Users/liulinhu/Desktop/NHANES/2022-08-01/NHANES\n\nThe lastest database update date: 2022-08-01\nNumber of days without update Database: 51\n> demo <- nhs_tsv(\"demo\")#提取所有人口学数据\n> \n> cbc <- nhs_tsv(\"lab25|l25|cbc\")#血红蛋白有三个不同的文件名，全部提取\n> bmx <- nhs_tsv(\"bmx\")#提取bmi和腰围所在的文件\n> \n> x <- nhs_read(demo,\"ridageyr:age\",\"riagendr:gender\",\"dmqmilit:mili\",\"dmqmiliz:mili\",\n+               cbc,\"lbxhgb:Hbg\",\n+               bmx,\"bmxbmi:BMI\",\"bmxwaist:Waist\",\n+               codebook = T)#直接将血红蛋白和BMI和腰围的数据添加到之前人口学数据之后\n> nit1 <- head(x)\n\n\n\n\n\n\n \n  \n    Year \n    seqn \n    sdmvpsu \n    sdmvstra \n    age \n    gender \n    mili \n    Hbg \n    BMI \n    Waist \n  \n \n\n  \n    1999-2000 \n    1 \n    1 \n    5 \n    2 \n    Female \n    NA \n    NA \n    14.90 \n    45.7 \n  \n  \n    1999-2000 \n    2 \n    3 \n    1 \n    77 \n    Male \n    Yes \n    14.1 \n    24.90 \n    98.0 \n  \n  \n    1999-2000 \n    3 \n    2 \n    7 \n    10 \n    Female \n    NA \n    13.7 \n    17.63 \n    64.7 \n  \n  \n    1999-2000 \n    4 \n    1 \n    2 \n    1 \n    Male \n    NA \n    9.3 \n    NA \n    NA \n  \n  \n    1999-2000 \n    5 \n    2 \n    8 \n    49 \n    Male \n    Yes \n    14.5 \n    29.10 \n    99.9 \n  \n  \n    1999-2000 \n    6 \n    2 \n    2 \n    19 \n    Female \n    No \n    13.1 \n    22.56 \n    81.6"
+  },
+  {
+    "objectID": "nhanesR.html#权重",
+    "href": "nhanesR.html#权重",
+    "title": "nhanesR",
+    "section": "权重",
+    "text": "权重\n1.找到合理的权重。2.计算合并权重；权重不需要计算，nhanes已经计算好了，只需要计算合并权重。\nNHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用”最小公分母”，其中针对最少数量的访谈者收集的感兴趣变量是”最小公分母”。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重\n\n示例1：\nnhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人先前诊断为糖尿病的关联。这时候使用interview权重wtint4yr，而如果是在mec中收集了一些变量，例如在车上测量了血压，进行了问卷，诊断了高血压，则此时采用mec测试权重分析wtmec4yr ；而有一些变量是调查的组成亚组的一部分，例如空腹甘油三酯是从那些在晨间mec测试之前被分到禁食并且在抽血前实际禁食至少8.5小时的样本人身上收集的，大约为接受mec检查的样本的一半，此时将使用禁食亚组权重。还有一些变量来自24小时饮食回忆，将使用一天饮食样本权重wtdrd1，如果分析使用两天的饮食摄入量，则应使用饮食两天样本权重wtdr2d。\n\n\n如何计算合并权重\nwtint2yr指两年的（一个year circle）权重，选择了几个year circle就"
+  },
+  {
+    "objectID": "Python.html",
+    "href": "Python.html",
+    "title": "Python",
+    "section": "",
+    "text": "Programming…"
+  },
+  {
+    "objectID": "NHANES.html",
+    "href": "NHANES.html",
+    "title": "NHANES Tutorial",
+    "section": "",
+    "text": "收藏夹\n\n用R语言survey包进行权重计算\nnhanesR主网站\n\n网页版nhanesR\n\n账户95096026547614500\n密码48870131932211800\n\nRmarkdown如果要输出中文的pdf：先找到Ctex的模板，按照模板来调参数示意图.png\n不同年份的某些变量可能会发生变化，简写可能发生变化，但是要根据其实际含义来，可能是同一个东西。也有可能都是一个名字，但是不是同一个东西，例如血糖，可能都是血糖，但是有的是空腹血糖，有的是餐后2h血糖\n\n根据变量的实际意义来选择，不用过于在意变量的名字\n\n重要的功能：\n\nnhs_tsv()用于提取数据\nnhs_brief()用于查询上一步提取的tsv文件\nnhs_read()用于将提取出来的tsv挑选变量或重命名，解码含义等后生成新的数据集"
   }
 ]

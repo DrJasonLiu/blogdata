@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="LiuLinhu">
+<meta name="dcterms.date" content="2022-09-21">
+<meta name="description" content="A Tutorial for nhanesR Packages to Manipulate Data in NHANES">
+
+<title>Data science of JasonLiu - 5&nbsp; nhanesR</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./R数据可视化.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      color: #FFDDFF;
+    }
+    </style>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./github" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data science of JasonLiu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./R语言编程-基于tidyverse.html" aria-current="page">R语言</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Python.html">Python</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./NHANES.html">My notes</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">nhanesR</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block"><span class="chapter-title">nhanesR</span></h1>
+                  <div>
+        <div class="description">
+          A Tutorial for nhanesR Packages to Manipulate Data in NHANES
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>LiuLinhu </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 21, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R语言编程-基于tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R语言编程-基于tidyverse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R机器学习.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R数据可视化.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R数据可视化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nhanesR.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">nhanesR</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of Contents</h2>
+   
+  <ul>
+  <li><a href="#安装配置nhanesr" id="toc-安装配置nhanesr" class="nav-link active" data-scroll-target="#安装配置nhanesr">安装配置nhanesR</a></li>
+  <li><a href="#数据读取" id="toc-数据读取" class="nav-link" data-scroll-target="#数据读取">数据读取</a></li>
+  <li><a href="#权重" id="toc-权重" class="nav-link" data-scroll-target="#权重">权重</a>
+  <ul class="collapse">
+  <li><a href="#示例1" id="toc-示例1" class="nav-link" data-scroll-target="#示例1">示例1：</a></li>
+  <li><a href="#如何计算合并权重" id="toc-如何计算合并权重" class="nav-link" data-scroll-target="#如何计算合并权重">如何计算合并权重</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="安装配置nhanesr" class="level2">
+<h2 class="anchored" data-anchor-id="安装配置nhanesr">安装配置nhanesR</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(devtools)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'yikeshu0611/nhshelp'</span>,<span class="at">force=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nhshelp<span class="sc">::</span><span class="fu">install_nhanesR</span>(<span class="st">'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'</span>) <span class="co">#安装nhanesR</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">config_path</span>(<span class="st">"/Users/liulinhu/Desktop/NHANES/2022-08-01/NHANES"</span>)<span class="co">#配置数据库路径</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">config_years</span>()<span class="co">#配置数据库年份</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">config_items</span>()<span class="co">#配置数据库文件类型</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">bu</span>( x,<span class="st">'( 1, 2]'</span>)<span class="co">#指(1,2], 即x大于1，≤2</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">bu</span>( x,<span class="st">'[ , ]'</span>)<span class="co">#指大于等于，小于等于</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>fped数据是<strong>Food Patterns Equivalents Database，</strong>codebook文件里是全部变量的变量和解释；varLabel是标签的解释。</p>
+</section>
+<section id="数据读取" class="level2">
+<h2 class="anchored" data-anchor-id="数据读取">数据读取</h2>
+<ol type="1">
+<li>知道变量名以及所在的文件: 例如age的变量名是ridageyr，所在的文件是demo_b，demo_c等。</li>
+<li>从文件中提取变量</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nhs_tsv</span>(<span class="st">'demo'</span>,<span class="at">years =</span> <span class="dv">2015</span><span class="sc">:</span><span class="dv">2016</span>)<span class="co">#选择2015-2016年的包含demo的数据（demographic）</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nhs_tsv</span>(<span class="st">"demo</span><span class="sc">\\</span><span class="st">."</span>,<span class="st">'!~p'</span>,<span class="at">years =</span> <span class="dv">1999</span>)<span class="co">#1999年，包含"demo."但不包含"p"的数据</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tsv <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"demo"</span>)<span class="co">#提取所有人口学数据</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nhs_brief</span>(tsv,<span class="st">"age"</span>) <span class="sc">|&gt;</span> <span class="fu">View</span>() <span class="co">#查找tsv中包含age的所有，从而确定年龄变量名为ridageyr</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">nhs_read</span>(tsv,<span class="st">"ridageyr:age"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="st">"riagendr:gender-u"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="st">"dmqmilit:mili"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="st">"dmqmiliz:mili"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">codebook =</span> T,)<span class="co">#:后面可以重命名变量;codebook参数表示是否解码变量的含义;如果对某个变量不想解码就在最后加-u;varLebel会给变量加上解释(不建议添加，会改变对象格式)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">nhs_brief</span>(tsv,<span class="st">"mili"</span>)<span class="co">#查找参军相关的变量，发现在后面的年份出现了新的变量名dmqmilit和dmqmiliz，其实是一样的,都改为mili变量。该函数运行完后会直接复制变量名到粘贴板，直接在nhs_read中粘贴就可以了</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>强化nhs_tsv()函数对数据的提取</li>
+</ol>
+<p>在R中，.表示任意一个字符，\.则表示单纯的.这个字符。|表示”或者”的逻辑关系, !~表示不包含</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nhs_tsv</span>(<span class="st">'lab10'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab10</span><span class="sc">\\</span><span class="st">."</span>)<span class="co">#只提取lab10.这个文件</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab13am|l13am|trigly"</span>)<span class="co">#提取这三个文件</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab13am|l13am|trigly"</span>,<span class="st">"!~l13am_b|l13am_c"</span>)<span class="co">#提取三个文件，但不包含l13am_b和l13am_c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li><p>实验室检查数据的读取<br>
+先去网站上检索，如hemoglobin，然后确定文件名. nhs_read支持连续添加数据，只需要先输入文件名再输入变量，如(cbc, “lbxhgb’, demo,” riagendr”), 如果不指定变量，会把cbc中所有的变量全部提取进去</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>The database path is<span class="sc">:</span> <span class="er">/</span>Users<span class="sc">/</span>liulinhu<span class="sc">/</span>Desktop<span class="sc">/</span>NHANES<span class="sc">/</span><span class="dv">2022-08-01</span><span class="sc">/</span>NHANES</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>The lastest database update date<span class="sc">:</span> <span class="dv">2022-08-01</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Number of days without update Database<span class="sc">:</span> <span class="dv">51</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"demo"</span>)<span class="co">#提取所有人口学数据</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> cbc <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab25|l25|cbc"</span>)<span class="co">#血红蛋白有三个不同的文件名，全部提取</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> bmx <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"bmx"</span>)<span class="co">#提取bmi和腰围所在的文件</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">nhs_read</span>(demo,<span class="st">"ridageyr:age"</span>,<span class="st">"riagendr:gender"</span>,<span class="st">"dmqmilit:mili"</span>,<span class="st">"dmqmiliz:mili"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               cbc,<span class="st">"lbxhgb:Hbg"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               bmx,<span class="st">"bmxbmi:BMI"</span>,<span class="st">"bmxwaist:Waist"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">codebook =</span> T)<span class="co">#直接将血红蛋白和BMI和腰围的数据添加到之前人口学数据之后</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nit1 <span class="ot">&lt;-</span> <span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:center;"> Year </th>
+   <th style="text-align:center;"> seqn </th>
+   <th style="text-align:center;"> sdmvpsu </th>
+   <th style="text-align:center;"> sdmvstra </th>
+   <th style="text-align:center;"> age </th>
+   <th style="text-align:center;"> gender </th>
+   <th style="text-align:center;"> mili </th>
+   <th style="text-align:center;"> Hbg </th>
+   <th style="text-align:center;"> BMI </th>
+   <th style="text-align:center;"> Waist </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> Female </td>
+   <td style="text-align:center;"> NA </td>
+   <td style="text-align:center;"> NA </td>
+   <td style="text-align:center;"> 14.90 </td>
+   <td style="text-align:center;"> 45.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 77 </td>
+   <td style="text-align:center;"> Male </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> 14.1 </td>
+   <td style="text-align:center;"> 24.90 </td>
+   <td style="text-align:center;"> 98.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 7 </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> Female </td>
+   <td style="text-align:center;"> NA </td>
+   <td style="text-align:center;"> 13.7 </td>
+   <td style="text-align:center;"> 17.63 </td>
+   <td style="text-align:center;"> 64.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> Male </td>
+   <td style="text-align:center;"> NA </td>
+   <td style="text-align:center;"> 9.3 </td>
+   <td style="text-align:center;"> NA </td>
+   <td style="text-align:center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 8 </td>
+   <td style="text-align:center;"> 49 </td>
+   <td style="text-align:center;"> Male </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> 14.5 </td>
+   <td style="text-align:center;"> 29.10 </td>
+   <td style="text-align:center;"> 99.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 19 </td>
+   <td style="text-align:center;"> Female </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> 13.1 </td>
+   <td style="text-align:center;"> 22.56 </td>
+   <td style="text-align:center;"> 81.6 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="权重" class="level2">
+<h2 class="anchored" data-anchor-id="权重">权重</h2>
+<p>1.找到合理的权重。2.计算合并权重；权重不需要计算，nhanes已经计算好了，只需要计算<u><strong>合并权重</strong></u>。</p>
+<p>NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用”最小公分母”，其中针对<u><strong>最少数量的访谈者收集的感兴趣变量</strong></u>是”最小公分母”。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重</p>
+<section id="示例1" class="level3">
+<h3 class="anchored" data-anchor-id="示例1">示例1：</h3>
+<p>nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人<u><strong>先前诊断</strong></u>为糖尿病的关联。这时候使用interview权重wtint4yr，而如果是在mec中收集了一些变量，例如在车上测量了血压，进行了问卷，诊断了高血压，则此时采用<u><strong>mec测试权重</strong></u>分析wtmec4yr ；而有一些变量是调查的组成亚组的一部分，例如空腹甘油三酯是从那些在晨间mec测试之前被分到禁食并且在抽血前实际禁食至少8.5小时的样本人身上收集的，大约为接受mec检查的样本的一半，此时将使用<u><strong>禁食亚组权重</strong></u>。还有一些变量来自24小时饮食回忆，将使用一天饮食样本权重wtdrd1，如果分析使用两天的饮食摄入量，则应使用<u><strong>饮食两天样本权重</strong></u>wtdr2d。</p>
+</section>
+<section id="如何计算合并权重" class="level3">
+<h3 class="anchored" data-anchor-id="如何计算合并权重">如何计算合并权重</h3>
+<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./R数据可视化.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">R数据可视化</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2022, LiuLinhu</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DrJasonLiu/blogdata">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

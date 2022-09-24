@@ -13,4 +13,34 @@ citation-location: margin
 page-layout: full
 ---
 
-Programming...
+# Reticulate包 {#sec-reticulate}
+
+The reticulate package provides a comprehensive set of tools for interoperability between Python and R。[官方文档](https://rstudio.github.io/reticulate/index.html)
+
+```{r eval=FALSE}
+library(reticulate)
+use_miniconda(condaenv = "/Users/liulinhu/Library/r-miniconda")#选择miniconda环境的python
+use_condaenv("r-reticulate")#选择conda环境的python
+miniconda_path()#显示miniconda安装地址
+```
+
+可以使用miniconda来管理python库也可以用r-reticulate的环境来管理，选择use_miniconda或者use_condaenv来配置。安装python包可以用py_install()直接管理r-reticulate下的环境，或者使用conda installation
+
+```{r eval=FALSE}
+py_install("pandas")
+py_module_available("pandas") #查看是否安装成功
+repl_python()# 开始使用python，如果需要退出，输入exit
+pd <- import("pandas")#导入python库
+np <- import("numpy")
+```
+
+## 调用python
+
+reticulate提供了三种方式调用python
+
+1.  直接在R markdown中用代码块区分：可打印python输出，包括matplotlib的图形输出，可以在r中访问python的对象（使用[py\$]{.underline}对象），反之用[r.对象]{.underline}从python中访问r对象. 例如在python中用pandas导入数据，然后在R中用py对象进行绘图![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209241059001.png)
+
+2.  使用import()函数在R中调用python的模块 ![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209241103605.png)
+
+3.  source_python()和py_run_file()\
+    使用reticulate包中的source_python('py文件路径')可以导入py文件中的变量，这样就可以在R代码块中使用外部变量。使用py_run_file()可以在R代码块中运行项目文件夹中的py文件

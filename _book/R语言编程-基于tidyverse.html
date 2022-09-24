@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="LiuLinhu">
-<meta name="dcterms.date" content="2022-09-21">
+<meta name="dcterms.date" content="2022-09-24">
 <meta name="description" content="A Summary Notes of R Programming, based on Tidyverse">
 
 <title>Data science of JasonLiu - 2&nbsp; R语言编程-基于tidyverse</title>
@@ -125,7 +125,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
 <style>
     .quarto-title-block .quarto-title-banner {
       color: #feeeed;
@@ -209,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 21, 2022</p>
+        <p class="date">September 24, 2022</p>
       </div>
     </div>
       
@@ -279,9 +278,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="rmarkdown">Rmarkdown</h2>
 <ul>
 <li><p>行内代码的使用：可有助于生成可重复性报告。<br>
-例如：<u><strong>“r sum(x)”</strong></u>把”换成`，即生成一个行内r代码，配合上文字，即可根据上面代码的结果进行总结或报告。在代码块r的后面输入字，然后逗号可以给代码块<u><strong>添加标签</strong></u>，后续可以直接引用这个标签。</p></li>
+#r f(x)#即为行内代码(#换为`)</p></li>
 <li><p><u><strong>行间代码块的设置</strong></u>: 参考网站:https://yihui.org/knitr/options/<br>
-<u><strong>eval</strong></u>是指定是否运行代码块，<u>ecol=F</u>表示不显示代码，但是显示代码的结果，如文本或图片等；<u>include=F</u>指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，<u><strong>echo=F</strong></u>表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，<u><strong>collapse=T</strong></u>，可以将所有输出结果都集中到一个块里, ’hide’表示不显示结果。<u><strong>prompt=T</strong></u>可以在代码前面加一个&gt;。再加上<u><strong>results=‘hold’</strong></u>的话可以将代码放一起，输出结果放一起。<u><strong>warning=F</strong></u>使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；<u><strong>error=F</strong></u>则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。<strong>code-fold: true</strong>可以将代码折叠起来，只展示结果</p></li>
+<u><strong>eval=F</strong></u>是指定不运行代码块，<u>ecol=F</u>表示不显示代码，但是显示代码的结果，如文本或图片等；<u>include=F</u>指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，<u><strong>echo=F</strong></u>表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，<u><strong>collapse=T</strong></u>，可以将所有输出结果都集中到一个块里, ’hide’表示不显示结果。<u><strong>prompt=T</strong></u>可以在代码前面加一个&gt;。再加上<u><strong>results=‘hold’</strong></u>的话可以将代码放一起，输出结果放一起。<u><strong>warning=F</strong></u>使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；<u><strong>error=F</strong></u>则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。<strong>code-fold: true</strong>可以将代码折叠起来，只展示结果</p></li>
 <li><p>图形输出<br>
 fig.show:设置图片的输出方式</p>
 <ul>

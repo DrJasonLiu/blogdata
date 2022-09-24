@@ -1,3 +1,35 @@
-# R数据可视化
+---
+title: "R数据可视化"
+author: "LiuLinhu"
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: inline
+fig-cap-location: margin
+title-block-banner: true
+title-block-banner-color: "#feeeed"
+description: "A Summary Notes of R Mendelian Randomization"
+page-layout: full
+toc-location: right
+---
 
 Programming...
+
+-   [rayshader](https://www.rayshader.com/)包可以将2D图像绘制为3D，基于ggplot2
+
+```{r eval=FALSE}
+library(rayshader)
+library(ggplot2)
+
+# 绘制二维密度图
+gg = ggplot(diamonds, aes(x, depth)) +
+     stat_density_2d(aes(fill = stat(nlevel)), #绘制密度等高线图
+                  geom = "polygon",
+                  n = 100,bins = 10, contour = TRUE) +
+     facet_wrap(clarity~.) +    # 按clarity分类
+     scale_fill_viridis_c(option = "A") #将map颜色设置为“岩浆”色，简称为“A”，共有“A”，“B”，“C”，“D”和“E”五种；
+plot_gg(gg,multicore=TRUE,width=5,height=5,scale=250) #转为3D图片
+Sys.sleep(0.5)
+render_snapshot(clear=TRUE)#保存图片
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209230022523.png)

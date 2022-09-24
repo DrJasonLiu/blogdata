@@ -62,9 +62,6 @@ book:
         chapters: 
           - NHANES.qmd
 
-    
-comments:
-  hypothesis: true
 #number-depth: 2
 toc-title: "Table of Contents"
 bibliography: references.bib

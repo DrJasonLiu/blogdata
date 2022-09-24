@@ -30,10 +30,10 @@ identical(0,1)#判断两个对象是否严格相等
 ## Rmarkdown
 
 -   行内代码的使用：可有助于生成可重复性报告。\
-    例如：[**"r sum(x)"**]{.underline}把"换成\`，即生成一个行内r代码，配合上文字，即可根据上面代码的结果进行总结或报告。在代码块r的后面输入字，然后逗号可以给代码块[**添加标签**]{.underline}，后续可以直接引用这个标签。
+    #r f(x)#即为行内代码(#换为\`)
 
 -   [**行间代码块的设置**]{.underline}: 参考网站:https://yihui.org/knitr/options/\
-    [**eval**]{.underline}是指定是否运行代码块，[ecol=F]{.underline}表示不显示代码，但是显示代码的结果，如文本或图片等；[include=F]{.underline}指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，[**echo=F**]{.underline}表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，[**collapse=T**]{.underline}，可以将所有输出结果都集中到一个块里, 'hide'表示不显示结果。[**prompt=T**]{.underline}可以在代码前面加一个\>。再加上[**results='hold'**]{.underline}的话可以将代码放一起，输出结果放一起。[**warning=F**]{.underline}使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；[**error=F**]{.underline}则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。**code-fold: true**可以将代码折叠起来，只展示结果
+    [**eval=F**]{.underline}是指定不运行代码块，[ecol=F]{.underline}表示不显示代码，但是显示代码的结果，如文本或图片等；[include=F]{.underline}指代码会运行，但是代码和结果都不生成到输出的文档中。echo控制代码是否显示，[**echo=F**]{.underline}表示代码框不显示在输出的文档中。如果一个代码块内有多个输出结果，会分解成多个块输出，[**collapse=T**]{.underline}，可以将所有输出结果都集中到一个块里, 'hide'表示不显示结果。[**prompt=T**]{.underline}可以在代码前面加一个\>。再加上[**results='hold'**]{.underline}的话可以将代码放一起，输出结果放一起。[**warning=F**]{.underline}使代码警告信息不进入结果，可以屏蔽一些扩展包的载入信息；[**error=F**]{.underline}则屏蔽错误信息；如果想全文设置，则可以在开头用knitr来设置。**code-fold: true**可以将代码折叠起来，只展示结果
 
 -   图形输出\
     fig.show:设置图片的输出方式

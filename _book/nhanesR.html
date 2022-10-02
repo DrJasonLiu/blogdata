@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="LiuLinhu">
-<meta name="dcterms.date" content="2022-09-24">
+<meta name="dcterms.date" content="2022-10-02">
 <meta name="description" content="A Tutorial for nhanesR Packages to Manipulate Data in NHANES">
 
 <title>Data science of JasonLiu - 5&nbsp; nhanesR</title>
@@ -208,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 24, 2022</p>
+        <p class="date">October 2, 2022</p>
       </div>
     </div>
       
@@ -258,9 +258,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#数据读取" id="toc-数据读取" class="nav-link" data-scroll-target="#数据读取">数据读取</a></li>
   <li><a href="#权重" id="toc-权重" class="nav-link" data-scroll-target="#权重">权重</a>
   <ul class="collapse">
-  <li><a href="#示例1" id="toc-示例1" class="nav-link" data-scroll-target="#示例1">示例1：</a></li>
   <li><a href="#如何计算合并权重" id="toc-如何计算合并权重" class="nav-link" data-scroll-target="#如何计算合并权重">如何计算合并权重</a></li>
+  <li><a href="#示例实操" id="toc-示例实操" class="nav-link" data-scroll-target="#示例实操">示例实操</a></li>
+  <li><a href="#权重总结" id="toc-权重总结" class="nav-link" data-scroll-target="#权重总结">权重总结</a></li>
   </ul></li>
+  <li><a href="#数据的清洗" id="toc-数据的清洗" class="nav-link" data-scroll-target="#数据的清洗">数据的清洗</a></li>
   </ul>
 </nav>
     </div>
@@ -329,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>The database path is<span class="sc">:</span> <span class="er">/</span>Users<span class="sc">/</span>liulinhu<span class="sc">/</span>Desktop<span class="sc">/</span>NHANES<span class="sc">/</span><span class="dv">2022-08-01</span><span class="sc">/</span>NHANES</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>The lastest database update date<span class="sc">:</span> <span class="dv">2022-08-01</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Number of days without update Database<span class="sc">:</span> <span class="dv">54</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Number of days without update Database<span class="sc">:</span> <span class="dv">62</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"demo"</span>)<span class="co">#提取所有人口学数据</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> cbc <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab25|l25|cbc"</span>)<span class="co">#血红蛋白有三个不同的文件名，全部提取</span></span>
@@ -443,16 +445,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="权重">权重</h2>
 <p>1.找到合理的权重。2.计算合并权重；权重不需要计算，nhanes已经计算好了，只需要计算<u><strong>合并权重</strong></u>。</p>
 <p>NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用”最小公分母”，其中针对<u><strong>最少数量的访谈者收集的感兴趣变量</strong></u>是”最小公分母”。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重</p>
-<section id="示例1" class="level3">
-<h3 class="anchored" data-anchor-id="示例1">示例1：</h3>
-<p>nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人<u><strong>先前诊断</strong></u>为糖尿病的关联。这时候使用interview权重wtint4yr，而如果是在mec中收集了一些变量，例如在车上测量了血压，进行了问卷，诊断了高血压，则此时采用<u><strong>mec测试权重</strong></u>分析wtmec4yr ；而有一些变量是调查的组成亚组的一部分，例如空腹甘油三酯是从那些在晨间mec测试之前被分到禁食并且在抽血前实际禁食至少8.5小时的样本人身上收集的，大约为接受mec检查的样本的一半，此时将使用<u><strong>禁食亚组权重</strong></u>。还有一些变量来自24小时饮食回忆，将使用一天饮食样本权重wtdrd1，如果分析使用两天的饮食摄入量，则应使用<u><strong>饮食两天样本权重</strong></u>wtdr2d。</p>
-</section>
 <section id="如何计算合并权重" class="level3">
 <h3 class="anchored" data-anchor-id="如何计算合并权重">如何计算合并权重</h3>
-<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就</p>
-
-
+<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重*1/n。但当<u><strong>同时涉及</strong>到1999-2000和2001-2002</u>时需要用4年权重<strong>wtint4yr</strong>，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推<img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png" class="img-fluid"></p>
 </section>
+<section id="示例实操" class="level3">
+<h3 class="anchored" data-anchor-id="示例实操">示例实操</h3>
+<section id="示例1" class="level4">
+<h4 class="anchored" data-anchor-id="示例1">示例1</h4>
+<p>nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人<u><strong>先前诊断</strong></u>为糖尿病的关联。所有的变量都是在家庭访谈中收集的。使用访谈权重进行分析wtint4yr,查询到种族的变量名为ridreth1，贫困poverty的变量名为indfmpir，年龄变量名为ridageyr；糖尿病的诊断在Questionnaire里的diq010变量。权重提取<u>wtint2yr</u></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(x)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       Year seqn sdmvpsu sdmvstra                                 eth poverty</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1999-2000</span>    <span class="dv">1</span>       <span class="dv">1</span>        <span class="dv">5</span>                  Non<span class="sc">-</span>Hispanic Black    <span class="fl">0.86</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1999-2000</span>    <span class="dv">2</span>       <span class="dv">3</span>        <span class="dv">1</span>                  Non<span class="sc">-</span>Hispanic White    <span class="fl">5.00</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">1999-2000</span>    <span class="dv">3</span>       <span class="dv">2</span>        <span class="dv">7</span>                  Non<span class="sc">-</span>Hispanic White    <span class="fl">1.47</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">1999-2000</span>    <span class="dv">4</span>       <span class="dv">1</span>        <span class="dv">2</span>                  Non<span class="sc">-</span>Hispanic Black    <span class="fl">0.57</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">1999-2000</span>    <span class="dv">5</span>       <span class="dv">2</span>        <span class="dv">8</span>                  Non<span class="sc">-</span>Hispanic White    <span class="fl">5.00</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">1999-2000</span>    <span class="dv">6</span>       <span class="dv">2</span>        <span class="dv">2</span> Other Race <span class="sc">-</span> Including Multi<span class="sc">-</span>Racial    <span class="fl">1.21</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  age  wtint2yr  wtint4yr Diabetes     newwt</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">2</span>  <span class="fl">9727.079</span>  <span class="fl">4291.490</span>       No  <span class="fl">2145.745</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">77</span> <span class="fl">26678.636</span> <span class="fl">14203.336</span>       No  <span class="fl">7101.668</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">10</span> <span class="fl">43621.681</span> <span class="fl">20123.764</span>       No <span class="fl">10061.882</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">1</span> <span class="fl">10346.119</span>  <span class="fl">4582.132</span>       No  <span class="fl">2291.066</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  <span class="dv">49</span> <span class="fl">91050.847</span> <span class="fl">44161.868</span>       No <span class="fl">22080.934</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>  <span class="dv">19</span> <span class="fl">36508.250</span> <span class="fl">16850.978</span>       No  <span class="fl">8425.489</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="权重总结" class="level3">
+<h3 class="anchored" data-anchor-id="权重总结">权重总结</h3>
+<ul>
+<li><p>家庭采访权重interview（范围最大）；wtint2yr/wtint4yr</p></li>
+<li><p>车里的权重MEC（mobile examination car）（范围较int小）；wtmec2yr/wtmec4yr</p></li>
+<li><p>其他权重（范围最小）；wtsaf2yr等，范围最小</p>
+<p>选择权重应该选择最小权重，即不同权重的交集（即有特殊权重就选特殊权重，没有就选mec或int</p></li>
+<li><p>合并权重的计算：year circle为n，合并权重为1/n*2yr; 如果同时出现1999-2000和2001-2002，这两个circle的合并权重为2/n×4yr，其余的circle还是1/n×2yr</p></li>
+</ul>
+</section>
+</section>
+<section id="数据的清洗" class="level2">
+<h2 class="anchored" data-anchor-id="数据的清洗">数据的清洗</h2>
+<ul>
+<li><p>如何快速输入Factor</p>
+<p>基于nhanesR包里的Factor函数，可以直接生成factor化的代码</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Factor</span>(c)<span class="co">#运行这行便会自动生成下一行的因子化的代码</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">factor</span>(c, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>如何修改变量名（Recode）</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Recode</span>(c)<span class="co">#运行这行便会生成下面的代码，用于将原有的变量改名</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c.new <span class="ot">&lt;-</span> <span class="fu">Recode</span>(c,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"white::"</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"black::"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"red::"</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"purple::"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>NHSIII的数据如何计算合并权重 NHSIII是1999年以前的数据，是以3年为一个周期。计算权重时需要以年来，而不是year circle。例如1994-1996，2001-2002，2009-2010，此时总共3+2+2=7年，所以1994-1996的权重是3/7×wt3yr，其余的是2/7×wt2yr。但是如何同时涉及到1999和2001时，这两个year circle要合并算作4年，用wt4yr来计算。</p></li>
+<li><p>选择行和列 可以用nhanesR里的select_row函数来选择行</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">select_row</span>(x,x<span class="sc">$</span>Year<span class="sc">==</span><span class="st">"1999-2000"</span> <span class="sc">&amp;</span> x<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">50</span>)<span class="co">#选择x中年份为1999-2000，年龄大于等于50岁的数据行</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>origin<span class="sc">:</span> <span class="dv">41150</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>select<span class="sc">:</span> <span class="dv">2420</span> (<span class="dv">6</span>%)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d2 <span class="ot">&lt;-</span> <span class="fu">drop_row</span>(x,x<span class="sc">$</span>Year<span class="sc">==</span><span class="st">"2001-2002"</span>)<span class="co">#去除x中年份为2001-2002的数据</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>origin<span class="sc">:</span><span class="dv">41150</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>drop<span class="sc">:</span><span class="dv">11039</span>(<span class="dv">27</span>%)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>left<span class="sc">:</span><span class="dv">30111</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

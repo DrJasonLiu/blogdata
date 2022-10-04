@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="LiuLinhu">
-<meta name="dcterms.date" content="2022-10-02">
+<meta name="dcterms.date" content="2022-10-04">
 <meta name="description" content="A Tutorial for nhanesR Packages to Manipulate Data in NHANES">
 
 <title>Data science of JasonLiu - 5&nbsp; nhanesR</title>
@@ -131,9 +131,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     }
     </style>
 
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
 
 </head>
 
@@ -208,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 2, 2022</p>
+        <p class="date">October 4, 2022</p>
       </div>
     </div>
       
@@ -263,6 +260,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#权重总结" id="toc-权重总结" class="nav-link" data-scroll-target="#权重总结">权重总结</a></li>
   </ul></li>
   <li><a href="#数据的清洗" id="toc-数据的清洗" class="nav-link" data-scroll-target="#数据的清洗">数据的清洗</a></li>
+  <li><a href="#数据提取汇总" id="toc-数据提取汇总" class="nav-link" data-scroll-target="#数据提取汇总">数据提取汇总</a>
+  <ul class="collapse">
+  <li><a href="#提取人口学数据" id="toc-提取人口学数据" class="nav-link" data-scroll-target="#提取人口学数据">提取人口学数据</a></li>
+  <li><a href="#提取饮食数据" id="toc-提取饮食数据" class="nav-link" data-scroll-target="#提取饮食数据">提取饮食数据</a></li>
+  <li><a href="#提取生存数据" id="toc-提取生存数据" class="nav-link" data-scroll-target="#提取生存数据">提取生存数据</a></li>
+  <li><a href="#提取饮酒相关数据" id="toc-提取饮酒相关数据" class="nav-link" data-scroll-target="#提取饮酒相关数据">提取饮酒相关数据</a></li>
+  <li><a href="#黄酮类化合物数据提取" id="toc-黄酮类化合物数据提取" class="nav-link" data-scroll-target="#黄酮类化合物数据提取">黄酮类化合物数据提取</a></li>
+  <li><a href="#重金属数据提取" id="toc-重金属数据提取" class="nav-link" data-scroll-target="#重金属数据提取">重金属数据提取</a></li>
+  </ul></li>
+  <li><a href="#指标计算汇总" id="toc-指标计算汇总" class="nav-link" data-scroll-target="#指标计算汇总">指标计算汇总</a>
+  <ul class="collapse">
+  <li><a href="#健康饮食指数healthy-eating-index" id="toc-健康饮食指数healthy-eating-index" class="nav-link" data-scroll-target="#健康饮食指数healthy-eating-index">健康饮食指数（Healthy eating index）</a></li>
+  <li><a href="#咖啡数据提取" id="toc-咖啡数据提取" class="nav-link" data-scroll-target="#咖啡数据提取">咖啡数据提取</a></li>
+  <li><a href="#饮食炎症指数的提取" id="toc-饮食炎症指数的提取" class="nav-link" data-scroll-target="#饮食炎症指数的提取">饮食炎症指数的提取</a></li>
+  <li><a href="#肾小球滤过率egfr" id="toc-肾小球滤过率egfr" class="nav-link" data-scroll-target="#肾小球滤过率egfr">肾小球滤过率eGFR</a></li>
+  <li><a href="#益生元益生菌合生元" id="toc-益生元益生菌合生元" class="nav-link" data-scroll-target="#益生元益生菌合生元">益生元、益生菌、合生元</a></li>
+  </ul></li>
+  <li><a href="#疾病诊断汇总" id="toc-疾病诊断汇总" class="nav-link" data-scroll-target="#疾病诊断汇总">疾病诊断汇总</a>
+  <ul class="collapse">
+  <li><a href="#代谢综合征" id="toc-代谢综合征" class="nav-link" data-scroll-target="#代谢综合征">代谢综合征</a></li>
+  <li><a href="#高血压" id="toc-高血压" class="nav-link" data-scroll-target="#高血压">高血压</a></li>
+  <li><a href="#高脂血症" id="toc-高脂血症" class="nav-link" data-scroll-target="#高脂血症">高脂血症</a></li>
+  </ul></li>
+  <li><a href="#检索表" id="toc-检索表" class="nav-link" data-scroll-target="#检索表">检索表</a></li>
   </ul>
 </nav>
     </div>
@@ -328,118 +349,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 先去网站上检索，如hemoglobin，然后确定文件名. nhs_read支持连续添加数据，只需要先输入文件名再输入变量，如(cbc, “lbxhgb’, demo,” riagendr”), 如果不指定变量，会把cbc中所有的变量全部提取进去</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>The database path is<span class="sc">:</span> <span class="er">/</span>Users<span class="sc">/</span>liulinhu<span class="sc">/</span>Desktop<span class="sc">/</span>NHANES<span class="sc">/</span><span class="dv">2022-08-01</span><span class="sc">/</span>NHANES</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>The lastest database update date<span class="sc">:</span> <span class="dv">2022-08-01</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Number of days without update Database<span class="sc">:</span> <span class="dv">62</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"demo"</span>)<span class="co">#提取所有人口学数据</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> cbc <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab25|l25|cbc"</span>)<span class="co">#血红蛋白有三个不同的文件名，全部提取</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> bmx <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"bmx"</span>)<span class="co">#提取bmi和腰围所在的文件</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">nhs_read</span>(demo,<span class="st">"ridageyr:age"</span>,<span class="st">"riagendr:gender"</span>,<span class="st">"dmqmilit:mili"</span>,<span class="st">"dmqmiliz:mili"</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               cbc,<span class="st">"lbxhgb:Hbg"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               bmx,<span class="st">"bmxbmi:BMI"</span>,<span class="st">"bmxwaist:Waist"</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">codebook =</span> T)<span class="co">#直接将血红蛋白和BMI和腰围的数据添加到之前人口学数据之后</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nit1 <span class="ot">&lt;-</span> <span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"demo"</span>)<span class="co">#提取所有人口学数据</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> cbc <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"lab25|l25|cbc"</span>)<span class="co">#血红蛋白有三个不同的文件名，全部提取</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> bmx <span class="ot">&lt;-</span> <span class="fu">nhs_tsv</span>(<span class="st">"bmx"</span>)<span class="co">#提取bmi和腰围所在的文件</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">nhs_read</span>(demo,<span class="st">"ridageyr:age"</span>,<span class="st">"riagendr:gender"</span>,<span class="st">"dmqmilit:mili"</span>,<span class="st">"dmqmiliz:mili"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               cbc,<span class="st">"lbxhgb:Hbg"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               bmx,<span class="st">"bmxbmi:BMI"</span>,<span class="st">"bmxwaist:Waist"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">codebook =</span> T)<span class="co">#直接将血红蛋白和BMI和腰围的数据添加到之前人口学数据之后</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nit1 <span class="ot">&lt;-</span> <span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ol>
 <div class="cell">
-<div class="cell-output-display">
-
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:center;"> Year </th>
-   <th style="text-align:center;"> seqn </th>
-   <th style="text-align:center;"> sdmvpsu </th>
-   <th style="text-align:center;"> sdmvstra </th>
-   <th style="text-align:center;"> age </th>
-   <th style="text-align:center;"> gender </th>
-   <th style="text-align:center;"> mili </th>
-   <th style="text-align:center;"> Hbg </th>
-   <th style="text-align:center;"> BMI </th>
-   <th style="text-align:center;"> Waist </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 5 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> Female </td>
-   <td style="text-align:center;"> NA </td>
-   <td style="text-align:center;"> NA </td>
-   <td style="text-align:center;"> 14.90 </td>
-   <td style="text-align:center;"> 45.7 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 3 </td>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 77 </td>
-   <td style="text-align:center;"> Male </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> 14.1 </td>
-   <td style="text-align:center;"> 24.90 </td>
-   <td style="text-align:center;"> 98.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
-   <td style="text-align:center;"> 3 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 7 </td>
-   <td style="text-align:center;"> 10 </td>
-   <td style="text-align:center;"> Female </td>
-   <td style="text-align:center;"> NA </td>
-   <td style="text-align:center;"> 13.7 </td>
-   <td style="text-align:center;"> 17.63 </td>
-   <td style="text-align:center;"> 64.7 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
-   <td style="text-align:center;"> 4 </td>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> Male </td>
-   <td style="text-align:center;"> NA </td>
-   <td style="text-align:center;"> 9.3 </td>
-   <td style="text-align:center;"> NA </td>
-   <td style="text-align:center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
-   <td style="text-align:center;"> 5 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 8 </td>
-   <td style="text-align:center;"> 49 </td>
-   <td style="text-align:center;"> Male </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> 14.5 </td>
-   <td style="text-align:center;"> 29.10 </td>
-   <td style="text-align:center;"> 99.9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: black !important;background-color: lightblue !important;"> 1999-2000 </td>
-   <td style="text-align:center;"> 6 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 19 </td>
-   <td style="text-align:center;"> Female </td>
-   <td style="text-align:center;"> No </td>
-   <td style="text-align:center;"> 13.1 </td>
-   <td style="text-align:center;"> 22.56 </td>
-   <td style="text-align:center;"> 81.6 </td>
-  </tr>
-</tbody>
-</table>
 
 </div>
-</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png" class="img-fluid"></p>
 </section>
 <section id="权重" class="level2">
 <h2 class="anchored" data-anchor-id="权重">权重</h2>
@@ -454,23 +379,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="示例1" class="level4">
 <h4 class="anchored" data-anchor-id="示例1">示例1</h4>
 <p>nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人<u><strong>先前诊断</strong></u>为糖尿病的关联。所有的变量都是在家庭访谈中收集的。使用访谈权重进行分析wtint4yr,查询到种族的变量名为ridreth1，贫困poverty的变量名为indfmpir，年龄变量名为ridageyr；糖尿病的诊断在Questionnaire里的diq010变量。权重提取<u>wtint2yr</u></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(x)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       Year seqn sdmvpsu sdmvstra                                 eth poverty</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1999-2000</span>    <span class="dv">1</span>       <span class="dv">1</span>        <span class="dv">5</span>                  Non<span class="sc">-</span>Hispanic Black    <span class="fl">0.86</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1999-2000</span>    <span class="dv">2</span>       <span class="dv">3</span>        <span class="dv">1</span>                  Non<span class="sc">-</span>Hispanic White    <span class="fl">5.00</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">1999-2000</span>    <span class="dv">3</span>       <span class="dv">2</span>        <span class="dv">7</span>                  Non<span class="sc">-</span>Hispanic White    <span class="fl">1.47</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">1999-2000</span>    <span class="dv">4</span>       <span class="dv">1</span>        <span class="dv">2</span>                  Non<span class="sc">-</span>Hispanic Black    <span class="fl">0.57</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">1999-2000</span>    <span class="dv">5</span>       <span class="dv">2</span>        <span class="dv">8</span>                  Non<span class="sc">-</span>Hispanic White    <span class="fl">5.00</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">1999-2000</span>    <span class="dv">6</span>       <span class="dv">2</span>        <span class="dv">2</span> Other Race <span class="sc">-</span> Including Multi<span class="sc">-</span>Racial    <span class="fl">1.21</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  age  wtint2yr  wtint4yr Diabetes     newwt</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">2</span>  <span class="fl">9727.079</span>  <span class="fl">4291.490</span>       No  <span class="fl">2145.745</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">77</span> <span class="fl">26678.636</span> <span class="fl">14203.336</span>       No  <span class="fl">7101.668</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">10</span> <span class="fl">43621.681</span> <span class="fl">20123.764</span>       No <span class="fl">10061.882</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">1</span> <span class="fl">10346.119</span>  <span class="fl">4582.132</span>       No  <span class="fl">2291.066</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  <span class="dv">49</span> <span class="fl">91050.847</span> <span class="fl">44161.868</span>       No <span class="fl">22080.934</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>  <span class="dv">19</span> <span class="fl">36508.250</span> <span class="fl">16850.978</span>       No  <span class="fl">8425.489</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 </section>
 <section id="权重总结" class="level3">
@@ -487,41 +395,315 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="数据的清洗" class="level2">
 <h2 class="anchored" data-anchor-id="数据的清洗">数据的清洗</h2>
 <ul>
-<li><p>如何快速输入Factor</p>
+<li><p><u><strong>如何快速输入Factor</strong></u></p>
 <p>基于nhanesR包里的Factor函数，可以直接生成factor化的代码</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Factor</span>(c)<span class="co">#运行这行便会自动生成下一行的因子化的代码</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">factor</span>(c, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Factor</span>(c)<span class="co">#运行这行便会自动生成下一行的因子化的代码</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">factor</span>(c, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>如何修改变量名（Recode）</li>
+<li><u><strong>如何修改变量名（Recode）</strong></u></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Recode</span>(c)<span class="co">#运行这行便会生成下面的代码，用于将原有的变量改名</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c.new <span class="ot">&lt;-</span> <span class="fu">Recode</span>(c,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"white::"</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"black::"</span>, </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"red::"</span>, </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"purple::"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Recode</span>(c)<span class="co">#运行这行便会生成下面的代码，用于将原有的变量改名</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c.new <span class="ot">&lt;-</span> <span class="fu">Recode</span>(c,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"white::"</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"black::"</span>, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"red::"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"purple::"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>NHSIII的数据如何计算合并权重 NHSIII是1999年以前的数据，是以3年为一个周期。计算权重时需要以年来，而不是year circle。例如1994-1996，2001-2002，2009-2010，此时总共3+2+2=7年，所以1994-1996的权重是3/7×wt3yr，其余的是2/7×wt2yr。但是如何同时涉及到1999和2001时，这两个year circle要合并算作4年，用wt4yr来计算。</p></li>
-<li><p>选择行和列 可以用nhanesR里的select_row函数来选择行</p></li>
+<li><p><u><strong>选择行和列</strong></u><br>
+可以用nhanesR里的select_row函数来选择行,drop_row来删除行</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">select_row</span>(x,x<span class="sc">$</span>Year<span class="sc">==</span><span class="st">"1999-2000"</span> <span class="sc">&amp;</span> x<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">50</span>)<span class="co">#选择x中年份为1999-2000，年龄大于等于50岁的数据行</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>origin<span class="sc">:</span> <span class="dv">41150</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>select<span class="sc">:</span> <span class="dv">2420</span> (<span class="dv">6</span>%)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d2 <span class="ot">&lt;-</span> <span class="fu">drop_row</span>(x,x<span class="sc">$</span>Year<span class="sc">==</span><span class="st">"2001-2002"</span>)<span class="co">#去除x中年份为2001-2002的数据</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>origin<span class="sc">:</span><span class="dv">41150</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>drop<span class="sc">:</span><span class="dv">11039</span>(<span class="dv">27</span>%)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>left<span class="sc">:</span><span class="dv">30111</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d0 <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="dv">1999</span><span class="sc">:</span><span class="dv">2003</span>,<span class="at">ageyr =</span> <span class="st">"age"</span>,<span class="at">sex =</span> T,<span class="at">eth1 =</span> T,<span class="at">Year =</span> T,<span class="at">poverty =</span> T)<span class="co">#直接提取1999-2003的所有人口学数据，指定需要出现的列</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">select_row</span>(x,x<span class="sc">$</span>Year<span class="sc">==</span><span class="st">"1999-2000"</span> <span class="sc">&amp;</span> x<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">50</span>)<span class="co">#选择x中年份为1999-2000，年龄大于等于50岁的数据行</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">select_row</span>(x,x<span class="sc">$</span>Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1999-2000"</span>,<span class="st">"2001-2002"</span>))<span class="co">#同时设置多个筛选条件</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d2 <span class="ot">&lt;-</span> <span class="fu">drop_row</span>(x,x<span class="sc">$</span>Year<span class="sc">==</span><span class="st">"2001-2002"</span>)<span class="co">#去除x中年份为2001-2002的数据</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d3 <span class="ot">&lt;-</span> <span class="fu">drop_row</span>(d0,<span class="fu">is.na</span>(d0<span class="sc">$</span>poverty))<span class="co">#用drop_row也可以去除缺失值</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="数据的合并" class="level4">
+<h4 class="anchored" data-anchor-id="数据的合并">数据的合并</h4>
+<p>第一种方法是直接用管道操作符添加数据</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="dv">1999</span><span class="sc">:</span><span class="dv">2003</span>,<span class="dv">2007</span>),<span class="at">Year =</span> T,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">sex =</span> T,<span class="at">ageyr =</span> <span class="st">"age"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">db_cbc</span>(<span class="at">wbc_1000cells.ul =</span> <span class="st">"wbc"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">dex_phenoAge</span>()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#cbc是全血细胞数据，phenoAge是生物学年龄，直接用管道操作符即可不断添加数据</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">head</span>(d1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210030944349.png" class="img-fluid"></p>
+<p>第二种方法是先分别提取数据，然后再合并.此时可以<strong>left_join,righ_join,inner_join,full_join</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="dv">1999</span><span class="sc">:</span><span class="dv">2003</span>,<span class="dv">2007</span>),<span class="at">Year =</span> T,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">sex =</span> T,<span class="at">ageyr =</span> <span class="st">"age"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d2 <span class="ot">&lt;-</span> <span class="fu">db_cbc</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="dv">1999</span><span class="sc">:</span><span class="dv">2003</span>,<span class="dv">2007</span>),<span class="at">wbc_1000cells.ul =</span> <span class="st">"wbc"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d3 <span class="ot">&lt;-</span> <span class="fu">dex_phenoAge</span>()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d4 <span class="ot">&lt;-</span> <span class="fu">Left_Join</span>(d1,d2,d3)<span class="co">#left_join只匹配d1的序号,可以看到d4和d1具有同样的行数</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d5 <span class="ot">&lt;-</span> <span class="fu">Right_Join</span>(d1,d2,d3)<span class="co">#先与d2合并，再与d3合并，最终数据以d3为准</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d6 <span class="ot">&lt;-</span> <span class="fu">Inner_Join</span>(d1,d2,d3)<span class="co">#以三者共有的数据为准进行合并</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d7 <span class="ot">&lt;-</span> <span class="fu">Full_Join</span>(d1,d2,d3)<span class="co">#所有的数据一起合并</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d8 <span class="ot">&lt;-</span> <span class="fu">Left_Join</span>(d2,d1) <span class="co">#会显示d1人口学数据中有4028人没有白细胞计数的数据，便于画流程图</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># d2   :37247 ; d1:41275(-4028) </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d8 <span class="ot">&lt;-</span> <span class="fu">Left_Join</span>(d2,d1,<span class="at">inspect =</span> <span class="fu">c</span>(<span class="st">"age"</span>,<span class="st">"sex"</span>)) <span class="co">#可以查看某个变量在d1合并到d2前后的变化，绿色表示减少，红色表示增多</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#其他类型的join也可以inspect</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003101606.png" class="img-fluid" width="295"></p>
+</section>
+<section id="添加新列" class="level4">
+<h4 class="anchored" data-anchor-id="添加新列">添加新列</h4>
+<p>1.添加新列的主要作用为对原始数据的某些值进行判断，增加一些新的变量，例如是否是老年，某些指标是否升高等。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="dv">1999</span>,<span class="at">ageyr =</span> <span class="st">"age"</span>,<span class="at">sex =</span> T,<span class="at">Year =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">db_cbc</span>(<span class="at">wbc_1000cells.ul =</span> <span class="st">"wbc"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">drop_row</span>(d,<span class="fu">is.na</span>(d<span class="sc">$</span>wbc))<span class="co">#去除白细胞计数的缺失值</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">####以10为界值，判断白细胞数是否升高####</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">add_col</span>(d,<span class="at">colname =</span> <span class="st">"wbc_level"</span>,<span class="at">value =</span> <span class="st">"yes"</span>,<span class="at">condition =</span> d<span class="sc">$</span>wbc <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">add_col</span>(<span class="at">colname =</span> <span class="st">"wbc_level"</span>,<span class="at">value =</span> <span class="st">"no"</span>,<span class="at">condition =</span> d<span class="sc">$</span>wbc <span class="sc">&lt;=</span> <span class="dv">10</span>)<span class="co">#新增一列，列名为wbc_level，白细胞大于10的时候为yes，小于等于10的时候为no</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">####对于白细胞，男性的界限为10，女性的界限是9####</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> ck <span class="ot">&lt;-</span> (d<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Male"</span> <span class="sc">&amp;</span> d<span class="sc">$</span>wbc <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|</span> (d<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">&amp;</span> d<span class="sc">$</span>wbc <span class="sc">&gt;</span><span class="dv">10</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">add_col</span>(d,<span class="at">colname =</span> <span class="st">"wbc_level"</span>,<span class="at">value =</span> <span class="st">"yes"</span>,<span class="at">condition =</span> ck) <span class="sc">|&gt;</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">add_col</span>(<span class="at">colname =</span> <span class="st">"wbc_level"</span>,<span class="at">value =</span> <span class="st">"no"</span>,<span class="at">condition =</span> <span class="fu">is.na</span>(d1<span class="sc">$</span>wbc_level),</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>           <span class="at">position =</span> <span class="dv">2</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#先把男性和女性的yes指定了，然后剩下的NA全部是no。position可以指定新增的列的位置</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>2.也可以用于一些疾病的诊断的添加，例如睡眠呼吸暂停综合征👇</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_slq</span>(<span class="at">years =</span> <span class="dv">2005</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">sleep_disorder_sleep_apnea =</span> <span class="st">"apnea"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">how_often_do_you_snort_or_stop_breathing =</span> <span class="st">"stop_breathing"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">how_often_feel_overly_sleepy_during_day =</span> <span class="st">"sleepy"</span>)<span class="co">#提取睡眠呼吸暂停相关的数据</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#将原来的变量值进行重编码👇</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Recode(d$apnea) </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>apnea <span class="ot">&lt;-</span> <span class="fu">Recode</span>(d<span class="sc">$</span>apnea,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"sleep apnea::yes"</span>, </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA::"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Recode(d$stop_breathing)</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>stop_breathing <span class="ot">&lt;-</span> <span class="fu">Recode</span>(d<span class="sc">$</span>stop_breathing,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"never::no"</span>, </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"frequently (5 or more nights/week)::yes"</span>, </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"rarely (1-2 nights/week)::no"</span>, </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"occasionally (3-4 nights/week)::yes"</span>, </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA::"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Recode(d$sleepy)</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>sleepy <span class="ot">&lt;-</span> <span class="fu">Recode</span>(d<span class="sc">$</span>sleepy,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"rarely (1 time a month)::no"</span>, </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"never::no"</span>, </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"almost always (16-30 times a month)::yes"</span>, </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"sometimes (2-4 times a month)::yes"</span>, </span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"often (5-15 times a month)::yes"</span>, </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA::"</span>,</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d<span class="sc">$</span>osas <span class="ot">&lt;-</span> <span class="fu">paste0</span>(d<span class="sc">$</span>apnea,<span class="st">"~"</span>,d<span class="sc">$</span>stop_breathing,<span class="st">"~"</span>,d<span class="sc">$</span>sleepy)<span class="co">#将三个指标合并在一起</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Recode(d$osas) #开始筛选诊断标准，三个中任意一个为yes就可以诊断为OSAS</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>osas <span class="ot">&lt;-</span> <span class="fu">Recode</span>(d<span class="sc">$</span>osas,</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~no~no::no"</span>, </span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~no~yes::yes"</span>, </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"yes~no~no::yes"</span>, </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"yes~NA~yes::yes"</span>, </span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~yes~no::yes"</span>, </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~NA~yes::yes"</span>, </span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"yes~yes~yes::yes"</span>, </span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~yes~yes::yes"</span>, </span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~NA~no::no"</span>, </span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~no~NA::no"</span>, </span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"yes~no~yes::yes"</span>, </span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"yes~yes~no::yes"</span>, </span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"NA~NA~NA::NA"</span>, </span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"yes~NA~no::yes"</span>,</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>3.也可以用于某种条件下进行分组. quant可以执行分位数的计算</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="dv">1999</span>,<span class="at">sex =</span> <span class="st">"sex"</span>,<span class="at">ageyr =</span> <span class="st">"age"</span>,<span class="at">psu_strat =</span> F) <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">db_cbc</span>(<span class="at">wbc_1000cells.ul =</span> <span class="st">"wbc"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">drop_row</span>(d,<span class="fu">is.na</span>(d<span class="sc">$</span>wbc))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#根据白细胞的均值分为2组</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">add_col</span>(d,<span class="st">"wbc2"</span>,<span class="st">"high"</span>,d<span class="sc">$</span>wbc <span class="sc">&gt;</span> <span class="fu">mean</span>(d<span class="sc">$</span>wbc)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">add_col</span>(<span class="st">"wbc2"</span>,<span class="st">"low"</span>,d<span class="sc">$</span>wbc <span class="sc">&lt;=</span> <span class="fu">mean</span>(d<span class="sc">$</span>wbc))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#将白细胞按照四分位数分成4组，并且编码为Q1，Q2，Q3，Q4</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># quant(d$wbc)</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>wbcQ <span class="ot">&lt;-</span> <span class="fu">quant</span>(d<span class="sc">$</span>wbc, <span class="at">n =</span> <span class="dv">4</span>,<span class="at">Q =</span> <span class="cn">TRUE</span>,<span class="at">round=</span><span class="dv">3</span>)<span class="co">#n=4即进行四分位数计算</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d<span class="sc">$</span>wbcQ.median <span class="ot">&lt;-</span> <span class="fu">quant.median</span>(d<span class="sc">$</span>wbc, <span class="at">n =</span> <span class="dv">4</span>,<span class="at">round=</span><span class="dv">3</span>)<span class="co">#计算每个四分位间距的中位数</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003161242.png" class="img-fluid" width="441"></p>
+</section>
+</section>
+<section id="数据提取汇总" class="level2">
+<h2 class="anchored" data-anchor-id="数据提取汇总">数据提取汇总</h2>
+<p>提取的数据可以进行叠加，例如db_demo() |&gt; db_drtot()可以不断增加不同类型的数据</p>
+<section id="提取人口学数据" class="level3">
+<h3 class="anchored" data-anchor-id="提取人口学数据">提取人口学数据</h3>
+<p>使用db_demo(),需要的列就指定为TRUE</p>
+</section>
+<section id="提取饮食数据" class="level3">
+<h3 class="anchored" data-anchor-id="提取饮食数据">提取饮食数据</h3>
+<p>使用<strong>db_drtot()</strong>, day= 可以指定是一天的饮食数据还是两天的饮食数据，默认是2天的数据。fun= 可以计算mean、sum、alone（2天的都分开显示），默认是sum。both2days表示是否只要2天都有的数据，默认为TRUE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">db_drtot</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">calcium_mg =</span> T,<span class="at">Year =</span> T,<span class="at">fun =</span> <span class="st">"alone"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(x)<span class="co">#alone显示2天的数据</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031742905.png" class="img-fluid" width="532"></p>
+<p>如果both2days为FALSE，则仅1天有数据的行也会显示</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">db_drtot</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">calcium_mg =</span> T,<span class="at">Year =</span> T,<span class="at">both2days =</span> F,<span class="at">fun =</span> <span class="st">"alone"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031745536.png" class="img-fluid" width="527"></p>
+</section>
+<section id="提取生存数据" class="level3">
+<h3 class="anchored" data-anchor-id="提取生存数据">提取生存数据</h3>
+<p>db_mort()用于提取生存数据，生存数据主要包括7列。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mort <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">ageyr =</span> <span class="st">"age"</span>,<span class="at">sex =</span> <span class="st">"sex"</span>,<span class="at">psu_strat =</span> F) <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">db_mort</span>(<span class="at">years =</span> <span class="dv">2005</span>) <span class="co">#先人口学数据，然后添加上生存数据</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="提取饮酒相关数据" class="level3">
+<h3 class="anchored" data-anchor-id="提取饮酒相关数据">提取饮酒相关数据</h3>
+<p>1.提取g/day</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_drtot</span>(<span class="at">years=</span><span class="dv">2005</span>,<span class="at">alcohol_g =</span> <span class="st">"alcohol"</span>,<span class="at">day =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">both2days =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>2.提取drink/day的数据.注意不是cup/day</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_fped</span>(<span class="at">a_drinks =</span> T,<span class="at">years =</span> <span class="dv">2005</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">db_Alcohol.drinks</span>(<span class="at">years =</span> <span class="dv">2005</span>)<span class="co">#这个是最准确的，drinks/day</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>3.酒精使用程度分类</p>
+<ul>
+<li><p>current heavey alcohol use<br>
+≥3 drinks perday for female<br>
+≥4 for male<br>
+binge drinking on 5 or more days per month</p></li>
+<li><p>current moderate alcohol use<br>
+≥2 drinks per day for female<br>
+≥3 for male<br>
+binge drinking ≥ 2days per month</p></li>
+<li><p>current mild alcohol use<br>
+not meet the above</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> t <span class="ot">&lt;-</span> <span class="fu">diag_alcohol.user</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">binge =</span> T,<span class="at">Year =</span> T)<span class="co">#可以修改mild,moderate，heavey的判断标准，可以设定是否有binge这个程度</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="黄酮类化合物数据提取" class="level3">
+<h3 class="anchored" data-anchor-id="黄酮类化合物数据提取">黄酮类化合物数据提取</h3>
+<p>黄酮类化合物数据库Flavonoid。之前只有2007-2010的数据，2022年夏天出了2017-2018的数据。包含6种黄酮类的29种化合物的饮食摄入数据。day表示提取1天还是两天的数据，要么第一天，要么两天同时使用；当使用两天时，fun可以指定计算均值（mean）还是和（sum）；</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fl <span class="ot">&lt;-</span> <span class="fu">db_flavonoids</span>(<span class="at">Daidzein_mg =</span> <span class="st">"Daidzein"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="重金属数据提取" class="level3">
+<h3 class="anchored" data-anchor-id="重金属数据提取">重金属数据提取</h3>
+<p>从pbcd数据中提取重金属相关的数据，使用db_PbCd()提取，数据从2005年开始，如铬、汞、锰等重金属。注意：当使用PbCd数据时，2013-2014和2015-2016两年，需要使用wtsh2yr权重，因为这两年12岁以上的参与者只有1/2的样本进行了检测，所以有一个单独的wtsh2yr，而1-11岁的wtsh2yr等同于MEC权重。所以涉及这两个year circle时使用特殊权重wtsh2yr，其余的circle使用MEC权重。dp_PbCd()中提供了权重weight = T即可自动提供权重(仅原始权重，合并权重按原方法计算）</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">db_PbCd</span>(<span class="at">years =</span> <span class="dv">2013</span>,<span class="at">blood_cadmium_ug.l =</span> T,<span class="at">weight =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">drop_row</span>(<span class="fu">is.na</span>(x<span class="sc">$</span>blood_cadmium_ug.l))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="指标计算汇总" class="level2">
+<h2 class="anchored" data-anchor-id="指标计算汇总">指标计算汇总</h2>
+<section id="健康饮食指数healthy-eating-index" class="level3">
+<h3 class="anchored" data-anchor-id="健康饮食指数healthy-eating-index">健康饮食指数（Healthy eating index）</h3>
+<p><a href="https://epi.grants.cancer.gov/hei/">健康饮食指数的介绍</a>。HEI有两个版本2015和2010，2015是最新的版本，以符合2015-2020美国人膳食指南。算法包括简单算法和population ratio method，简单算法又包括Per day和Per person，per day就是在day = 1，Per person就是day=c(1,2), 对应method = “ssum”和”partio”.默认会给所有成分的评分，如果component = F就只给total score</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">dex_HEI</span>(<span class="at">years =</span> <span class="dv">2011</span>,<span class="at">version =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"ssum"</span>,<span class="at">day =</span> <span class="dv">1</span>,<span class="at">dietary =</span> <span class="st">"tot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="咖啡数据提取" class="level3">
+<h3 class="anchored" data-anchor-id="咖啡数据提取">咖啡数据提取</h3>
+<p>db_coffee(). 咖啡数据最好是在1999年以后进行。包含了是否添加咖啡因，是否加糖，是否加脂，加奶等，以及咖啡的种类，如卡布奇诺、摩卡、玛奇朵等等。 如何确定并识别咖啡数据？–使用的是FNDDs数据里的食物编码921开头的是coffee（用于写文章说明数据来源） 咖啡摄入的克数转化为杯数？–以6盎司为一杯</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> co <span class="ot">&lt;-</span> <span class="fu">db_coffee</span>(<span class="at">years =</span> <span class="dv">2003</span>,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="co">#要么提取第一天，要么提取两天的</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="co">#默认取两天的均值</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">unit =</span> <span class="st">"g"</span>) <span class="co">#g或者cup单位，默认是g</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="饮食炎症指数的提取" class="level3">
+<h3 class="anchored" data-anchor-id="饮食炎症指数的提取">饮食炎症指数的提取</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> di <span class="ot">&lt;-</span> <span class="fu">dex_DII</span>(<span class="at">years =</span> <span class="dv">2005</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="肾小球滤过率egfr" class="level3">
+<h3 class="anchored" data-anchor-id="肾小球滤过率egfr">肾小球滤过率eGFR</h3>
+<p>dex_eGFR()里提供了10种计算eGFR的方法，如Cockcroft_Gault,CKD_EPI_Scr,Schwartz等等，可以在mothod=里限定，默认是CKD_EPI_Scr。如果需要计算多种方法的eGFR，只需要method = c(,)。理论上来说推荐使用血肌酐计算滤过率，方法最推荐MDRD和CG方法</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> egf <span class="ot">&lt;-</span> <span class="fu">dex_eGFR</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">method =</span> <span class="fu">c</span>(<span class="st">"CKD_EPI_Scr"</span>,<span class="st">"BIS1_Scr"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="益生元益生菌合生元" class="level3">
+<h3 class="anchored" data-anchor-id="益生元益生菌合生元">益生元、益生菌、合生元</h3>
+<p><a href="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/PIIS0016508521006612.pdf">相关参考文献</a>。FDA不监管益生菌，但是监管益生元（如乳果糖），所以如果只研究益生菌，只需要检索膳食补充剂的数据，而益生元的话需要检索药品，通过关键词来匹配是否含有益生元成分。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> pr <span class="ot">&lt;-</span> <span class="fu">DSD</span>(<span class="at">years =</span> <span class="dv">2016</span>,<span class="at">probiotic =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="疾病诊断汇总" class="level2">
+<h2 class="anchored" data-anchor-id="疾病诊断汇总">疾病诊断汇总</h2>
+<section id="代谢综合征" class="level3">
+<h3 class="anchored" data-anchor-id="代谢综合征">代谢综合征</h3>
+<p>使用diag_MetS() ，代谢综合征有两种计算方法，一种是ATP（美国的）和IDF（国际的）。不同年龄的计算公式不同，children and adolescent有单独的一套标准（modified ATP和IDF）。默认使用ATP标准。将分别计算&gt;=16岁和10-16岁的诊断结果</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">diag_MetS</span>(<span class="at">years =</span> <span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210042049416.png" class="img-fluid" width="285"></p>
+</section>
+<section id="高血压" class="level3">
+<h3 class="anchored" data-anchor-id="高血压">高血压</h3>
+<p>diag_Hypertension().</p>
+<p>具体的高血压诊断标准：任意一个满足</p>
+<ol type="1">
+<li>是否使用高血压药物</li>
+<li>doctor told you or take drug</li>
+<li>bpx血压测量。分为mean和times，在method = 里设定</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">systolic =</span> <span class="dv">140</span>,<span class="at">diastolic =</span> <span class="dv">90</span>,<span class="at">n=</span><span class="dv">3</span>) <span class="co">#设定舒张压和收缩压阈值</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"mean"</span>) <span class="co">#使用均值来诊断</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"times"</span>,<span class="at">n=</span><span class="dv">3</span>) <span class="co">#使用3次测量来判断是否患有高血压</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="高脂血症" class="level3">
+<h3 class="anchored" data-anchor-id="高脂血症">高脂血症</h3>
+<p>包块高甘油三酯血症、高胆固醇血症、和使用降脂药</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">diag_Hyperlipidemia</span>(<span class="at">years =</span> <span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="检索表" class="level2">
+<h2 class="anchored" data-anchor-id="检索表">检索表</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Left_Join</span>(d1,d2,<span class="at">inspect =</span> <span class="st">""</span>)<span class="co">#合并，查看变量合并前后变化</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_demo</span>()<span class="co">#人口学数据</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_cbc</span>()<span class="co">#全血细胞类型的数据</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dex_phenoAge</span>()<span class="co">#生物学年龄</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_col</span>()<span class="co">#添加列</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">select_row</span>()<span class="co">#保留某些行,%in%, ==, !==, &gt;=</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dro_row</span>(<span class="fu">is.na</span>())<span class="co">#去除某些行，如NA等</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_slq</span>()<span class="co">#睡眠障碍相关数据</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_PbCd</span>()<span class="co">#重金属相关数据</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_Alcohol.drinks</span>()<span class="co">#提取酒精使用drinks/day的数据</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_drtot</span>(<span class="at">alcohol_g =</span> )<span class="co">#提取酒精使用g/day</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag_alcohol.user</span>()<span class="co">#酒精使用程度</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

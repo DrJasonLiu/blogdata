@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="LiuLinhu">
-<meta name="dcterms.date" content="2022-10-04">
+<meta name="dcterms.date" content="2022-10-05">
 <meta name="description" content="A Tutorial for nhanesR Packages to Manipulate Data in NHANES">
 
 <title>Data science of JasonLiu - 5&nbsp; nhanesR</title>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 4, 2022</p>
+        <p class="date">October 5, 2022</p>
       </div>
     </div>
       
@@ -268,6 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#提取饮酒相关数据" id="toc-提取饮酒相关数据" class="nav-link" data-scroll-target="#提取饮酒相关数据">提取饮酒相关数据</a></li>
   <li><a href="#黄酮类化合物数据提取" id="toc-黄酮类化合物数据提取" class="nav-link" data-scroll-target="#黄酮类化合物数据提取">黄酮类化合物数据提取</a></li>
   <li><a href="#重金属数据提取" id="toc-重金属数据提取" class="nav-link" data-scroll-target="#重金属数据提取">重金属数据提取</a></li>
+  <li><a href="#药物搜索与提取" id="toc-药物搜索与提取" class="nav-link" data-scroll-target="#药物搜索与提取">药物搜索与提取</a></li>
   </ul></li>
   <li><a href="#指标计算汇总" id="toc-指标计算汇总" class="nav-link" data-scroll-target="#指标计算汇总">指标计算汇总</a>
   <ul class="collapse">
@@ -282,13 +283,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#代谢综合征" id="toc-代谢综合征" class="nav-link" data-scroll-target="#代谢综合征">代谢综合征</a></li>
   <li><a href="#高血压" id="toc-高血压" class="nav-link" data-scroll-target="#高血压">高血压</a></li>
   <li><a href="#高脂血症" id="toc-高脂血症" class="nav-link" data-scroll-target="#高脂血症">高脂血症</a></li>
+  <li><a href="#糖尿病" id="toc-糖尿病" class="nav-link" data-scroll-target="#糖尿病">糖尿病</a></li>
+  <li><a href="#吸烟" id="toc-吸烟" class="nav-link" data-scroll-target="#吸烟">吸烟</a></li>
+  <li><a href="#抑郁" id="toc-抑郁" class="nav-link" data-scroll-target="#抑郁">抑郁</a></li>
+  <li><a href="#ckd" id="toc-ckd" class="nav-link" data-scroll-target="#ckd">CKD</a></li>
+  <li><a href="#mafld代谢功能障碍相关脂肪性肝病" id="toc-mafld代谢功能障碍相关脂肪性肝病" class="nav-link" data-scroll-target="#mafld代谢功能障碍相关脂肪性肝病">MAFLD代谢功能障碍相关脂肪性肝病</a></li>
+  </ul></li>
+  <li><a href="#fped数据库" id="toc-fped数据库" class="nav-link" data-scroll-target="#fped数据库">FPED数据库</a>
+  <ul class="collapse">
+  <li><a href="#fruit" id="toc-fruit" class="nav-link" data-scroll-target="#fruit">Fruit</a></li>
+  <li><a href="#vegetables" id="toc-vegetables" class="nav-link" data-scroll-target="#vegetables">Vegetables</a></li>
+  <li><a href="#grains" id="toc-grains" class="nav-link" data-scroll-target="#grains">Grains</a></li>
+  <li><a href="#dairy" id="toc-dairy" class="nav-link" data-scroll-target="#dairy">Dairy</a></li>
+  <li><a href="#protein-foods" id="toc-protein-foods" class="nav-link" data-scroll-target="#protein-foods">Protein foods</a></li>
+  <li><a href="#others" id="toc-others" class="nav-link" data-scroll-target="#others">Others</a></li>
+  </ul></li>
+  <li><a href="#易侕" id="toc-易侕" class="nav-link" data-scroll-target="#易侕">易侕</a></li>
+  <li><a href="#文献复现" id="toc-文献复现" class="nav-link" data-scroll-target="#文献复现">文献复现</a>
+  <ul class="collapse">
+  <li><a href="#中性粒细胞减少的流行病学" id="toc-中性粒细胞减少的流行病学" class="nav-link" data-scroll-target="#中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</a></li>
   </ul></li>
   <li><a href="#检索表" id="toc-检索表" class="nav-link" data-scroll-target="#检索表">检索表</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
@@ -299,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(devtools)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'yikeshu0611/nhshelp'</span>,<span class="at">force=</span><span class="cn">TRUE</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nhshelp<span class="sc">::</span><span class="fu">install_nhanesR</span>(<span class="st">'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'</span>) <span class="co">#安装nhanesR</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nhshelp<span class="sc">::</span><span class="fu">install_nhanesR</span>(<span class="st">'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'</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">config_path</span>(<span class="st">"/Users/liulinhu/Desktop/NHANES/2022-08-01/NHANES"</span>)<span class="co">#配置数据库路径</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">config_years</span>()<span class="co">#配置数据库年份</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">config_items</span>()<span class="co">#配置数据库文件类型</span></span>
@@ -364,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png" class="img-fluid"></p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png" class="img-fluid" width="428"></p>
 </section>
 <section id="权重" class="level2">
 <h2 class="anchored" data-anchor-id="权重">权重</h2>
@@ -372,7 +392,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用”最小公分母”，其中针对<u><strong>最少数量的访谈者收集的感兴趣变量</strong></u>是”最小公分母”。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重</p>
 <section id="如何计算合并权重" class="level3">
 <h3 class="anchored" data-anchor-id="如何计算合并权重">如何计算合并权重</h3>
-<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重*1/n。但当<u><strong>同时涉及</strong>到1999-2000和2001-2002</u>时需要用4年权重<strong>wtint4yr</strong>，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推<img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png" class="img-fluid"></p>
+<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重*1/n。但当<u><strong>同时涉及</strong>到1999-2000和2001-2002</u>时需要用4年权重<strong>wtint4yr</strong>，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推<img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png" class="img-fluid" width="458"></p>
 </section>
 <section id="示例实操" class="level3">
 <h3 class="anchored" data-anchor-id="示例实操">示例实操</h3>
@@ -408,13 +428,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Recode</span>(c)<span class="co">#运行这行便会生成下面的代码，用于将原有的变量改名</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c.new <span class="ot">&lt;-</span> <span class="fu">Recode</span>(c,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"white::"</span>, </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"black::"</span>, </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"red::"</span>, </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"purple::"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Recode(c)#运行这行便会生成下面的代码，用于将原有的变量改名</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>eth.new <span class="ot">&lt;-</span> <span class="fu">Recode</span>(d<span class="sc">$</span>eth,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Non-Hispanic White::"</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Non-Hispanic Black::"</span>, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Other Race - Including Multi-Racial::"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Mexican American::"</span>, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Other Hispanic::"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> c.new <span class="ot">&lt;-</span> <span class="fu">Recode</span>(c,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"white::"</span>, </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"black::"</span>, </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"red::"</span>, </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"purple::"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>NHSIII的数据如何计算合并权重 NHSIII是1999年以前的数据，是以3年为一个周期。计算权重时需要以年来，而不是year circle。例如1994-1996，2001-2002，2009-2010，此时总共3+2+2=7年，所以1994-1996的权重是3/7×wt3yr，其余的是2/7×wt2yr。但是如何同时涉及到1999和2001时，这两个year circle要合并算作4年，用wt4yr来计算。</p></li>
@@ -615,6 +642,18 @@ not meet the above</p></li>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">drop_row</span>(<span class="fu">is.na</span>(x<span class="sc">$</span>blood_cadmium_ug.l))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="药物搜索与提取" class="level3">
+<h3 class="anchored" data-anchor-id="药物搜索与提取">药物搜索与提取</h3>
+<p>先检索，看是不是自己想要的药物，再Drug()去提取。remove.other如果是F，则如果一个人既吃了检索的药物，又吃了其他药，就会占多行。如果=T，则会值保留检索的药物（仅删除同时出现的情况）。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">browse_rxq_Drug</span>()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">browse_rxq_Rx</span>()<span class="co">#处方文件</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">drug_search</span>(<span class="st">"antibiotic"</span>,<span class="at">years =</span> <span class="dv">2015</span>)<span class="co">#检索包含关键词antibiotic的药物</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">Drug</span>(<span class="st">"antibiotic"</span>,<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">drugname =</span> T,<span class="at">remove.other =</span> T)<span class="co">#提取关键词的药物</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">drug_anti.infectives</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">drugname =</span> T,<span class="at">dcn =</span> T)<span class="co">#提取抗感染药物</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 <section id="指标计算汇总" class="level2">
 <h2 class="anchored" data-anchor-id="指标计算汇总">指标计算汇总</h2>
@@ -622,37 +661,37 @@ not meet the above</p></li>
 <h3 class="anchored" data-anchor-id="健康饮食指数healthy-eating-index">健康饮食指数（Healthy eating index）</h3>
 <p><a href="https://epi.grants.cancer.gov/hei/">健康饮食指数的介绍</a>。HEI有两个版本2015和2010，2015是最新的版本，以符合2015-2020美国人膳食指南。算法包括简单算法和population ratio method，简单算法又包括Per day和Per person，per day就是在day = 1，Per person就是day=c(1,2), 对应method = “ssum”和”partio”.默认会给所有成分的评分，如果component = F就只给total score</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">dex_HEI</span>(<span class="at">years =</span> <span class="dv">2011</span>,<span class="at">version =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"ssum"</span>,<span class="at">day =</span> <span class="dv">1</span>,<span class="at">dietary =</span> <span class="st">"tot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">dex_HEI</span>(<span class="at">years =</span> <span class="dv">2011</span>,<span class="at">version =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"ssum"</span>,<span class="at">day =</span> <span class="dv">1</span>,<span class="at">dietary =</span> <span class="st">"tot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="咖啡数据提取" class="level3">
 <h3 class="anchored" data-anchor-id="咖啡数据提取">咖啡数据提取</h3>
 <p>db_coffee(). 咖啡数据最好是在1999年以后进行。包含了是否添加咖啡因，是否加糖，是否加脂，加奶等，以及咖啡的种类，如卡布奇诺、摩卡、玛奇朵等等。 如何确定并识别咖啡数据？–使用的是FNDDs数据里的食物编码921开头的是coffee（用于写文章说明数据来源） 咖啡摄入的克数转化为杯数？–以6盎司为一杯</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> co <span class="ot">&lt;-</span> <span class="fu">db_coffee</span>(<span class="at">years =</span> <span class="dv">2003</span>,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="co">#要么提取第一天，要么提取两天的</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="co">#默认取两天的均值</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">unit =</span> <span class="st">"g"</span>) <span class="co">#g或者cup单位，默认是g</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> co <span class="ot">&lt;-</span> <span class="fu">db_coffee</span>(<span class="at">years =</span> <span class="dv">2003</span>,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="co">#要么提取第一天，要么提取两天的</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="co">#默认取两天的均值</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">unit =</span> <span class="st">"g"</span>) <span class="co">#g或者cup单位，默认是g</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="饮食炎症指数的提取" class="level3">
 <h3 class="anchored" data-anchor-id="饮食炎症指数的提取">饮食炎症指数的提取</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> di <span class="ot">&lt;-</span> <span class="fu">dex_DII</span>(<span class="at">years =</span> <span class="dv">2005</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> di <span class="ot">&lt;-</span> <span class="fu">dex_DII</span>(<span class="at">years =</span> <span class="dv">2005</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="肾小球滤过率egfr" class="level3">
 <h3 class="anchored" data-anchor-id="肾小球滤过率egfr">肾小球滤过率eGFR</h3>
 <p>dex_eGFR()里提供了10种计算eGFR的方法，如Cockcroft_Gault,CKD_EPI_Scr,Schwartz等等，可以在mothod=里限定，默认是CKD_EPI_Scr。如果需要计算多种方法的eGFR，只需要method = c(,)。理论上来说推荐使用血肌酐计算滤过率，方法最推荐MDRD和CG方法</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> egf <span class="ot">&lt;-</span> <span class="fu">dex_eGFR</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">method =</span> <span class="fu">c</span>(<span class="st">"CKD_EPI_Scr"</span>,<span class="st">"BIS1_Scr"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> egf <span class="ot">&lt;-</span> <span class="fu">dex_eGFR</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">method =</span> <span class="fu">c</span>(<span class="st">"CKD_EPI_Scr"</span>,<span class="st">"BIS1_Scr"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="益生元益生菌合生元" class="level3">
 <h3 class="anchored" data-anchor-id="益生元益生菌合生元">益生元、益生菌、合生元</h3>
 <p><a href="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/PIIS0016508521006612.pdf">相关参考文献</a>。FDA不监管益生菌，但是监管益生元（如乳果糖），所以如果只研究益生菌，只需要检索膳食补充剂的数据，而益生元的话需要检索药品，通过关键词来匹配是否含有益生元成分。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> pr <span class="ot">&lt;-</span> <span class="fu">DSD</span>(<span class="at">years =</span> <span class="dv">2016</span>,<span class="at">probiotic =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> pr <span class="ot">&lt;-</span> <span class="fu">DSD</span>(<span class="at">years =</span> <span class="dv">2016</span>,<span class="at">probiotic =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -662,7 +701,7 @@ not meet the above</p></li>
 <h3 class="anchored" data-anchor-id="代谢综合征">代谢综合征</h3>
 <p>使用diag_MetS() ，代谢综合征有两种计算方法，一种是ATP（美国的）和IDF（国际的）。不同年龄的计算公式不同，children and adolescent有单独的一套标准（modified ATP和IDF）。默认使用ATP标准。将分别计算&gt;=16岁和10-16岁的诊断结果</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">diag_MetS</span>(<span class="at">years =</span> <span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">diag_MetS</span>(<span class="at">years =</span> <span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210042049416.png" class="img-fluid" width="285"></p>
 </section>
@@ -676,34 +715,274 @@ not meet the above</p></li>
 <li>bpx血压测量。分为mean和times，在method = 里设定</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">systolic =</span> <span class="dv">140</span>,<span class="at">diastolic =</span> <span class="dv">90</span>,<span class="at">n=</span><span class="dv">3</span>) <span class="co">#设定舒张压和收缩压阈值</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"mean"</span>) <span class="co">#使用均值来诊断</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"times"</span>,<span class="at">n=</span><span class="dv">3</span>) <span class="co">#使用3次测量来判断是否患有高血压</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">systolic =</span> <span class="dv">140</span>,<span class="at">diastolic =</span> <span class="dv">90</span>,<span class="at">n=</span><span class="dv">3</span>) <span class="co">#设定舒张压和收缩压阈值</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"mean"</span>) <span class="co">#使用均值来诊断</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> h <span class="ot">&lt;-</span> <span class="fu">diag_Hypertension</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">method =</span> <span class="st">"times"</span>,<span class="at">n=</span><span class="dv">3</span>) <span class="co">#使用3次测量来判断是否患有高血压</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="高脂血症" class="level3">
 <h3 class="anchored" data-anchor-id="高脂血症">高脂血症</h3>
 <p>包块高甘油三酯血症、高胆固醇血症、和使用降脂药</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">diag_Hyperlipidemia</span>(<span class="at">years =</span> <span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">diag_Hyperlipidemia</span>(<span class="at">years =</span> <span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="糖尿病" class="level3">
+<h3 class="anchored" data-anchor-id="糖尿病">糖尿病</h3>
+<p>糖尿病诊断标准</p>
+<ol type="1">
+<li>doctor told you have DM</li>
+<li>res_HbA1c：糖化血红蛋白</li>
+<li>fast glucose：空腹血糖。IFG为空腹血糖受损</li>
+<li>glucose随机血糖值</li>
+<li>OGTT2小时，IGT为糖耐量受损</li>
+<li>drug use：antidiabetic 如果使用了实验室检查（2~5条）作为诊断标准，则需要使用实验室的权重，可能会丧失一些数据，这时候如果仅仅把糖尿病作为协变量来使用的话，可以只用报道的（1和6条），把其他的变量都设置为FALSE即可</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">diag_DM</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">HbA1c =</span> F,<span class="at">fast_glu =</span> F,<span class="at">OGTT2 =</span> F,<span class="at">rand_glu =</span> F)<span class="co">#将实验室结果不作为诊断指标</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="吸烟" class="level3">
+<h3 class="anchored" data-anchor-id="吸烟">吸烟</h3>
+<p>分为三种吸烟的类型</p>
+<ol type="1">
+<li>never：smoked less than 100 cigarettes in life</li>
+<li>former：smoked more than 100 cigarettes in life and smoke not at all now</li>
+<li>now：smoked more than 100 cigarettes in life and smoke some days or every day</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> s <span class="ot">&lt;-</span> <span class="fu">diag_smoke</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">smoking_years =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="抑郁" class="level3">
+<h3 class="anchored" data-anchor-id="抑郁">抑郁</h3>
+<p>使用PHQ-9抑郁筛查量表</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">diag_PHQ9</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">cut =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ckd" class="level3">
+<h3 class="anchored" data-anchor-id="ckd">CKD</h3>
+<p>诊断标准采用2021年的KDIGO，有两种标准，eGFR和尿白蛋白。两者结合可以判断预后。如果需要采用白蛋白的数据，需要是2005年以后的才行。ckd = 为CKD的最小诊断标准，默认为达到A2和G3a，可以自己调整</p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210042157840.png" class="img-fluid" width="363"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> e <span class="ot">&lt;-</span> <span class="fu">diag_CKD</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">ckd =</span> <span class="fu">c</span>(<span class="st">"A2"</span>,<span class="st">"G3a"</span>),</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="at">show_prognosis =</span> T,<span class="at">eGFR_method =</span> <span class="st">"CKD_EPI_Scr"</span>)<span class="co">#默认的eGFR的计算方法</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mafld代谢功能障碍相关脂肪性肝病" class="level3">
+<h3 class="anchored" data-anchor-id="mafld代谢功能障碍相关脂肪性肝病">MAFLD代谢功能障碍相关脂肪性肝病</h3>
+<p>NAFLD与MAFLD，2020年已经将NAFLD建议规纳入MAFLD中。NAFLD需要排除过量饮酒和其他原因的肝脏疾病，MAFLD的诊断则是基于超重/肥胖或T2DM亦或存在两个及以上代谢心血管危险因素。“MAFLD”这一命名强调了<u><strong>肥胖、胰岛素抵抗、血脂异常、T2DM和系统性全身低度炎症反应</strong></u>在脂肪性肝病发生发展中的重要作用。因此，需要根据不同的标准和定义重新对脂肪性肝病进行临床分类。尽管大多数患者同时符合MAFLD与NAFLD的诊断标准 (MAFLD+NAFLD+)，但是仍有部分患者仅符合NAFLD诊断标准(MAFLD-NAFLD+) 或仅符合MAFLD诊断标准(MAFLD+NAFLD-)。也就是说，并不是所有的NAFLD都可以直接归类为MAFLD，反之亦然。</p>
+<p>MAFLD的诊断标准：<a href="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/nss-13-103.pdf">参考文献.pdf</a></p>
+<ol type="1">
+<li>主要标准：Steatosis（必须有肝脂肪变的证据）：用的超声CAP衰减指数</li>
+<li>次要标准：满足任意一个
+<ol type="1">
+<li><p>BMI：&gt;25</p></li>
+<li><p>DM</p></li>
+<li><p>metabolic dysfunction: 6个指标（waist，hypertension，hyperlipidemia，low HDL-C level，prediabetes（空腹血糖受损和糖耐量受损），hypersensitive C-reactive protein level&gt;2mg/L</p></li>
+</ol></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">diag_MAFLD</span>(<span class="at">years =</span> <span class="dv">2015</span>)<span class="co">#其余参数可以指定是否返回诊断条件的结果</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="fped数据库" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="fped数据库">FPED数据库</h2>
+<p>Food pattern equivalent database：食物模式等量数据库；将NHANES中的食物和饮料转化为37种USDA食物模式组分。主要包含9类：Fruit(cup), vegetables(cup), grains(oz), dairy(cup), protein food(oz), added sugars(tsp), oils(grams), solid fats(grams), alcoholic drinks(no.)</p>
+<p>实际是NHANES的iff结合FNDDs得出的结果，所以同样包含两天的数据。1999-2002只有1天的数据。权重有各自的权重</p>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051108837.png" class="img-fluid figure-img" width="302"></p>
+<p></p><figcaption class="figure-caption margin-caption">数据提取选项，如果选择both2day=T，那么只有两天均有数据时才会保留</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>iff和tot的区别：两者均不包括从膳食补充剂、药物或普通饮用水中摄取的营养<br>
+tot是Total Nutrient Intakes: 包括每天从食物和饮料中摄入的总营养，摄入的总水量<br>
+iff是Individual Foods Files：包括单个食物的类型和数量的详细信息，以及每种食物的营养含量<br>
+2003年以后才会有2天的数据</li>
+</ul>
+<section id="fruit" class="level3">
+<h3 class="anchored" data-anchor-id="fruit">Fruit</h3>
+<p>fruit分为intact/cut fruit, juice, total。Citrus, Melons and Berries; Other Fruits; Fruit juice</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_fped</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">dietary =</span> <span class="st">"tot"</span>,<span class="at">day =</span> <span class="dv">1</span>,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>              <span class="at">f_whole =</span> T,<span class="at">f_citmlb =</span> T,<span class="at">f_other =</span> T,<span class="at">f_juice =</span> T,<span class="at">f_total =</span> T)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#citmlb,other,whole都是整果（intact/cut fruit), whole=citmlb+other</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vegetables" class="level3">
+<h3 class="anchored" data-anchor-id="vegetables">Vegetables</h3>
+<p>蔬菜分为6类：</p>
+<ul>
+<li><p>dark green：v_drkgr</p></li>
+<li><p>red orange: v_redor_tomato,v_redor_other, v_redor_total</p></li>
+<li><p>starchy: v_starchy_potato, v_starchy_other, v_starchy_total</p></li>
+<li><p>other: v_other</p></li>
+<li><p>total: v_total（不包括legumes）</p></li>
+<li><p>legumes: v_legumes</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_fped</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">v_drkgr =</span> T) <span class="co">#以v_开头</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="grains" class="level3">
+<h3 class="anchored" data-anchor-id="grains">Grains</h3>
+<p>包括整谷物（g_whole), refined or non-whole grains（g_refined）, 和g_total, 单位是盎司oz</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">db_fped</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">g_whole =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dairy" class="level3">
+<h3 class="anchored" data-anchor-id="dairy">Dairy</h3>
+<p>乳制品单位是cup。包括d_milk, d_yogurt, d_cheese, d_total</p>
+</section>
+<section id="protein-foods" class="level3">
+<h3 class="anchored" data-anchor-id="protein-foods">Protein foods</h3>
+<p>蛋白质类，单位是盎司。</p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051329370.png" class="img-fluid" width="615"><br>
+主要分为植物蛋白、肉类、鸡蛋。肉类又分为腌肉、生肉、内脏、幼禽、海产品（高低n-3脂肪酸）；植物蛋白包括豆制品，坚果类，豆类</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_fped</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">pf_curedmeat =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="others" class="level3">
+<h3 class="anchored" data-anchor-id="others">Others</h3>
+<ul>
+<li><p>add sugars(tsp): 添加糖—– add_sugars</p></li>
+<li><p>Oils(gram): oils</p></li>
+<li><p>Solid fat(grams)：固态脂肪 solid_fat</p></li>
+<li><p>alcoholic drinks(no.): a_drinks; alcoholic beverage</p></li>
+</ul>
+</section>
+</section>
+<section id="易侕" class="level2">
+<h2 class="anchored" data-anchor-id="易侕">易侕</h2>
+<ul>
+<li><p>如何将nhanesR的数据直接写入到易侕中<br>
+先整理好数据，然后使用write.yier(), 指定导出的df，可以修改file的名字和project的名字。然后就会在易侕的Analysis文件下生成一个project的文件夹。其中有一个txt文件和一个excel文件，txt是数据文件，excel是变量名的对照表。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> newproject <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="dv">2015</span>,<span class="at">Year =</span> T,<span class="at">ageyr =</span> <span class="st">"age"</span>,<span class="at">sex =</span> <span class="st">"sex"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">db_Alcohol.drinks</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">dex_DII</span>()</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Factor(new)</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> new<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">factor</span>(new<span class="sc">$</span>Year, <span class="fu">c</span>(<span class="st">'2015-2016'</span>))</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> new<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(new<span class="sc">$</span>sex, <span class="fu">c</span>(<span class="st">'Male'</span>, <span class="st">'Female'</span>))</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">write.yier</span>(<span class="at">df =</span> x,<span class="at">file =</span> <span class="st">"mydata"</span>)<span class="co">#导出数据</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</section>
+<section id="文献复现" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="文献复现">文献复现</h2>
+<section id="中性粒细胞减少的流行病学" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</h3>
+<p>Prevalence of Neutropenia in the U.S. Population: Age, Sex, Smoking, Status, and Ethnic Differences–<a href="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/0003-4819-146-7-200704030-00004.pdf">参考文献</a></p>
+<p>年份：1999-2004，采用的权重是MEC权重，1999-2002：wtmec4yr×2/3；2003-2004：wtmec2yr×1/3</p>
+<ol type="1">
+<li>提取数据</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(reshape2)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(do)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d_demo <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="dv">1999</span><span class="sc">:</span><span class="dv">2004</span>, <span class="at">ageyr =</span> <span class="st">"age"</span>, <span class="at">sex =</span> <span class="st">"sex"</span>, <span class="at">eth1 =</span> <span class="st">"eth"</span>, </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                   <span class="at">wtmec4yr =</span> T,<span class="at">wtmec2yr =</span> T,<span class="at">Year =</span> T)<span class="co">#提取人口学数据</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d_demo<span class="sc">$</span>nhs_wt <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(d_demo<span class="sc">$</span>Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1999-2000"</span>,<span class="st">"2001-2002"</span>),</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                         <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span><span class="sc">*</span>d_demo<span class="sc">$</span>wtmec4yr,<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">*</span>d_demo<span class="sc">$</span>wtmec2yr)<span class="co">#计算合并权重</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d_demo <span class="ot">&lt;-</span> <span class="fu">drop_col</span>(d_demo,<span class="st">"wtmec4yr"</span>,<span class="st">"wtmec2yr"</span>)<span class="co">#删除原来的两列权重</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d_demo <span class="ot">&lt;-</span> d_demo[d_demo<span class="sc">$</span>age<span class="sc">&gt;=</span><span class="dv">1</span>,]<span class="co">#研究的是1岁即以上的人群，进行了进一步的MEC检查</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d_cbc1 <span class="ot">&lt;-</span> <span class="fu">db_cbc</span>(<span class="at">years =</span> <span class="dv">1999</span><span class="sc">:</span><span class="dv">2004</span>,<span class="at">wbc_1000cells.ul =</span> <span class="st">"wbc"</span>,</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">Segmented_neutrophils_number_1000cells.ul =</span> <span class="st">"Neu"</span>,</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">lymphocyte_number_1000cells.ul =</span> <span class="st">"Lym"</span>,</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">hemoglobin_g.dl =</span> <span class="st">"Hb"</span>,</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="at">Platelet_count_1000cells.uL =</span> <span class="st">"Plt"</span>)<span class="co">#提取实验室检查血液的数据</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(d_demo)<span class="sc">-</span><span class="fu">nrow</span>(d_cbc)<span class="co">#被告知去MEC的有29608人，其中没有去做MEC检查的有1668人</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d_cbc <span class="ot">&lt;-</span> <span class="fu">complete.data</span>(d_cbc1)<span class="co">#😊移除缺失值，显示有2715个NA。文中报告了3个异常值，但其实应该没有</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(d_cbc) <span class="co"># 25225 complete cbc</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">Inner_Join</span>(d_demo,d_cbc)<span class="co">#合并人口学数据和实验室数据</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>复杂抽样的加权</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nhs <span class="ot">&lt;-</span> <span class="fu">svy_design</span>(<span class="at">data =</span> d) <span class="co">#需要将合并权重变量名设置为nhs_wt，psu和strata都是指定好的</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>总人口和缺失人群分析</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">svy_population</span>(<span class="at">design =</span> nhs)<span class="co">#😊participants代表的总人口数</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#The 25 222 NHANES participants with valid hematologic indices represented 253.2 million noninstitutionalized residents of the United States</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Recode(d$eth)</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d<span class="sc">$</span>eth <span class="ot">&lt;-</span> <span class="fu">Recode</span>(d<span class="sc">$</span>eth,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Non-Hispanic White::white"</span>, </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Non-Hispanic Black::black"</span>, </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Other Race - Including Multi-Racial::others"</span>, </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Mexican American::Mexican"</span>, </span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="st">"Other Hispanic::others"</span>,</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="at">to.numeric =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> miss_seqn <span class="ot">&lt;-</span> d_cbc1<span class="sc">$</span>seqn[<span class="sc">!</span><span class="fu">complete.cases</span>(d_cbc1)]<span class="co">#😊提取出cbc里面缺失了数据的seqn序号</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo_miss <span class="ot">&lt;-</span> d_demo[d_demo<span class="sc">$</span>seqn <span class="sc">%in%</span> miss_seqn,]<span class="co">#从d_demo数据里提取缺失的seqn行</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">freq_count</span>(demo_miss,<span class="at">x =</span> <span class="st">"eth"</span>)<span class="co">#😊种族的分布</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bu_x <span class="ot">&lt;-</span> demo_miss<span class="sc">$</span>age <span class="co">#将年龄进行分组生成新的列age_group</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo_miss<span class="sc">$</span>age_group[<span class="fu">bu</span>(<span class="st">'( ,5 ]'</span>)] <span class="ot">&lt;-</span> <span class="st">"&lt;=5"</span>   </span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo_miss<span class="sc">$</span>age_group[<span class="fu">bu</span>(<span class="st">'( 6, 17]'</span>)] <span class="ot">&lt;-</span> <span class="st">"6-17"</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> demo_miss<span class="sc">$</span>age_group[<span class="fu">bu</span>(<span class="st">'[ 18, )'</span>)] <span class="ot">&lt;-</span> <span class="st">"&gt;=18"</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">freq_count</span>(demo_miss,<span class="at">x =</span> <span class="st">"age_group"</span>)<span class="co">#😁年龄分层的分布</span></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#统计人种的分布其实是看是否有特定的种族缺失太多，例如大量的白人都不来测，这样的话数据的代表性就会很差</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li><p>线性回归比较不同种族细胞计数的变化：校正年龄、性别</p>
+<p>目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要<u><strong>修改或者增删数据</strong></u>，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要<u><strong>取子集（分层）</strong></u>，就直接在nhs加权数据上操作（使用subset）。采用<a href="https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf">广义线性模型</a>来进行线性回归</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(survey)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d<span class="sc">$</span>eth <span class="ot">&lt;-</span> <span class="fu">factor</span>(d<span class="sc">$</span>eth,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"black"</span>,<span class="st">"Mexican"</span>, <span class="st">"others"</span>))<span class="co">#unique(d$eth) |&gt; dput() 可以直接生成levels</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nhs <span class="ot">&lt;-</span> <span class="fu">svy_design</span>(<span class="at">data =</span> d)<span class="co">#修改完以后再加权</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">svyglm</span>(<span class="at">formula =</span> wbc<span class="sc">~</span>eth <span class="sc">+</span> age <span class="sc">+</span>sex,<span class="at">design =</span> nhs) <span class="sc">|&gt;</span> <span class="fu">summary</span>()<span class="co">#使用survey包的广义线性模型回归</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052112168.png" class="img-fluid figure-img" width="358"></p>
+<p></p><figcaption class="figure-caption margin-caption">线性回归的结果</figcaption><p></p>
+</figure>
+</div>
+<p>根据结果可以得出，白细胞记数的均值，黑人比白人低0.86,墨西哥人比白人高0.17</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#比较中性粒细胞</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">svyglm</span>(<span class="at">formula =</span> Neu<span class="sc">~</span>eth <span class="sc">+</span> age <span class="sc">+</span>sex,<span class="at">design =</span> nhs) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052143543.png" class="img-fluid" width="358"></p>
 </section>
 </section>
 <section id="检索表" class="level2">
 <h2 class="anchored" data-anchor-id="检索表">检索表</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Left_Join</span>(d1,d2,<span class="at">inspect =</span> <span class="st">""</span>)<span class="co">#合并，查看变量合并前后变化</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_demo</span>()<span class="co">#人口学数据</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_cbc</span>()<span class="co">#全血细胞类型的数据</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dex_phenoAge</span>()<span class="co">#生物学年龄</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_col</span>()<span class="co">#添加列</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">select_row</span>()<span class="co">#保留某些行,%in%, ==, !==, &gt;=</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dro_row</span>(<span class="fu">is.na</span>())<span class="co">#去除某些行，如NA等</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_slq</span>()<span class="co">#睡眠障碍相关数据</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_PbCd</span>()<span class="co">#重金属相关数据</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_Alcohol.drinks</span>()<span class="co">#提取酒精使用drinks/day的数据</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_drtot</span>(<span class="at">alcohol_g =</span> )<span class="co">#提取酒精使用g/day</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag_alcohol.user</span>()<span class="co">#酒精使用程度</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Left_Join</span>(d1,d2,<span class="at">inspect =</span> <span class="st">""</span>)<span class="co">#合并，查看变量合并前后变化</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_demo</span>()<span class="co">#人口学数据</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_cbc</span>()<span class="co">#全血细胞类型的数据</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dex_phenoAge</span>()<span class="co">#生物学年龄</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_col</span>()<span class="co">#添加列</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">select_row</span>()<span class="co">#保留某些行,%in%, ==, !==, &gt;=</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dro_row</span>(<span class="fu">is.na</span>())<span class="co">#去除某些行，如NA等</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_slq</span>()<span class="co">#睡眠障碍相关数据</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_PbCd</span>()<span class="co">#重金属相关数据</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_Alcohol.drinks</span>()<span class="co">#提取酒精使用drinks/day的数据</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_drtot</span>(<span class="at">alcohol_g =</span> )<span class="co">#提取酒精使用g/day</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag_alcohol.user</span>()<span class="co">#酒精使用程度</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

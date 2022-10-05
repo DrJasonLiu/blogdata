@@ -66,6 +66,8 @@ book:
 toc-title: "Table of Contents"
 bibliography: references.bib
 toc: true
+toc-location: right
+page-layout: article
 #number-sections: true
 format:
   html:

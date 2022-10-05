@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -212,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -251,23 +251,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of Contents</h2>
    
   <ul>
-  <li><a href="#安装配置nhanesr" id="toc-安装配置nhanesr" class="nav-link active" data-scroll-target="#安装配置nhanesr">安装配置nhanesR</a></li>
-  <li><a href="#数据读取" id="toc-数据读取" class="nav-link" data-scroll-target="#数据读取">数据读取</a></li>
-  <li><a href="#权重" id="toc-权重" class="nav-link" data-scroll-target="#权重">权重</a>
+  <li><a href="#安装配置nhanesr" id="toc-安装配置nhanesr" class="nav-link active" data-scroll-target="#安装配置nhanesr">1.安装配置nhanesR</a></li>
+  <li><a href="#数据读取" id="toc-数据读取" class="nav-link" data-scroll-target="#数据读取">2.数据读取</a></li>
+  <li><a href="#权重" id="toc-权重" class="nav-link" data-scroll-target="#权重">3.权重</a>
   <ul>
   <li><a href="#如何计算合并权重" id="toc-如何计算合并权重" class="nav-link" data-scroll-target="#如何计算合并权重">如何计算合并权重</a></li>
   <li><a href="#示例实操" id="toc-示例实操" class="nav-link" data-scroll-target="#示例实操">示例实操</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#示例1" id="toc-示例1" class="nav-link" data-scroll-target="#示例1">示例1</a></li>
   </ul></li>
   <li><a href="#权重总结" id="toc-权重总结" class="nav-link" data-scroll-target="#权重总结">权重总结</a></li>
   </ul></li>
-  <li><a href="#数据的清洗" id="toc-数据的清洗" class="nav-link" data-scroll-target="#数据的清洗">数据的清洗</a>
+  <li><a href="#数据的清洗" id="toc-数据的清洗" class="nav-link" data-scroll-target="#数据的清洗">4.数据的清洗</a>
   <ul>
   <li><a href="#数据的合并" id="toc-数据的合并" class="nav-link" data-scroll-target="#数据的合并">数据的合并</a></li>
   <li><a href="#添加新列" id="toc-添加新列" class="nav-link" data-scroll-target="#添加新列">添加新列</a></li>
   </ul></li>
-  <li><a href="#数据提取汇总" id="toc-数据提取汇总" class="nav-link" data-scroll-target="#数据提取汇总">数据提取汇总</a>
+  <li><a href="#数据提取汇总" id="toc-数据提取汇总" class="nav-link" data-scroll-target="#数据提取汇总">5.数据提取汇总</a>
   <ul>
   <li><a href="#提取人口学数据" id="toc-提取人口学数据" class="nav-link" data-scroll-target="#提取人口学数据">提取人口学数据</a></li>
   <li><a href="#提取饮食数据" id="toc-提取饮食数据" class="nav-link" data-scroll-target="#提取饮食数据">提取饮食数据</a></li>
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#重金属数据提取" id="toc-重金属数据提取" class="nav-link" data-scroll-target="#重金属数据提取">重金属数据提取</a></li>
   <li><a href="#药物搜索与提取" id="toc-药物搜索与提取" class="nav-link" data-scroll-target="#药物搜索与提取">药物搜索与提取</a></li>
   </ul></li>
-  <li><a href="#指标计算汇总" id="toc-指标计算汇总" class="nav-link" data-scroll-target="#指标计算汇总">指标计算汇总</a>
+  <li><a href="#指标计算汇总" id="toc-指标计算汇总" class="nav-link" data-scroll-target="#指标计算汇总">6.指标计算汇总</a>
   <ul>
   <li><a href="#健康饮食指数healthy-eating-index" id="toc-健康饮食指数healthy-eating-index" class="nav-link" data-scroll-target="#健康饮食指数healthy-eating-index">健康饮食指数（Healthy eating index）</a></li>
   <li><a href="#咖啡数据提取" id="toc-咖啡数据提取" class="nav-link" data-scroll-target="#咖啡数据提取">咖啡数据提取</a></li>
@@ -285,7 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#肾小球滤过率egfr" id="toc-肾小球滤过率egfr" class="nav-link" data-scroll-target="#肾小球滤过率egfr">肾小球滤过率eGFR</a></li>
   <li><a href="#益生元益生菌合生元" id="toc-益生元益生菌合生元" class="nav-link" data-scroll-target="#益生元益生菌合生元">益生元、益生菌、合生元</a></li>
   </ul></li>
-  <li><a href="#疾病诊断汇总" id="toc-疾病诊断汇总" class="nav-link" data-scroll-target="#疾病诊断汇总">疾病诊断汇总</a>
+  <li><a href="#疾病诊断汇总" id="toc-疾病诊断汇总" class="nav-link" data-scroll-target="#疾病诊断汇总">7.疾病诊断汇总</a>
   <ul>
   <li><a href="#代谢综合征" id="toc-代谢综合征" class="nav-link" data-scroll-target="#代谢综合征">代谢综合征</a></li>
   <li><a href="#高血压" id="toc-高血压" class="nav-link" data-scroll-target="#高血压">高血压</a></li>
@@ -296,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#ckd" id="toc-ckd" class="nav-link" data-scroll-target="#ckd">CKD</a></li>
   <li><a href="#mafld代谢功能障碍相关脂肪性肝病" id="toc-mafld代谢功能障碍相关脂肪性肝病" class="nav-link" data-scroll-target="#mafld代谢功能障碍相关脂肪性肝病">MAFLD代谢功能障碍相关脂肪性肝病</a></li>
   </ul></li>
-  <li><a href="#fped数据库" id="toc-fped数据库" class="nav-link" data-scroll-target="#fped数据库">FPED数据库</a>
+  <li><a href="#fped数据库" id="toc-fped数据库" class="nav-link" data-scroll-target="#fped数据库">8.FPED数据库</a>
   <ul>
   <li><a href="#fruit" id="toc-fruit" class="nav-link" data-scroll-target="#fruit">Fruit</a></li>
   <li><a href="#vegetables" id="toc-vegetables" class="nav-link" data-scroll-target="#vegetables">Vegetables</a></li>
@@ -305,11 +305,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#protein-foods" id="toc-protein-foods" class="nav-link" data-scroll-target="#protein-foods">Protein foods</a></li>
   <li><a href="#others" id="toc-others" class="nav-link" data-scroll-target="#others">Others</a></li>
   </ul></li>
-  <li><a href="#易侕" id="toc-易侕" class="nav-link" data-scroll-target="#易侕">易侕</a></li>
-  <li><a href="#文献复现" id="toc-文献复现" class="nav-link" data-scroll-target="#文献复现">文献复现</a>
+  <li><a href="#易侕" id="toc-易侕" class="nav-link" data-scroll-target="#易侕">9.易侕</a></li>
+  <li><a href="#文献复现" id="toc-文献复现" class="nav-link" data-scroll-target="#文献复现">10.文献复现</a>
   <ul>
   <li><a href="#中性粒细胞减少的流行病学" id="toc-中性粒细胞减少的流行病学" class="nav-link" data-scroll-target="#中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#提取数据" id="toc-提取数据" class="nav-link" data-scroll-target="#提取数据">提取数据</a></li>
   <li><a href="#复杂抽样的加权" id="toc-复杂抽样的加权" class="nav-link" data-scroll-target="#复杂抽样的加权">复杂抽样的加权</a></li>
   <li><a href="#总人口和缺失人群分析" id="toc-总人口和缺失人群分析" class="nav-link" data-scroll-target="#总人口和缺失人群分析">总人口和缺失人群分析</a></li>
@@ -322,13 +322,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
 
 
 
 <section id="安装配置nhanesr" class="level2">
-<h2 class="anchored" data-anchor-id="安装配置nhanesr">安装配置nhanesR</h2>
+<h2 class="anchored" data-anchor-id="安装配置nhanesr">1.安装配置nhanesR</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(devtools)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
@@ -343,7 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>fped数据是<strong>Food Patterns Equivalents Database，</strong>codebook文件里是全部变量的变量和解释；varLabel是标签的解释。</p>
 </section>
 <section id="数据读取" class="level2">
-<h2 class="anchored" data-anchor-id="数据读取">数据读取</h2>
+<h2 class="anchored" data-anchor-id="数据读取">2.数据读取</h2>
 <ol type="1">
 <li>知道变量名以及所在的文件: 例如age的变量名是ridageyr，所在的文件是demo_b，demo_c等。</li>
 <li>从文件中提取变量</li>
@@ -398,15 +398,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png" class="img-fluid" width="428"></p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png" class="img-fluid" width="339"></p>
 </section>
 <section id="权重" class="level2">
-<h2 class="anchored" data-anchor-id="权重">权重</h2>
+<h2 class="anchored" data-anchor-id="权重">3.权重</h2>
 <p>1.找到合理的权重。2.计算合并权重；权重不需要计算，nhanes已经计算好了，只需要计算<u><strong>合并权重</strong></u>。</p>
 <p>NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用”最小公分母”，其中针对<u><strong>最少数量的访谈者收集的感兴趣变量</strong></u>是”最小公分母”。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重</p>
 <section id="如何计算合并权重" class="level3">
 <h3 class="anchored" data-anchor-id="如何计算合并权重">如何计算合并权重</h3>
-<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重*1/n。但当<u><strong>同时涉及</strong>到1999-2000和2001-2002</u>时需要用4年权重<strong>wtint4yr</strong>，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推<img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png" class="img-fluid" width="458"></p>
+<p>wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重*1/n。但当<u><strong>同时涉及</strong>到1999-2000和2001-2002</u>时需要用4年权重<strong>wtint4yr</strong>，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推</p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png" class="img-fluid" width="379"></p>
 </section>
 <section id="示例实操" class="level3">
 <h3 class="anchored" data-anchor-id="示例实操">示例实操</h3>
@@ -427,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 </section>
 <section id="数据的清洗" class="level2">
-<h2 class="anchored" data-anchor-id="数据的清洗">数据的清洗</h2>
+<h2 class="anchored" data-anchor-id="数据的清洗">4.数据的清洗</h2>
 <ul>
 <li><p><u><strong>如何快速输入Factor</strong></u></p>
 <p>基于nhanesR包里的Factor函数，可以直接生成factor化的代码</p></li>
@@ -480,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#cbc是全血细胞数据，phenoAge是生物学年龄，直接用管道操作符即可不断添加数据</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">head</span>(d1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210030944349.png" class="img-fluid"></p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210030944349.png" class="img-fluid" width="426"></p>
 <p>第二种方法是先分别提取数据，然后再合并.此时可以<strong>left_join,righ_join,inner_join,full_join</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d1 <span class="ot">&lt;-</span> <span class="fu">db_demo</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="dv">1999</span><span class="sc">:</span><span class="dv">2003</span>,<span class="dv">2007</span>),<span class="at">Year =</span> T,</span>
@@ -584,7 +585,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 </section>
 <section id="数据提取汇总" class="level2">
-<h2 class="anchored" data-anchor-id="数据提取汇总">数据提取汇总</h2>
+<h2 class="anchored" data-anchor-id="数据提取汇总">5.数据提取汇总</h2>
 <p>提取的数据可以进行叠加，例如db_demo() |&gt; db_drtot()可以不断增加不同类型的数据</p>
 <section id="提取人口学数据" class="level3">
 <h3 class="anchored" data-anchor-id="提取人口学数据">提取人口学数据</h3>
@@ -597,13 +598,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">db_drtot</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">calcium_mg =</span> T,<span class="at">Year =</span> T,<span class="at">fun =</span> <span class="st">"alone"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(x)<span class="co">#alone显示2天的数据</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031742905.png" class="img-fluid" width="532"></p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031742905.png" class="img-fluid" width="447"></p>
 <p>如果both2days为FALSE，则仅1天有数据的行也会显示</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">db_drtot</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">calcium_mg =</span> T,<span class="at">Year =</span> T,<span class="at">both2days =</span> F,<span class="at">fun =</span> <span class="st">"alone"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031745536.png" class="img-fluid" width="527"></p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031745536.png" class="img-fluid" width="445"></p>
 </section>
 <section id="提取生存数据" class="level3">
 <h3 class="anchored" data-anchor-id="提取生存数据">提取生存数据</h3>
@@ -670,7 +671,7 @@ not meet the above</p></li>
 </section>
 </section>
 <section id="指标计算汇总" class="level2">
-<h2 class="anchored" data-anchor-id="指标计算汇总">指标计算汇总</h2>
+<h2 class="anchored" data-anchor-id="指标计算汇总">6.指标计算汇总</h2>
 <section id="健康饮食指数healthy-eating-index" class="level3">
 <h3 class="anchored" data-anchor-id="健康饮食指数healthy-eating-index">健康饮食指数（Healthy eating index）</h3>
 <p><a href="https://epi.grants.cancer.gov/hei/">健康饮食指数的介绍</a>。HEI有两个版本2015和2010，2015是最新的版本，以符合2015-2020美国人膳食指南。算法包括简单算法和population ratio method，简单算法又包括Per day和Per person，per day就是在day = 1，Per person就是day=c(1,2), 对应method = “ssum”和”partio”.默认会给所有成分的评分，如果component = F就只给total score</p>
@@ -710,7 +711,7 @@ not meet the above</p></li>
 </section>
 </section>
 <section id="疾病诊断汇总" class="level2">
-<h2 class="anchored" data-anchor-id="疾病诊断汇总">疾病诊断汇总</h2>
+<h2 class="anchored" data-anchor-id="疾病诊断汇总">7.疾病诊断汇总</h2>
 <section id="代谢综合征" class="level3">
 <h3 class="anchored" data-anchor-id="代谢综合征">代谢综合征</h3>
 <p>使用diag_MetS() ，代谢综合征有两种计算方法，一种是ATP（美国的）和IDF（国际的）。不同年龄的计算公式不同，children and adolescent有单独的一套标准（modified ATP和IDF）。默认使用ATP标准。将分别计算&gt;=16岁和10-16岁的诊断结果</p>
@@ -803,14 +804,14 @@ not meet the above</p></li>
 </div>
 </section>
 </section>
-<section id="fped数据库" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="fped数据库">FPED数据库</h2>
+<section id="fped数据库" class="level2">
+<h2 class="anchored" data-anchor-id="fped数据库">8.FPED数据库</h2>
 <p>Food pattern equivalent database：食物模式等量数据库；将NHANES中的食物和饮料转化为37种USDA食物模式组分。主要包含9类：Fruit(cup), vegetables(cup), grains(oz), dairy(cup), protein food(oz), added sugars(tsp), oils(grams), solid fats(grams), alcoholic drinks(no.)</p>
 <p>实际是NHANES的iff结合FNDDs得出的结果，所以同样包含两天的数据。1999-2002只有1天的数据。权重有各自的权重</p>
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051108837.png" class="img-fluid figure-img" width="302"></p>
-<p></p><figcaption class="figure-caption margin-caption">数据提取选项，如果选择both2day=T，那么只有两天均有数据时才会保留</figcaption><p></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p></p><figcaption class="figure-caption">数据提取选项，如果选择both2day=T，那么只有两天均有数据时才会保留</figcaption><p></p>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051108837.png" class="img-fluid figure-img" width="426"></p>
 </figure>
 </div>
 <ul>
@@ -857,7 +858,7 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 <section id="protein-foods" class="level3">
 <h3 class="anchored" data-anchor-id="protein-foods">Protein foods</h3>
 <p>蛋白质类，单位是盎司。</p>
-<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051329370.png" class="img-fluid" width="615"><br>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051329370.png" class="img-fluid" width="478"><br>
 主要分为植物蛋白、肉类、鸡蛋。肉类又分为腌肉、生肉、内脏、幼禽、海产品（高低n-3脂肪酸）；植物蛋白包括豆制品，坚果类，豆类</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">db_fped</span>(<span class="at">years =</span> <span class="dv">2005</span>,<span class="at">pf_curedmeat =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -874,7 +875,7 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 </section>
 </section>
 <section id="易侕" class="level2">
-<h2 class="anchored" data-anchor-id="易侕">易侕</h2>
+<h2 class="anchored" data-anchor-id="易侕">9.易侕</h2>
 <ul>
 <li><p>如何将nhanesR的数据直接写入到易侕中<br>
 先整理好数据，然后使用write.yier(), 指定导出的df，可以修改file的名字和project的名字。然后就会在易侕的Analysis文件下生成一个project的文件夹。其中有一个txt文件和一个excel文件，txt是数据文件，excel是变量名的对照表。</p>
@@ -890,9 +891,9 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 </div></li>
 </ul>
 </section>
-<section id="文献复现" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="文献复现">文献复现</h2>
-<section id="中性粒细胞减少的流行病学" class="level3 page-columns page-full">
+<section id="文献复现" class="level2">
+<h2 class="anchored" data-anchor-id="文献复现">10.文献复现</h2>
+<section id="中性粒细胞减少的流行病学" class="level3">
 <h3 class="anchored" data-anchor-id="中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</h3>
 <p>Prevalence of Neutropenia in the U.S. Population: Age, Sex, Smoking, Status, and Ethnic Differences–<a href="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/0003-4819-146-7-200704030-00004.pdf">参考文献</a></p>
 <p>年份：1999-2004，采用的权重是MEC权重，1999-2002：wtmec4yr×2/3；2003-2004：wtmec2yr×1/3</p>
@@ -957,7 +958,7 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 <span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#统计人种的分布其实是看是否有特定的种族缺失太多，例如大量的白人都不来测，这样的话数据的代表性就会很差</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="线性回归比较不同种族细胞计数的变化校正年龄性别" class="level4 page-columns page-full">
+<section id="线性回归比较不同种族细胞计数的变化校正年龄性别" class="level4">
 <h4 class="anchored" data-anchor-id="线性回归比较不同种族细胞计数的变化校正年龄性别">线性回归比较不同种族细胞计数的变化：校正年龄、性别</h4>
 <p>目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要<u><strong>修改或者增删数据</strong></u>，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要<u><strong>取子集（分层）</strong></u>，就直接在nhs加权数据上操作（使用subset）。采用<a href="https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf">广义线性模型</a>来进行线性回归</p>
 <div class="cell">
@@ -967,10 +968,10 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">svyglm</span>(<span class="at">formula =</span> wbc<span class="sc">~</span>eth <span class="sc">+</span> age <span class="sc">+</span>sex,<span class="at">design =</span> nhs) <span class="sc">|&gt;</span> <span class="fu">summary</span>()<span class="co">#使用survey包的广义线性模型回归</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p></p><figcaption class="figure-caption">线性回归的结果</figcaption><p></p>
 <p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052112168.png" class="img-fluid figure-img" width="358"></p>
-<p></p><figcaption class="figure-caption margin-caption">线性回归的结果</figcaption><p></p>
 </figure>
 </div>
 <p>根据结果可以得出，白细胞记数的均值，黑人比白人低0.86,墨西哥人比白人高0.17</p>
@@ -1120,7 +1121,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="./孟德尔随机化.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">孟德尔随机化</span></span>

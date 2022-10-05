@@ -7,9 +7,9 @@ editor_options:
 title-block-banner: true
 title-block-banner-color: "#FFDDFF"
 description: "A Tutorial for nhanesR Packages to Manipulate Data in NHANES"
-fig-cap-location: margin
-reference-location: margin
-citation-location: margin
+fig-cap-location: top
+page-layout: full
+toc-location: right
 ---
 
 ```{r setup,include=FALSE}
@@ -18,7 +18,7 @@ library(knitr)
 knitr::opts_chunk$set(prompt = TRUE,collapse = TRUE,warning = FALSE,error = FALSE,comment = "",eval = FALSE)
 ```
 
-## 安装配置nhanesR
+## 1.安装配置nhanesR
 
 ```{r}
 #| eval=F
@@ -35,7 +35,7 @@ bu( x,'[ , ]')#指大于等于，小于等于
 
 fped数据是**Food Patterns Equivalents Database，**codebook文件里是全部变量的变量和解释；varLabel是标签的解释。
 
-## 数据读取
+## 2.数据读取
 
 1.  知道变量名以及所在的文件: 例如age的变量名是ridageyr，所在的文件是demo_b，demo_c等。
 2.  从文件中提取变量
@@ -98,9 +98,9 @@ knitr::kable(nit1,digits = 2,align = "c") %>%
   column_spec(1,bold = T,color='black',background = 'lightblue')
 ```
 
-![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png){width="428"}
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png){width="339"}
 
-## 权重
+## 3.权重
 
 1.找到合理的权重。2.计算合并权重；权重不需要计算，nhanes已经计算好了，只需要计算[**合并权重**]{.underline}。
 
@@ -108,7 +108,9 @@ NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测�
 
 ### 如何计算合并权重
 
-wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重\*1/n。但当[**同时涉及**到1999-2000和2001-2002]{.underline}时需要用4年权重**wtint4yr**，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png){width="458"}
+wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重\*1/n。但当[**同时涉及**到1999-2000和2001-2002]{.underline}时需要用4年权重**wtint4yr**，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png){width="379"}
 
 ### 示例实操
 
@@ -143,7 +145,7 @@ x$newwt <- ifelse(ck,2/4*x$wtint4yr,1/4* x$wtint2yr)#一共4个year circle
 
 -   合并权重的计算：year circle为n，合并权重为1/n\*2yr; 如果同时出现1999-2000和2001-2002，这两个circle的合并权重为2/n×4yr，其余的circle还是1/n×2yr
 
-## 数据的清洗
+## 4.数据的清洗
 
 -   [**如何快速输入Factor**]{.underline}
 
@@ -201,7 +203,7 @@ d1 <- db_demo(years = c(1999:2003,2007),Year = T,
 head(d1)
 ```
 
-![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210030944349.png)
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210030944349.png){width="426"}
 
 第二种方法是先分别提取数据，然后再合并.此时可以**left_join,righ_join,inner_join,full_join**
 
@@ -312,7 +314,7 @@ d$wbcQ.median <- quant.median(d$wbc, n = 4,round=3)#计算每个四分位间距�
 
 ![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003161242.png){width="441"}
 
-## 数据提取汇总
+## 5.数据提取汇总
 
 提取的数据可以进行叠加，例如db_demo() \|\> db_drtot()可以不断增加不同类型的数据
 
@@ -329,7 +331,7 @@ x <- db_drtot(years = 2005,calcium_mg = T,Year = T,fun = "alone")
 head(x)#alone显示2天的数据
 ```
 
-![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031742905.png){width="532"}
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031742905.png){width="447"}
 
 如果both2days为FALSE，则仅1天有数据的行也会显示
 
@@ -338,7 +340,7 @@ x <- db_drtot(years = 2005,calcium_mg = T,Year = T,both2days = F,fun = "alone")
 head(x)
 ```
 
-![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031745536.png){width="527"}
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031745536.png){width="445"}
 
 ### 提取生存数据
 
@@ -413,7 +415,7 @@ d <- Drug("antibiotic",years = 2015,drugname = T,remove.other = T)#提取关键�
 x <- drug_anti.infectives(years = 2015,drugname = T,dcn = T)#提取抗感染药物
 ```
 
-## 指标计算汇总
+## 6.指标计算汇总
 
 ### 健康饮食指数（Healthy eating index）
 
@@ -456,7 +458,7 @@ egf <- dex_eGFR(years = 2005,method = c("CKD_EPI_Scr","BIS1_Scr"))
 pr <- DSD(years = 2016,probiotic = T)
 ```
 
-## 疾病诊断汇总
+## 7.疾病诊断汇总
 
 ### 代谢综合征
 
@@ -557,13 +559,13 @@ MAFLD的诊断标准：[参考文献.pdf](https://liulinhu-1313975787.cos.ap-che
 d <- diag_MAFLD(years = 2015)#其余参数可以指定是否返回诊断条件的结果
 ```
 
-## FPED数据库
+## 8.FPED数据库
 
 Food pattern equivalent database：食物模式等量数据库；将NHANES中的食物和饮料转化为37种USDA食物模式组分。主要包含9类：Fruit(cup), vegetables(cup), grains(oz), dairy(cup), protein food(oz), added sugars(tsp), oils(grams), solid fats(grams), alcoholic drinks(no.)
 
 实际是NHANES的iff结合FNDDs得出的结果，所以同样包含两天的数据。1999-2002只有1天的数据。权重有各自的权重
 
-![数据提取选项，如果选择both2day=T，那么只有两天均有数据时才会保留](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051108837.png){width="302"}
+![数据提取选项，如果选择both2day=T，那么只有两天均有数据时才会保留](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051108837.png){width="426"}
 
 -   iff和tot的区别：两者均不包括从膳食补充剂、药物或普通饮用水中摄取的营养\
     tot是Total Nutrient Intakes: 包括每天从食物和饮料中摄入的总营养，摄入的总水量\
@@ -616,7 +618,7 @@ g <- db_fped(years = 2015,g_whole = T)
 
 蛋白质类，单位是盎司。
 
-![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051329370.png){width="615"}\
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051329370.png){width="478"}\
 主要分为植物蛋白、肉类、鸡蛋。肉类又分为腌肉、生肉、内脏、幼禽、海产品（高低n-3脂肪酸）；植物蛋白包括豆制品，坚果类，豆类
 
 ```{r}
@@ -633,7 +635,7 @@ d <- db_fped(years = 2005,pf_curedmeat = T)
 
 -   alcoholic drinks(no.): a_drinks; alcoholic beverage
 
-## 易侕
+## 9.易侕
 
 -   如何将nhanesR的数据直接写入到易侕中\
     先整理好数据，然后使用write.yier(), 指定导出的df，可以修改file的名字和project的名字。然后就会在易侕的Analysis文件下生成一个project的文件夹。其中有一个txt文件和一个excel文件，txt是数据文件，excel是变量名的对照表。
@@ -649,7 +651,7 @@ d <- db_fped(years = 2005,pf_curedmeat = T)
     write.yier(df = x,file = "mydata")#导出数据
     ```
 
-## 文献复现
+## 10.文献复现
 
 ### 1. 中性粒细胞减少的流行病学
 
@@ -720,7 +722,7 @@ freq_count(demo_miss,x = "age_group")#😁年龄分层的分布
 
 #### 线性回归比较不同种族细胞计数的变化：校正年龄、性别
 
-  目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要[**修改或者增删数据**]{.underline}，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要[**取子集（分层）**]{.underline}，就直接在nhs加权数据上操作（使用subset）。采用[广义线性模型](https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)来进行线性回归
+目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要[**修改或者增删数据**]{.underline}，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要[**取子集（分层）**]{.underline}，就直接在nhs加权数据上操作（使用subset）。采用[广义线性模型](https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)来进行线性回归
 
 ```{r}
 library(survey)
@@ -738,10 +740,13 @@ svyglm(formula = wbc~eth + age +sex,design = nhs) |> summary()#使用survey包�
 #比较中性粒细胞,淋巴细胞同理
 svyglm(formula = Neu~eth + age +sex,design = nhs) |> summary()
 ```
+
 ![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052143543.png){width="358"}
 
 #### Table1：Mean Hematologic Values, by Age, Sex, and Ethnic Group
+
 ![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052210534.png){width="500"}
+
 ```{r}
 bu_x <- d$age#对年龄进行分组
 d$age18[bu('[ ,18 )')] <- "<18"
@@ -756,9 +761,8 @@ svy_mean(design = nhs,
 #转化为table1的格式，左边是性别年龄，上面是种族，中间的值是wbc_CI
 #白细胞和淋巴细胞同理
 ```
+
 ![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052248588.png)
-
-
 
 ## 检索表
 

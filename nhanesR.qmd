@@ -10,13 +10,12 @@ description: "A Tutorial for nhanesR Packages to Manipulate Data in NHANES"
 fig-cap-location: margin
 reference-location: margin
 citation-location: margin
-number-depth: 3
 ---
 
 ```{r setup,include=FALSE}
 library(kableExtra)
 library(knitr)
-knitr::opts_chunk$set(prompt = TRUE,collapse = TRUE,warning = FALSE,error = FALSE,comment = "")
+knitr::opts_chunk$set(prompt = TRUE,collapse = TRUE,warning = FALSE,error = FALSE,comment = "",eval = FALSE)
 ```
 
 ## 安装配置nhanesR
@@ -26,7 +25,7 @@ knitr::opts_chunk$set(prompt = TRUE,collapse = TRUE,warning = FALSE,error = FALS
 library(devtools)
 library(nhanesR)
 devtools::install_github('yikeshu0611/nhshelp',force=TRUE)
-nhshelp::install_nhanesR('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') #安装nhanesR
+nhshelp::install_nhanesR('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')
 config_path("/Users/liulinhu/Desktop/NHANES/2022-08-01/NHANES")#配置数据库路径
 config_years()#配置数据库年份
 config_items()#配置数据库文件类型
@@ -92,12 +91,14 @@ nhs_tsv("lab13am|l13am|trigly","!~l13am_b|l13am_c")#提取三个文件，但不�
     nit1 <- head(x)
     ```
 
-```{r}
+```{r eval=FALSE}
 #| echo: false
 knitr::kable(nit1,digits = 2,align = "c") %>% 
   kable_styling(full_width = F,position = "center") %>% 
   column_spec(1,bold = T,color='black',background = 'lightblue')
 ```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003094800.png){width="428"}
 
 ## 权重
 
@@ -105,10 +106,673 @@ knitr::kable(nit1,digits = 2,align = "c") %>%
 
 NHANES中提供了各种各样的权重，如interview权重(wtint2yr), mec测试权重(wtmec2yr)和一些亚组的权重。一个好的经验法则是使用"最小公分母"，其中针对[**最少数量的访谈者收集的感兴趣变量**]{.underline}是"最小公分母"。适用于该变量的样本权重是用于该特定分析的适当权重。所有访谈和mec测试权重都可以在相应调查周期的人口统计文件中找到。注意：有些问卷组件是在mec会话期间而非家庭访谈期间管理的，因此必须对这些组件使用mec测试权重
 
-### 示例1：
-
-nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人[**先前诊断**]{.underline}为糖尿病的关联。这时候使用interview权重wtint4yr，而如果是在mec中收集了一些变量，例如在车上测量了血压，进行了问卷，诊断了高血压，则此时采用[**mec测试权重**]{.underline}分析wtmec4yr ；而有一些变量是调查的组成亚组的一部分，例如空腹甘油三酯是从那些在晨间mec测试之前被分到禁食并且在抽血前实际禁食至少8.5小时的样本人身上收集的，大约为接受mec检查的样本的一半，此时将使用[**禁食亚组权重**]{.underline}。还有一些变量来自24小时饮食回忆，将使用一天饮食样本权重wtdrd1，如果分析使用两天的饮食摄入量，则应使用[**饮食两天样本权重**]{.underline}wtdr2d。
-
 ### 如何计算合并权重
 
-wtint2yr指两年的（一个year circle）权重，选择了几个year circle就
+wtint2yr指两年的（一个year circle）权重，选择了几个year circle就乘以几分之1。及合并权重=对应权重\*1/n。但当[**同时涉及**到1999-2000和2001-2002]{.underline}时需要用4年权重**wtint4yr**，分开使用只需要2年权重。如果涉及1999-2002和其他year circle，如2003-2004，此时6年的权重wt6yr=2/3×wt4yr，和1/3×wt2yr。如果是8年权重wt8yr=2/4×wt4yr和1/4×wt2yr，如此类推![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202209281102323.png){width="458"}
+
+### 示例实操
+
+#### 示例1
+
+nhanes2013-2016，种族西班牙裔血统以及贫困与20岁及以上成年人[**先前诊断**]{.underline}为糖尿病的关联。所有的变量都是在家庭访谈中收集的。使用访谈权重进行分析wtint4yr,查询到种族的变量名为ridreth1，贫困poverty的变量名为indfmpir，年龄变量名为ridageyr；糖尿病的诊断在Questionnaire里的diq010变量。权重提取[wtint2yr]{.underline}
+
+```{r include=FALSE}
+library(nhanesR)
+demo <- nhs_tsv('dem',years = c(1999,2001,2013:2016))#提取demographic的数据
+
+diq <- nhs_tsv("diq",years = c(1999,2001,2013:2016))#提取questionnaire里的数据
+x <- nhs_read(demo,"ridreth1:eth","indfmpir:poverty","ridageyr:age","wtint2yr",
+              "wtint4yr",
+                 diq,"diq010:Diabetes")
+
+# x$newwt <- 1/2*x$wtint2yr#一共有两（n）个year circle，所以合并权重为1/2(1/n)*2ywt
+
+ck <- x$Year %in% c("1999-2000","2001-2002")#当1999和2001两个year circle同时出现时，他们的合并权重为2/n*wt4yr，其他的年份仍然是1/n*wt2y
+x$newwt <- ifelse(ck,2/4*x$wtint4yr,1/4* x$wtint2yr)#一共4个year circle
+```
+
+### 权重总结
+
+-   家庭采访权重interview（范围最大）；wtint2yr/wtint4yr
+
+-   车里的权重MEC（mobile examination car）（范围较int小）；wtmec2yr/wtmec4yr
+
+-   其他权重（范围最小）；wtsaf2yr等，范围最小
+
+    选择权重应该选择最小权重，即不同权重的交集（即有特殊权重就选特殊权重，没有就选mec或int
+
+-   合并权重的计算：year circle为n，合并权重为1/n\*2yr; 如果同时出现1999-2000和2001-2002，这两个circle的合并权重为2/n×4yr，其余的circle还是1/n×2yr
+
+## 数据的清洗
+
+-   [**如何快速输入Factor**]{.underline}
+
+    基于nhanesR包里的Factor函数，可以直接生成factor化的代码
+
+```{r eval=FALSE}
+c <- c("white","black","red","purple")
+Factor(c)#运行这行便会自动生成下一行的因子化的代码
+c <- factor(c, levels = c("white","black","red","purple"))
+```
+
+-   [**如何修改变量名（Recode）**]{.underline}
+
+```{r eval=FALSE}
+c <- c("white","black","red","purple")
+# Recode(c)#运行这行便会生成下面的代码，用于将原有的变量改名
+d$eth.new <- Recode(d$eth,
+	"Non-Hispanic White::", 
+	"Non-Hispanic Black::", 
+	"Other Race - Including Multi-Racial::", 
+	"Mexican American::", 
+	"Other Hispanic::",
+	to.numeric = FALSE)
+c.new <- Recode(c,
+	"white::", 
+	"black::", 
+	"red::", 
+	"purple::",
+	to.numeric = FALSE)
+```
+
+-   NHSIII的数据如何计算合并权重 NHSIII是1999年以前的数据，是以3年为一个周期。计算权重时需要以年来，而不是year circle。例如1994-1996，2001-2002，2009-2010，此时总共3+2+2=7年，所以1994-1996的权重是3/7×wt3yr，其余的是2/7×wt2yr。但是如何同时涉及到1999和2001时，这两个year circle要合并算作4年，用wt4yr来计算。
+
+-   [**选择行和列**]{.underline}\
+    可以用nhanesR里的select_row函数来选择行,drop_row来删除行
+
+```{r eval=FALSE}
+d0 <- db_demo(years = 1999:2003,ageyr = "age",sex = T,eth1 = T,Year = T,poverty = T)#直接提取1999-2003的所有人口学数据，指定需要出现的列
+d1 <- select_row(x,x$Year=="1999-2000" & x$age >= 50)#选择x中年份为1999-2000，年龄大于等于50岁的数据行
+d1 <- select_row(x,x$Year %in% c("1999-2000","2001-2002"))#同时设置多个筛选条件
+d2 <- drop_row(x,x$Year=="2001-2002")#去除x中年份为2001-2002的数据
+d3 <- drop_row(d0,is.na(d0$poverty))#用drop_row也可以去除缺失值
+```
+
+#### 数据的合并
+
+第一种方法是直接用管道操作符添加数据
+
+```{r eval=FALSE}
+d1 <- db_demo(years = c(1999:2003,2007),Year = T,
+              sex = T,ageyr = "age") |> 
+  db_cbc(wbc_1000cells.ul = "wbc") |> 
+  dex_phenoAge()
+#cbc是全血细胞数据，phenoAge是生物学年龄，直接用管道操作符即可不断添加数据
+head(d1)
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210030944349.png)
+
+第二种方法是先分别提取数据，然后再合并.此时可以**left_join,righ_join,inner_join,full_join**
+
+```{r}
+d1 <- db_demo(years = c(1999:2003,2007),Year = T,
+              sex = T,ageyr = "age")
+d2 <- db_cbc(years = c(1999:2003,2007),wbc_1000cells.ul = "wbc")
+d3 <- dex_phenoAge()
+d4 <- Left_Join(d1,d2,d3)#left_join只匹配d1的序号,可以看到d4和d1具有同样的行数
+d5 <- Right_Join(d1,d2,d3)#先与d2合并，再与d3合并，最终数据以d3为准
+d6 <- Inner_Join(d1,d2,d3)#以三者共有的数据为准进行合并
+d7 <- Full_Join(d1,d2,d3)#所有的数据一起合并
+
+d8 <- Left_Join(d2,d1) #会显示d1人口学数据中有4028人没有白细胞计数的数据，便于画流程图
+# d2   :37247 ; d1:41275(-4028) 
+d8 <- Left_Join(d2,d1,inspect = c("age","sex")) #可以查看某个变量在d1合并到d2前后的变化，绿色表示减少，红色表示增多
+#其他类型的join也可以inspect
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003101606.png){width="295"}
+
+#### 添加新列
+
+1.添加新列的主要作用为对原始数据的某些值进行判断，增加一些新的变量，例如是否是老年，某些指标是否升高等。
+
+```{r}
+d <- db_demo(years = 1999,ageyr = "age",sex = T,Year = T) |> 
+  db_cbc(wbc_1000cells.ul = "wbc")
+d <- drop_row(d,is.na(d$wbc))#去除白细胞计数的缺失值
+####以10为界值，判断白细胞数是否升高####
+d <- add_col(d,colname = "wbc_level",value = "yes",condition = d$wbc > 10) |> 
+  add_col(colname = "wbc_level",value = "no",condition = d$wbc <= 10)#新增一列，列名为wbc_level，白细胞大于10的时候为yes，小于等于10的时候为no
+
+####对于白细胞，男性的界限为10，女性的界限是9####
+ck <- (d$sex == "Male" & d$wbc > 10) | (d$sex == "Female" & d$wbc >10)
+
+d1 <- add_col(d,colname = "wbc_level",value = "yes",condition = ck) |> 
+  add_col(colname = "wbc_level",value = "no",condition = is.na(d1$wbc_level),
+          position = 2)
+#先把男性和女性的yes指定了，然后剩下的NA全部是no。position可以指定新增的列的位置
+```
+
+2.也可以用于一些疾病的诊断的添加，例如睡眠呼吸暂停综合征👇
+
+```{r}
+d <- db_slq(years = 2005,
+            sleep_disorder_sleep_apnea = "apnea",
+            how_often_do_you_snort_or_stop_breathing = "stop_breathing",
+            how_often_feel_overly_sleepy_during_day = "sleepy")#提取睡眠呼吸暂停相关的数据
+#将原来的变量值进行重编码👇
+# Recode(d$apnea) 
+d$apnea <- Recode(d$apnea,
+	"sleep apnea::yes", 
+	"NA::",
+	to.numeric = FALSE)
+# Recode(d$stop_breathing)
+d$stop_breathing <- Recode(d$stop_breathing,
+	"never::no", 
+	"frequently (5 or more nights/week)::yes", 
+	"rarely (1-2 nights/week)::no", 
+	"occasionally (3-4 nights/week)::yes", 
+	"NA::",
+	to.numeric = FALSE)
+# Recode(d$sleepy)
+d$sleepy <- Recode(d$sleepy,
+	"rarely (1 time a month)::no", 
+	"never::no", 
+	"almost always (16-30 times a month)::yes", 
+	"sometimes (2-4 times a month)::yes", 
+	"often (5-15 times a month)::yes", 
+	"NA::",
+	to.numeric = FALSE)
+d$osas <- paste0(d$apnea,"~",d$stop_breathing,"~",d$sleepy)#将三个指标合并在一起
+# Recode(d$osas) #开始筛选诊断标准，三个中任意一个为yes就可以诊断为OSAS
+d$osas <- Recode(d$osas,
+	"NA~no~no::no", 
+	"NA~no~yes::yes", 
+	"yes~no~no::yes", 
+	"yes~NA~yes::yes", 
+	"NA~yes~no::yes", 
+	"NA~NA~yes::yes", 
+	"yes~yes~yes::yes", 
+	"NA~yes~yes::yes", 
+	"NA~NA~no::no", 
+	"NA~no~NA::no", 
+	"yes~no~yes::yes", 
+	"yes~yes~no::yes", 
+	"NA~NA~NA::NA", 
+	"yes~NA~no::yes",
+	to.numeric = FALSE)
+```
+
+3.也可以用于某种条件下进行分组. quant可以执行分位数的计算
+
+```{r}
+d <- db_demo(years = 1999,sex = "sex",ageyr = "age",psu_strat = F) |> 
+  db_cbc(wbc_1000cells.ul = "wbc")
+d <- drop_row(d,is.na(d$wbc))
+#根据白细胞的均值分为2组
+d <- add_col(d,"wbc2","high",d$wbc > mean(d$wbc)) |> 
+  add_col("wbc2","low",d$wbc <= mean(d$wbc))
+
+#将白细胞按照四分位数分成4组，并且编码为Q1，Q2，Q3，Q4
+# quant(d$wbc)
+d$wbcQ <- quant(d$wbc, n = 4,Q = TRUE,round=3)#n=4即进行四分位数计算
+d$wbcQ.median <- quant.median(d$wbc, n = 4,round=3)#计算每个四分位间距的中位数
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/20221003161242.png){width="441"}
+
+## 数据提取汇总
+
+提取的数据可以进行叠加，例如db_demo() \|\> db_drtot()可以不断增加不同类型的数据
+
+### 提取人口学数据
+
+使用db_demo(),需要的列就指定为TRUE
+
+### 提取饮食数据
+
+使用**db_drtot()**, day= 可以指定是一天的饮食数据还是两天的饮食数据，默认是2天的数据。fun= 可以计算mean、sum、alone（2天的都分开显示），默认是sum。both2days表示是否只要2天都有的数据，默认为TRUE
+
+```{r}
+x <- db_drtot(years = 2005,calcium_mg = T,Year = T,fun = "alone")
+head(x)#alone显示2天的数据
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031742905.png){width="532"}
+
+如果both2days为FALSE，则仅1天有数据的行也会显示
+
+```{r}
+x <- db_drtot(years = 2005,calcium_mg = T,Year = T,both2days = F,fun = "alone")
+head(x)
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210031745536.png){width="527"}
+
+### 提取生存数据
+
+db_mort()用于提取生存数据，生存数据主要包括7列。
+
+```{r}
+mort <- db_demo(years = 2005,ageyr = "age",sex = "sex",psu_strat = F) |> 
+  db_mort(years = 2005) #先人口学数据，然后添加上生存数据
+```
+
+### 提取饮酒相关数据
+
+1.提取g/day
+
+```{r}
+db_drtot(years=2005,alcohol_g = "alcohol",day = c(1,2),fun = "mean", both2days = F)
+```
+
+2.提取drink/day的数据.注意不是cup/day
+
+```{r}
+d <- db_fped(a_drinks = T,years = 2005)
+d1 <- db_Alcohol.drinks(years = 2005)#这个是最准确的，drinks/day
+```
+
+3.酒精使用程度分类
+
+-   current heavey alcohol use\
+    ≥3 drinks perday for female\
+    ≥4 for male\
+    binge drinking on 5 or more days per month
+
+-   current moderate alcohol use\
+    ≥2 drinks per day for female\
+    ≥3 for male\
+    binge drinking ≥ 2days per month
+
+-   current mild alcohol use\
+    not meet the above
+
+```{r}
+t <- diag_alcohol.user(years = 2005,binge = T,Year = T)#可以修改mild,moderate，heavey的判断标准，可以设定是否有binge这个程度
+```
+
+### 黄酮类化合物数据提取
+
+黄酮类化合物数据库Flavonoid。之前只有2007-2010的数据，2022年夏天出了2017-2018的数据。包含6种黄酮类的29种化合物的饮食摄入数据。day表示提取1天还是两天的数据，要么第一天，要么两天同时使用；当使用两天时，fun可以指定计算均值（mean）还是和（sum）；
+
+```{r}
+fl <- db_flavonoids(Daidzein_mg = "Daidzein")
+```
+
+### 重金属数据提取
+
+从pbcd数据中提取重金属相关的数据，使用db_PbCd()提取，数据从2005年开始，如铬、汞、锰等重金属。注意：当使用PbCd数据时，2013-2014和2015-2016两年，需要使用wtsh2yr权重，因为这两年12岁以上的参与者只有1/2的样本进行了检测，所以有一个单独的wtsh2yr，而1-11岁的wtsh2yr等同于MEC权重。所以涉及这两个year circle时使用特殊权重wtsh2yr，其余的circle使用MEC权重。dp_PbCd()中提供了权重weight = T即可自动提供权重(仅原始权重，合并权重按原方法计算）
+
+```{r}
+x <- db_PbCd(years = 2013,blood_cadmium_ug.l = T,weight = T) |> 
+  drop_row(is.na(x$blood_cadmium_ug.l))
+```
+
+### 药物搜索与提取
+
+先检索，看是不是自己想要的药物，再Drug()去提取。remove.other如果是F，则如果一个人既吃了检索的药物，又吃了其他药，就会占多行。如果=T，则会值保留检索的药物（仅删除同时出现的情况）。
+
+```{r}
+browse_rxq_Drug()
+browse_rxq_Rx()#处方文件
+drug_search("antibiotic",years = 2015)#检索包含关键词antibiotic的药物
+d <- Drug("antibiotic",years = 2015,drugname = T,remove.other = T)#提取关键词的药物
+
+x <- drug_anti.infectives(years = 2015,drugname = T,dcn = T)#提取抗感染药物
+```
+
+## 指标计算汇总
+
+### 健康饮食指数（Healthy eating index）
+
+[健康饮食指数的介绍](https://epi.grants.cancer.gov/hei/)。HEI有两个版本2015和2010，2015是最新的版本，以符合2015-2020美国人膳食指南。算法包括简单算法和population ratio method，简单算法又包括Per day和Per person，per day就是在day = 1，Per person就是day=c(1,2), 对应method = "ssum"和"partio".默认会给所有成分的评分，如果component = F就只给total score
+
+```{r}
+x <- dex_HEI(years = 2011,version = 2015,method = "ssum",day = 1,dietary = "tot")
+```
+
+### 咖啡数据提取
+
+db_coffee(). 咖啡数据最好是在1999年以后进行。包含了是否添加咖啡因，是否加糖，是否加脂，加奶等，以及咖啡的种类，如卡布奇诺、摩卡、玛奇朵等等。 如何确定并识别咖啡数据？--使用的是FNDDs数据里的食物编码921开头的是coffee（用于写文章说明数据来源） 咖啡摄入的克数转化为杯数？--以6盎司为一杯
+
+```{r}
+co <- db_coffee(years = 2003,
+                day = c(1,2), #要么提取第一天，要么提取两天的
+                fun = "mean", #默认取两天的均值
+                unit = "g") #g或者cup单位，默认是g
+```
+
+### 饮食炎症指数的提取
+
+```{r}
+di <- dex_DII(years = 2005)
+```
+
+### 肾小球滤过率eGFR
+
+dex_eGFR()里提供了10种计算eGFR的方法，如Cockcroft_Gault,CKD_EPI_Scr,Schwartz等等，可以在mothod=里限定，默认是CKD_EPI_Scr。如果需要计算多种方法的eGFR，只需要method = c(,)。理论上来说推荐使用血肌酐计算滤过率，方法最推荐MDRD和CG方法
+
+```{r}
+egf <- dex_eGFR(years = 2005,method = c("CKD_EPI_Scr","BIS1_Scr"))
+```
+
+### 益生元、益生菌、合生元
+
+[相关参考文献](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/PIIS0016508521006612.pdf)。FDA不监管益生菌，但是监管益生元（如乳果糖），所以如果只研究益生菌，只需要检索膳食补充剂的数据，而益生元的话需要检索药品，通过关键词来匹配是否含有益生元成分。
+
+```{r}
+pr <- DSD(years = 2016,probiotic = T)
+```
+
+## 疾病诊断汇总
+
+### 代谢综合征
+
+使用diag_MetS() ，代谢综合征有两种计算方法，一种是ATP（美国的）和IDF（国际的）。不同年龄的计算公式不同，children and adolescent有单独的一套标准（modified ATP和IDF）。默认使用ATP标准。将分别计算\>=16岁和10-16岁的诊断结果
+
+```{r}
+x <- diag_MetS(years = 2015)
+```
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210042049416.png){width="285"}
+
+### 高血压
+
+diag_Hypertension().
+
+具体的高血压诊断标准：任意一个满足
+
+1.  是否使用高血压药物
+2.  doctor told you or take drug
+3.  bpx血压测量。分为mean和times，在method = 里设定
+
+```{r}
+h <- diag_Hypertension(years = 2015,systolic = 140,diastolic = 90,n=3) #设定舒张压和收缩压阈值
+h <- diag_Hypertension(years = 2015,method = "mean") #使用均值来诊断
+h <- diag_Hypertension(years = 2015,method = "times",n=3) #使用3次测量来判断是否患有高血压
+```
+
+### 高脂血症
+
+包块高甘油三酯血症、高胆固醇血症、和使用降脂药
+
+```{r}
+d <- diag_Hyperlipidemia(years = 2015)
+```
+
+### 糖尿病
+
+糖尿病诊断标准
+
+1.  doctor told you have DM
+2.  res_HbA1c：糖化血红蛋白
+3.  fast glucose：空腹血糖。IFG为空腹血糖受损
+4.  glucose随机血糖值
+5.  OGTT2小时，IGT为糖耐量受损
+6.  drug use：antidiabetic 如果使用了实验室检查（2\~5条）作为诊断标准，则需要使用实验室的权重，可能会丧失一些数据，这时候如果仅仅把糖尿病作为协变量来使用的话，可以只用报道的（1和6条），把其他的变量都设置为FALSE即可
+
+```{r}
+d <- diag_DM(years = 2015,HbA1c = F,fast_glu = F,OGTT2 = F,rand_glu = F)#将实验室结果不作为诊断指标
+
+```
+
+### 吸烟
+
+分为三种吸烟的类型
+
+1.  never：smoked less than 100 cigarettes in life
+2.  former：smoked more than 100 cigarettes in life and smoke not at all now
+3.  now：smoked more than 100 cigarettes in life and smoke some days or every day
+
+```{r}
+s <- diag_smoke(years = 2015,smoking_years = F)
+```
+
+### 抑郁
+
+使用PHQ-9抑郁筛查量表
+
+```{r}
+x <- diag_PHQ9(years = 2015,cut = c(10,20))
+```
+
+### CKD
+
+诊断标准采用2021年的KDIGO，有两种标准，eGFR和尿白蛋白。两者结合可以判断预后。如果需要采用白蛋白的数据，需要是2005年以后的才行。ckd = 为CKD的最小诊断标准，默认为达到A2和G3a，可以自己调整
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210042157840.png){width="363"}
+
+```{r}
+e <- diag_CKD(years = 2015,ckd = c("A2","G3a"),
+              show_prognosis = T,eGFR_method = "CKD_EPI_Scr")#默认的eGFR的计算方法
+```
+
+### MAFLD代谢功能障碍相关脂肪性肝病
+
+NAFLD与MAFLD，2020年已经将NAFLD建议规纳入MAFLD中。NAFLD需要排除过量饮酒和其他原因的肝脏疾病，MAFLD的诊断则是基于超重/肥胖或T2DM亦或存在两个及以上代谢心血管危险因素。"MAFLD"这一命名强调了[**肥胖、胰岛素抵抗、血脂异常、T2DM和系统性全身低度炎症反应**]{.underline}在脂肪性肝病发生发展中的重要作用。因此，需要根据不同的标准和定义重新对脂肪性肝病进行临床分类。尽管大多数患者同时符合MAFLD与NAFLD的诊断标准 (MAFLD+NAFLD+)，但是仍有部分患者仅符合NAFLD诊断标准(MAFLD-NAFLD+) 或仅符合MAFLD诊断标准(MAFLD+NAFLD-)。也就是说，并不是所有的NAFLD都可以直接归类为MAFLD，反之亦然。
+
+MAFLD的诊断标准：[参考文献.pdf](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/nss-13-103.pdf)
+
+1.  主要标准：Steatosis（必须有肝脂肪变的证据）：用的超声CAP衰减指数
+2.  次要标准：满足任意一个
+    1.  BMI：\>25
+
+    2.  DM
+
+    3.  metabolic dysfunction: 6个指标（waist，hypertension，hyperlipidemia，low HDL-C level，prediabetes（空腹血糖受损和糖耐量受损），hypersensitive C-reactive protein level\>2mg/L
+
+```{r}
+d <- diag_MAFLD(years = 2015)#其余参数可以指定是否返回诊断条件的结果
+```
+
+## FPED数据库
+
+Food pattern equivalent database：食物模式等量数据库；将NHANES中的食物和饮料转化为37种USDA食物模式组分。主要包含9类：Fruit(cup), vegetables(cup), grains(oz), dairy(cup), protein food(oz), added sugars(tsp), oils(grams), solid fats(grams), alcoholic drinks(no.)
+
+实际是NHANES的iff结合FNDDs得出的结果，所以同样包含两天的数据。1999-2002只有1天的数据。权重有各自的权重
+
+![数据提取选项，如果选择both2day=T，那么只有两天均有数据时才会保留](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051108837.png){width="302"}
+
+-   iff和tot的区别：两者均不包括从膳食补充剂、药物或普通饮用水中摄取的营养\
+    tot是Total Nutrient Intakes: 包括每天从食物和饮料中摄入的总营养，摄入的总水量\
+    iff是Individual Foods Files：包括单个食物的类型和数量的详细信息，以及每种食物的营养含量\
+    2003年以后才会有2天的数据
+
+### Fruit
+
+fruit分为intact/cut fruit, juice, total。Citrus, Melons and Berries; Other Fruits; Fruit juice
+
+```{r}
+d <- db_fped(years = 2005,dietary = "tot",day = 1,
+             f_whole = T,f_citmlb = T,f_other = T,f_juice = T,f_total = T)
+#citmlb,other,whole都是整果（intact/cut fruit), whole=citmlb+other
+```
+
+### Vegetables
+
+蔬菜分为6类：
+
+-   dark green：v_drkgr
+
+-   red orange: v_redor_tomato,v_redor_other, v_redor_total
+
+-   starchy: v_starchy_potato, v_starchy_other, v_starchy_total
+
+-   other: v_other
+
+-   total: v_total（不包括legumes）
+
+-   legumes: v_legumes
+
+```{r}
+d <- db_fped(years = 2015,v_drkgr = T) #以v_开头
+```
+
+### Grains
+
+包括整谷物（g_whole), refined or non-whole grains（g_refined）, 和g_total, 单位是盎司oz
+
+```{r}
+g <- db_fped(years = 2015,g_whole = T)
+```
+
+### Dairy
+
+乳制品单位是cup。包括d_milk, d_yogurt, d_cheese, d_total
+
+### Protein foods
+
+蛋白质类，单位是盎司。
+
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210051329370.png){width="615"}\
+主要分为植物蛋白、肉类、鸡蛋。肉类又分为腌肉、生肉、内脏、幼禽、海产品（高低n-3脂肪酸）；植物蛋白包括豆制品，坚果类，豆类
+
+```{r}
+d <- db_fped(years = 2005,pf_curedmeat = T)
+```
+
+### Others
+
+-   add sugars(tsp): 添加糖----- add_sugars
+
+-   Oils(gram): oils
+
+-   Solid fat(grams)：固态脂肪 solid_fat
+
+-   alcoholic drinks(no.): a_drinks; alcoholic beverage
+
+## 易侕
+
+-   如何将nhanesR的数据直接写入到易侕中\
+    先整理好数据，然后使用write.yier(), 指定导出的df，可以修改file的名字和project的名字。然后就会在易侕的Analysis文件下生成一个project的文件夹。其中有一个txt文件和一个excel文件，txt是数据文件，excel是变量名的对照表。
+
+    ```{r}
+    newproject <- db_demo(years = 2015,Year = T,ageyr = "age",sex = "sex") |> 
+      db_Alcohol.drinks() |> 
+      dex_DII()
+    # Factor(new)
+    new$Year <- factor(new$Year, c('2015-2016'))
+    new$sex <- factor(new$sex, c('Male', 'Female'))
+
+    write.yier(df = x,file = "mydata")#导出数据
+    ```
+
+## 文献复现
+
+### 1. 中性粒细胞减少的流行病学
+
+Prevalence of Neutropenia in the U.S. Population: Age, Sex, Smoking, Status, and Ethnic Differences--[参考文献](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/0003-4819-146-7-200704030-00004.pdf)
+
+年份：1999-2004，采用的权重是MEC权重，1999-2002：wtmec4yr×2/3；2003-2004：wtmec2yr×1/3
+
+#### 提取数据
+
+```{r}
+library(nhanesR)
+library(reshape2)
+library(do)
+d_demo <- db_demo(years = 1999:2004, ageyr = "age", sex = "sex", eth1 = "eth", 
+                  wtmec4yr = T,wtmec2yr = T,Year = T)#提取人口学数据
+d_demo$nhs_wt <- ifelse(d_demo$Year %in% c("1999-2000","2001-2002"),
+                        2/3*d_demo$wtmec4yr,1/3*d_demo$wtmec2yr)#计算合并权重
+d_demo <- drop_col(d_demo,"wtmec4yr","wtmec2yr")#删除原来的两列权重
+
+d_demo <- d_demo[d_demo$age>=1,]#研究的是1岁即以上的人群，进行了进一步的MEC检查
+
+d_cbc1 <- db_cbc(years = 1999:2004,wbc_1000cells.ul = "wbc",
+                Segmented_neutrophils_number_1000cells.ul = "Neu",
+                lymphocyte_number_1000cells.ul = "Lym",
+                hemoglobin_g.dl = "Hb",
+                Platelet_count_1000cells.uL = "Plt")#提取实验室检查血液的数据
+nrow(d_demo)-nrow(d_cbc)#被告知去MEC的有29608人，其中没有去做MEC检查的有1668人
+
+d_cbc <- complete.data(d_cbc1)#😊移除缺失值，显示有2715个NA。文中报告了3个异常值，但其实应该没有
+nrow(d_cbc) # 25225 complete cbc
+
+d <- Inner_Join(d_demo,d_cbc)#合并人口学数据和实验室数据
+```
+
+#### 复杂抽样的加权
+
+```{r}
+nhs <- svy_design(data = d) #需要将合并权重变量名设置为nhs_wt，psu和strata都是指定好的
+```
+
+#### 总人口和缺失人群分析
+
+```{r}
+svy_population(design = nhs)#😊participants代表的总人口数
+#The 25 222 NHANES participants with valid hematologic indices represented 253.2 million noninstitutionalized residents of the United States
+
+# Recode(d$eth)
+d$eth <- Recode(d$eth,
+	"Non-Hispanic White::white", 
+	"Non-Hispanic Black::black", 
+	"Other Race - Including Multi-Racial::others", 
+	"Mexican American::Mexican", 
+	"Other Hispanic::others",
+	to.numeric = FALSE)
+
+miss_seqn <- d_cbc1$seqn[!complete.cases(d_cbc1)]#😊提取出cbc里面缺失了数据的seqn序号
+demo_miss <- d_demo[d_demo$seqn %in% miss_seqn,]#从d_demo数据里提取缺失的seqn行
+freq_count(demo_miss,x = "eth")#😊种族的分布
+
+bu_x <- demo_miss$age #将年龄进行分组生成新的列age_group
+demo_miss$age_group[bu('( ,5 ]')] <- "<=5"   
+demo_miss$age_group[bu('( 6, 17]')] <- "6-17"
+demo_miss$age_group[bu('[ 18, )')] <- ">=18"
+freq_count(demo_miss,x = "age_group")#😁年龄分层的分布
+
+#统计人种的分布其实是看是否有特定的种族缺失太多，例如大量的白人都不来测，这样的话数据的代表性就会很差
+```
+
+#### 线性回归比较不同种族细胞计数的变化：校正年龄、性别
+
+  目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要[**修改或者增删数据**]{.underline}，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要[**取子集（分层）**]{.underline}，就直接在nhs加权数据上操作（使用subset）。采用[广义线性模型](https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)来进行线性回归
+
+```{r}
+library(survey)
+d$eth <- factor(d$eth,levels = c("white", "black","Mexican", "others"))#unique(d$eth) |> dput() 可以直接生成levels
+nhs <- svy_design(data = d)#修改完以后再加权
+
+svyglm(formula = wbc~eth + age +sex,design = nhs) |> summary()#使用survey包的广义线性模型回归
+```
+
+![线性回归的结果](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052112168.png){width="358"}
+
+根据结果可以得出，白细胞记数的均值，黑人比白人低0.86,墨西哥人比白人高0.17
+
+```{r}
+#比较中性粒细胞,淋巴细胞同理
+svyglm(formula = Neu~eth + age +sex,design = nhs) |> summary()
+```
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052143543.png){width="358"}
+
+#### Table1：Mean Hematologic Values, by Age, Sex, and Ethnic Group
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052210534.png){width="500"}
+```{r}
+bu_x <- d$age#对年龄进行分组
+d$age18[bu('[ ,18 )')] <- "<18"
+d$age18[bu('[ 18, )')] <- ">=18"
+
+nhs <- svy_design(data = d)
+
+svy_mean(design = nhs,
+         x = "wbc",
+         by = c("sex","age18","eth"),ci = T) |> #😊计算均值和置信区间，还有其他参数可以指定
+  dcast(formula = sex+age18~eth,value.var = "wbc_CI")
+#转化为table1的格式，左边是性别年龄，上面是种族，中间的值是wbc_CI
+#白细胞和淋巴细胞同理
+```
+![](https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052248588.png)
+
+
+
+## 检索表
+
+```{r}
+Left_Join(d1,d2,inspect = "")#合并，查看变量合并前后变化
+db_demo()#人口学数据
+db_cbc()#全血细胞类型的数据
+dex_phenoAge()#生物学年龄
+add_col()#添加列
+select_row()#保留某些行,%in%, ==, !==, >=
+dro_row(is.na())#去除某些行，如NA等
+db_slq()#睡眠障碍相关数据
+db_PbCd()#重金属相关数据
+db_Alcohol.drinks()#提取酒精使用drinks/day的数据
+db_drtot(alcohol_g = )#提取酒精使用g/day
+diag_alcohol.user()#酒精使用程度
+```

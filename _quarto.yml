@@ -73,7 +73,7 @@ format:
     linkcolor: "#007d65"
     mainfont: "LXGWWenKai-Regular"
     monofont: "LXGWWenKai-Regular"
-    toc-depth: 3
+    toc-depth: 6
 
 editor: visual
 reference-location: margin

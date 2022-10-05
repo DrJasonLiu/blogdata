@@ -254,14 +254,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#安装配置nhanesr" id="toc-安装配置nhanesr" class="nav-link active" data-scroll-target="#安装配置nhanesr">安装配置nhanesR</a></li>
   <li><a href="#数据读取" id="toc-数据读取" class="nav-link" data-scroll-target="#数据读取">数据读取</a></li>
   <li><a href="#权重" id="toc-权重" class="nav-link" data-scroll-target="#权重">权重</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#如何计算合并权重" id="toc-如何计算合并权重" class="nav-link" data-scroll-target="#如何计算合并权重">如何计算合并权重</a></li>
-  <li><a href="#示例实操" id="toc-示例实操" class="nav-link" data-scroll-target="#示例实操">示例实操</a></li>
+  <li><a href="#示例实操" id="toc-示例实操" class="nav-link" data-scroll-target="#示例实操">示例实操</a>
+  <ul class="collapse">
+  <li><a href="#示例1" id="toc-示例1" class="nav-link" data-scroll-target="#示例1">示例1</a></li>
+  </ul></li>
   <li><a href="#权重总结" id="toc-权重总结" class="nav-link" data-scroll-target="#权重总结">权重总结</a></li>
   </ul></li>
-  <li><a href="#数据的清洗" id="toc-数据的清洗" class="nav-link" data-scroll-target="#数据的清洗">数据的清洗</a></li>
+  <li><a href="#数据的清洗" id="toc-数据的清洗" class="nav-link" data-scroll-target="#数据的清洗">数据的清洗</a>
+  <ul>
+  <li><a href="#数据的合并" id="toc-数据的合并" class="nav-link" data-scroll-target="#数据的合并">数据的合并</a></li>
+  <li><a href="#添加新列" id="toc-添加新列" class="nav-link" data-scroll-target="#添加新列">添加新列</a></li>
+  </ul></li>
   <li><a href="#数据提取汇总" id="toc-数据提取汇总" class="nav-link" data-scroll-target="#数据提取汇总">数据提取汇总</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#提取人口学数据" id="toc-提取人口学数据" class="nav-link" data-scroll-target="#提取人口学数据">提取人口学数据</a></li>
   <li><a href="#提取饮食数据" id="toc-提取饮食数据" class="nav-link" data-scroll-target="#提取饮食数据">提取饮食数据</a></li>
   <li><a href="#提取生存数据" id="toc-提取生存数据" class="nav-link" data-scroll-target="#提取生存数据">提取生存数据</a></li>
@@ -271,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#药物搜索与提取" id="toc-药物搜索与提取" class="nav-link" data-scroll-target="#药物搜索与提取">药物搜索与提取</a></li>
   </ul></li>
   <li><a href="#指标计算汇总" id="toc-指标计算汇总" class="nav-link" data-scroll-target="#指标计算汇总">指标计算汇总</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#健康饮食指数healthy-eating-index" id="toc-健康饮食指数healthy-eating-index" class="nav-link" data-scroll-target="#健康饮食指数healthy-eating-index">健康饮食指数（Healthy eating index）</a></li>
   <li><a href="#咖啡数据提取" id="toc-咖啡数据提取" class="nav-link" data-scroll-target="#咖啡数据提取">咖啡数据提取</a></li>
   <li><a href="#饮食炎症指数的提取" id="toc-饮食炎症指数的提取" class="nav-link" data-scroll-target="#饮食炎症指数的提取">饮食炎症指数的提取</a></li>
@@ -279,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#益生元益生菌合生元" id="toc-益生元益生菌合生元" class="nav-link" data-scroll-target="#益生元益生菌合生元">益生元、益生菌、合生元</a></li>
   </ul></li>
   <li><a href="#疾病诊断汇总" id="toc-疾病诊断汇总" class="nav-link" data-scroll-target="#疾病诊断汇总">疾病诊断汇总</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#代谢综合征" id="toc-代谢综合征" class="nav-link" data-scroll-target="#代谢综合征">代谢综合征</a></li>
   <li><a href="#高血压" id="toc-高血压" class="nav-link" data-scroll-target="#高血压">高血压</a></li>
   <li><a href="#高脂血症" id="toc-高脂血症" class="nav-link" data-scroll-target="#高脂血症">高脂血症</a></li>
@@ -290,7 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#mafld代谢功能障碍相关脂肪性肝病" id="toc-mafld代谢功能障碍相关脂肪性肝病" class="nav-link" data-scroll-target="#mafld代谢功能障碍相关脂肪性肝病">MAFLD代谢功能障碍相关脂肪性肝病</a></li>
   </ul></li>
   <li><a href="#fped数据库" id="toc-fped数据库" class="nav-link" data-scroll-target="#fped数据库">FPED数据库</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#fruit" id="toc-fruit" class="nav-link" data-scroll-target="#fruit">Fruit</a></li>
   <li><a href="#vegetables" id="toc-vegetables" class="nav-link" data-scroll-target="#vegetables">Vegetables</a></li>
   <li><a href="#grains" id="toc-grains" class="nav-link" data-scroll-target="#grains">Grains</a></li>
@@ -300,8 +307,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#易侕" id="toc-易侕" class="nav-link" data-scroll-target="#易侕">易侕</a></li>
   <li><a href="#文献复现" id="toc-文献复现" class="nav-link" data-scroll-target="#文献复现">文献复现</a>
+  <ul>
+  <li><a href="#中性粒细胞减少的流行病学" id="toc-中性粒细胞减少的流行病学" class="nav-link" data-scroll-target="#中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</a>
   <ul class="collapse">
-  <li><a href="#中性粒细胞减少的流行病学" id="toc-中性粒细胞减少的流行病学" class="nav-link" data-scroll-target="#中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</a></li>
+  <li><a href="#提取数据" id="toc-提取数据" class="nav-link" data-scroll-target="#提取数据">提取数据</a></li>
+  <li><a href="#复杂抽样的加权" id="toc-复杂抽样的加权" class="nav-link" data-scroll-target="#复杂抽样的加权">复杂抽样的加权</a></li>
+  <li><a href="#总人口和缺失人群分析" id="toc-总人口和缺失人群分析" class="nav-link" data-scroll-target="#总人口和缺失人群分析">总人口和缺失人群分析</a></li>
+  <li><a href="#线性回归比较不同种族细胞计数的变化校正年龄性别" id="toc-线性回归比较不同种族细胞计数的变化校正年龄性别" class="nav-link" data-scroll-target="#线性回归比较不同种族细胞计数的变化校正年龄性别">线性回归比较不同种族细胞计数的变化：校正年龄、性别</a></li>
+  <li><a href="#table1mean-hematologic-values-by-age-sex-and-ethnic-group" id="toc-table1mean-hematologic-values-by-age-sex-and-ethnic-group" class="nav-link" data-scroll-target="#table1mean-hematologic-values-by-age-sex-and-ethnic-group">Table1：Mean Hematologic Values, by Age, Sex, and Ethnic Group</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#检索表" id="toc-检索表" class="nav-link" data-scroll-target="#检索表">检索表</a></li>
   </ul>
@@ -882,9 +896,8 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 <h3 class="anchored" data-anchor-id="中性粒细胞减少的流行病学">1. 中性粒细胞减少的流行病学</h3>
 <p>Prevalence of Neutropenia in the U.S. Population: Age, Sex, Smoking, Status, and Ethnic Differences–<a href="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/0003-4819-146-7-200704030-00004.pdf">参考文献</a></p>
 <p>年份：1999-2004，采用的权重是MEC权重，1999-2002：wtmec4yr×2/3；2003-2004：wtmec2yr×1/3</p>
-<ol type="1">
-<li>提取数据</li>
-</ol>
+<section id="提取数据" class="level4">
+<h4 class="anchored" data-anchor-id="提取数据">提取数据</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nhanesR)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(reshape2)</span>
@@ -909,15 +922,15 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 <span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">Inner_Join</span>(d_demo,d_cbc)<span class="co">#合并人口学数据和实验室数据</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ol start="2" type="1">
-<li>复杂抽样的加权</li>
-</ol>
+</section>
+<section id="复杂抽样的加权" class="level4">
+<h4 class="anchored" data-anchor-id="复杂抽样的加权">复杂抽样的加权</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> nhs <span class="ot">&lt;-</span> <span class="fu">svy_design</span>(<span class="at">data =</span> d) <span class="co">#需要将合并权重变量名设置为nhs_wt，psu和strata都是指定好的</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ol start="3" type="1">
-<li>总人口和缺失人群分析</li>
-</ol>
+</section>
+<section id="总人口和缺失人群分析" class="level4">
+<h4 class="anchored" data-anchor-id="总人口和缺失人群分析">总人口和缺失人群分析</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">svy_population</span>(<span class="at">design =</span> nhs)<span class="co">#😊participants代表的总人口数</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#The 25 222 NHANES participants with valid hematologic indices represented 253.2 million noninstitutionalized residents of the United States</span></span>
@@ -943,10 +956,10 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 <span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#统计人种的分布其实是看是否有特定的种族缺失太多，例如大量的白人都不来测，这样的话数据的代表性就会很差</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ol start="4" type="1">
-<li><p>线性回归比较不同种族细胞计数的变化：校正年龄、性别</p>
-<p>目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要<u><strong>修改或者增删数据</strong></u>，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要<u><strong>取子集（分层）</strong></u>，就直接在nhs加权数据上操作（使用subset）。采用<a href="https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf">广义线性模型</a>来进行线性回归</p></li>
-</ol>
+</section>
+<section id="线性回归比较不同种族细胞计数的变化校正年龄性别" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="线性回归比较不同种族细胞计数的变化校正年龄性别">线性回归比较不同种族细胞计数的变化：校正年龄、性别</h4>
+<p>目前得到了两套数据，一套是原始数据d，一套是加权后的数据nhs。如果要<u><strong>修改或者增删数据</strong></u>，都先在原始数据d中修改，之后再转换为加权后的数据nhs。如果要<u><strong>取子集（分层）</strong></u>，就直接在nhs加权数据上操作（使用subset）。采用<a href="https://hyp.is/Q6TrtkSwEe2z2AtF2D6c9w/liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/R%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%AD%E6%96%87%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf">广义线性模型</a>来进行线性回归</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(survey)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d<span class="sc">$</span>eth <span class="ot">&lt;-</span> <span class="fu">factor</span>(d<span class="sc">$</span>eth,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"black"</span>,<span class="st">"Mexican"</span>, <span class="st">"others"</span>))<span class="co">#unique(d$eth) |&gt; dput() 可以直接生成levels</span></span>
@@ -962,27 +975,47 @@ iff是Individual Foods Files：包括单个食物的类型和数量的详细信�
 </div>
 <p>根据结果可以得出，白细胞记数的均值，黑人比白人低0.86,墨西哥人比白人高0.17</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#比较中性粒细胞</span></span>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#比较中性粒细胞,淋巴细胞同理</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">svyglm</span>(<span class="at">formula =</span> Neu<span class="sc">~</span>eth <span class="sc">+</span> age <span class="sc">+</span>sex,<span class="at">design =</span> nhs) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052143543.png" class="img-fluid" width="358"></p>
+</section>
+<section id="table1mean-hematologic-values-by-age-sex-and-ethnic-group" class="level4">
+<h4 class="anchored" data-anchor-id="table1mean-hematologic-values-by-age-sex-and-ethnic-group">Table1：Mean Hematologic Values, by Age, Sex, and Ethnic Group</h4>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052210534.png" class="img-fluid" width="500"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> bu_x <span class="ot">&lt;-</span> d<span class="sc">$</span>age<span class="co">#对年龄进行分组</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d<span class="sc">$</span>age18[<span class="fu">bu</span>(<span class="st">'[ ,18 )'</span>)] <span class="ot">&lt;-</span> <span class="st">"&lt;18"</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d<span class="sc">$</span>age18[<span class="fu">bu</span>(<span class="st">'[ 18, )'</span>)] <span class="ot">&lt;-</span> <span class="st">"&gt;=18"</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> nhs <span class="ot">&lt;-</span> <span class="fu">svy_design</span>(<span class="at">data =</span> d)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">svy_mean</span>(<span class="at">design =</span> nhs,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>          <span class="at">x =</span> <span class="st">"wbc"</span>,</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>          <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"sex"</span>,<span class="st">"age18"</span>,<span class="st">"eth"</span>),<span class="at">ci =</span> T) <span class="sc">|&gt;</span> <span class="co">#😊计算均值和置信区间，还有其他参数可以指定</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">dcast</span>(<span class="at">formula =</span> sex<span class="sc">+</span>age18<span class="sc">~</span>eth,<span class="at">value.var =</span> <span class="st">"wbc_CI"</span>)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co">#转化为table1的格式，左边是性别年龄，上面是种族，中间的值是wbc_CI</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#白细胞和淋巴细胞同理</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="https://liulinhu-1313975787.cos.ap-chengdu.myqcloud.com/202210052248588.png" class="img-fluid"></p>
+</section>
 </section>
 </section>
 <section id="检索表" class="level2">
 <h2 class="anchored" data-anchor-id="检索表">检索表</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Left_Join</span>(d1,d2,<span class="at">inspect =</span> <span class="st">""</span>)<span class="co">#合并，查看变量合并前后变化</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_demo</span>()<span class="co">#人口学数据</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_cbc</span>()<span class="co">#全血细胞类型的数据</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dex_phenoAge</span>()<span class="co">#生物学年龄</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_col</span>()<span class="co">#添加列</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">select_row</span>()<span class="co">#保留某些行,%in%, ==, !==, &gt;=</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dro_row</span>(<span class="fu">is.na</span>())<span class="co">#去除某些行，如NA等</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_slq</span>()<span class="co">#睡眠障碍相关数据</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_PbCd</span>()<span class="co">#重金属相关数据</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_Alcohol.drinks</span>()<span class="co">#提取酒精使用drinks/day的数据</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_drtot</span>(<span class="at">alcohol_g =</span> )<span class="co">#提取酒精使用g/day</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag_alcohol.user</span>()<span class="co">#酒精使用程度</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Left_Join</span>(d1,d2,<span class="at">inspect =</span> <span class="st">""</span>)<span class="co">#合并，查看变量合并前后变化</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_demo</span>()<span class="co">#人口学数据</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_cbc</span>()<span class="co">#全血细胞类型的数据</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dex_phenoAge</span>()<span class="co">#生物学年龄</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_col</span>()<span class="co">#添加列</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">select_row</span>()<span class="co">#保留某些行,%in%, ==, !==, &gt;=</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dro_row</span>(<span class="fu">is.na</span>())<span class="co">#去除某些行，如NA等</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_slq</span>()<span class="co">#睡眠障碍相关数据</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_PbCd</span>()<span class="co">#重金属相关数据</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_Alcohol.drinks</span>()<span class="co">#提取酒精使用drinks/day的数据</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">db_drtot</span>(<span class="at">alcohol_g =</span> )<span class="co">#提取酒精使用g/day</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag_alcohol.user</span>()<span class="co">#酒精使用程度</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
